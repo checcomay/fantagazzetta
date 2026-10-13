@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articleEntries = await getCollection('articles');
+  return articleEntries.map(entry => ({
+    params: { slug: entry.id }, 
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout pageTitle={entry.data.title}>
+  <div class="article-header">
+    <h2>{entry.data.title}</h2>
+    <h3 class="subtitle">{entry.data.subtitle}</h3>
+    <div class="meta-data">
+      <span>Data: {entry.data.publishDate.toLocaleDateString('it-IT')}</span>
+    </div>
+  </div>
+
+  <div class="article-content">
+    <Content />
+  </div>
+
+  <div class="match-ratings">
+    <h4>I Voti della Redazione</h4>
+    <ul>
+      <li><strong>Migliore:</strong> {entry.data.bestPlayer}</li>
+      <li><strong>Peggiore:</strong> {entry.data.worstPlayer}</li>
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .article-header {
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+  .subtitle {
+    color: #555;
+    font-style: italic;
+  }
+  .article-content {
+    line-height: 1.6;
+    font-size: 1.1rem;
+  }
+  .match-ratings {
+    margin-top: 40px;
+    background: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+  }
+  .article-content img {
+    display: block;        /* Permette di centrare l'immagine usando i margini */
+    margin: 30px auto;     /* 30px di spazio sopra e sotto, 'auto' a destra e sinistra per centrarla */
+    border-radius: 4px;    /* Opzionale: arrotonda leggermente gli angoli */
+  }
+</style>
