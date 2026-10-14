@@ -420,6 +420,14 @@ try {
       padding: 8px 6px; 
       white-space: nowrap; /* Evita accavallamenti e andate a capo sgradite */
     }
+    
+    /* Ridimensionamento loghi */
+    .team-logo { width: 18px; height: 18px; }
+
+    /* Regole specifiche per la tabella dei giocatori */
+    .player-stats-table .desktop-only { display: none; }
+    .player-stats-table th, 
+    .player-stats-table td { font-size: 0.75rem; padding: 6px 2px; }
 
     /* Allarga la colonna "Squadra" nella tabella delle squadre */
     .standings-table th.team-col, 
@@ -430,7 +438,7 @@ try {
     /* Allarga le prime tre colonne nella tabella dei giocatori */
     .player-stats-table th:nth-child(1), 
     .player-stats-table td:nth-child(1) { 
-      min-width: 130px; /* Nome giocatore */
+      min-width: 80px; /* Nome giocatore */
     }
     
     .player-stats-table th:nth-child(2), 
@@ -441,15 +449,8 @@ try {
     
     .player-stats-table th:nth-child(3), 
     .player-stats-table td:nth-child(3) { 
-      min-width: 80px; /* Squadra (con il logo) */
+      min-width: 120px; /* Squadra (con il logo) */
     }
-    
-    /* Ridimensionamento loghi */
-    .team-logo { width: 18px; height: 18px; }
-
-    /* Regole specifiche per la tabella dei giocatori */
-    .player-stats-table .desktop-only { display: none; }
-    .player-stats-table th, .player-stats-table td { font-size: 0.75rem; padding: 6px 2px; }
 
     /* Rende le tabelle scorrevoli orizzontalmente se superano la larghezza dello schermo */
     .standings-widget {
