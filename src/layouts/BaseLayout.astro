@@ -5,26 +5,33 @@ const { pageTitle } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle} - La Fantagazzetta di Macrì</title>
+    <title>{pageTitle} - La penna del Lunedì</title>
     <style is:global>
+      /* ASSICURA CHE IL FOOTER RESTI IN FONDO SE LA PAGINA È CORTA */
+      html, body {
+        height: 100%;
+      }
       body {
         background-color: #fcfcfc;
         font-family: 'Georgia', serif;
         color: #222;
         margin: 0;
         padding: 0;
+        display: flex;
+        flex-direction: column;
       }
+      
       .container {
         max-width: 1000px;
         margin: 0 auto;
         padding: 20px 40px;
         background-color: #fff;
-        /* Impedisce a qualsiasi elemento interno di allargare il contenitore */
         overflow-wrap: break-word; 
         box-sizing: border-box;
+        flex: 1; /* Spinge il footer verso il basso */
+        width: 100%;
       }
       
-      /* REGOLE DI FERRO PER LE IMMAGINI */
       img {
         max-width: 100% !important;
         height: auto !important;
@@ -32,7 +39,6 @@ const { pageTitle } = Astro.props;
         display: block;
       }
 
-      /* Stili della testata */
       .site-header {
         text-align: center;
         margin-bottom: 30px;
@@ -43,7 +49,7 @@ const { pageTitle } = Astro.props;
       }
       .site-header h1 {
         font-family: 'Georgia', serif;
-        font-size: 3.8rem;
+        font-size: 4.5rem;
         text-transform: uppercase;
         margin: 0 0 10px 0;
         letter-spacing: -1px;
@@ -56,7 +62,7 @@ const { pageTitle } = Astro.props;
       }
       .site-subtitle {
         font-family: 'Helvetica', 'Arial', sans-serif;
-        font-size: 0.9rem;
+        font-size: 1.2rem;
         text-transform: uppercase;
         font-weight: bold;
         letter-spacing: 1px;
@@ -66,21 +72,89 @@ const { pageTitle } = Astro.props;
         border-top: 3px solid #111;
         padding-top: 30px;
       }
+
+      /* NUOVO STILE FOOTER NERO */
+      .site-footer {
+        background-color: #111;
+        color: #fff;
+        padding: 40px 20px;
+        text-align: center;
+        margin-top: 50px;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+      }
+      .footer-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .footer-title {
+        font-family: 'Georgia', serif;
+        font-size: 1.5rem;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .footer-links p {
+        margin: 5px 0;
+        font-size: 0.95rem;
+        color: #ccc;
+      }
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px dotted #777;
+        transition: all 0.2s;
+      }
+      .footer-links a:hover {
+        color: #c0392b;
+        border-bottom-color: #c0392b;
+      }
+      .footer-copyright {
+        margin-top: 20px;
+        font-size: 0.8rem;
+        color: #666;
+        border-top: 1px solid #333;
+        padding-top: 15px;
+      }
     </style>
   </head>
+
   <body>
     <div class="container">
       <header class="site-header">
         <a href="/">
-          <h1>La Fantagazzetta di Macrì</h1>
+          <h1>La penna del Lunedì</h1>
         </a>
         <div class="subtitle-container">
           <p class="site-subtitle">Il quotidiano ufficiale della lega Fantamacrì</p>
         </div>
       </header>
       <main>
+        <!-- Qui Astro inietterà in automatico o la Home o i singoli articoli -->
         <slot />
       </main>
     </div>
+
+    <!-- IL NUOVO BANNER NERO (FOOTER) -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <h3 class="footer-title">La Fantagazzetta di Macrì</h3>
+        <div class="footer-links">
+          <p>
+            Main sponsor: 
+            <a href="https://www.google.com/maps/place/Alimentari+Pronto+Spesa/@40.172592,18.1690349,48m/data=!3m1!1e3!4m6!3m5!1s0x13442309e5738617:0x6e8eb49d1aaef2ad!8m2!3d40.1725507!4d18.1690331!16s%2Fg%2F11p67s_jpl?entry=ttu&g_ep=EgoyMDI2MTAxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
+              Alimentari Pronto Spesa
+            </a>
+          </p>
+          <p>Contatti: prof. Macrì</p>
+        </div>
+        <div class="footer-copyright">
+          &copy; {new Date().getFullYear()} La Fantagazzetta di Macrì. Tutti i diritti riservati. (Copyright prof. Macrì)
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

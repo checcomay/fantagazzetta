@@ -15,11 +15,21 @@ const { Content } = await render(entry);
 ---
 
 <BaseLayout pageTitle={entry.data.title}>
+
+  <!-- PULSANTE TORNA ALLA HOME -->
+  <div class="back-nav">
+    <a href="/" class="back-btn">← Torna alla homepage</a>
+  </div>
+
   <div class="article-header">
-    <h2>{entry.data.title}</h2>
-    <h3 class="subtitle">{entry.data.subtitle}</h3>
+    <span class="matchday-tag">{entry.data.matchday}</span>
+    <!-- Titolo ingrandito -->
+    <h2 class="main-title">{entry.data.title}</h2>
+    <!-- Sottotitolo ingrandito -->
+    <h3 class="main-subtitle">{entry.data.subtitle}</h3>
+    
     <div class="meta-data">
-      <span>Data: {entry.data.publishDate.toLocaleDateString('it-IT')}</span>
+      <span>Data di pubblicazione: {entry.data.publishDate.toLocaleDateString('it-IT')}</span>
     </div>
   </div>
 
@@ -27,38 +37,202 @@ const { Content } = await render(entry);
     <Content />
   </div>
 
-  <div class="match-ratings">
-    <h4>I Voti della Redazione</h4>
-    <ul>
-      <li><strong>Migliore:</strong> {entry.data.bestPlayer}</li>
-      <li><strong>Peggiore:</strong> {entry.data.worstPlayer}</li>
-    </ul>
-  </div>
+    <!-- NUOVA SEZIONE VOTI REDAZIONE (Condizionale) -->
+  { (entry.data.bestPlayer || entry.data.worstPlayer) && (
+    <div class="match-ratings-container">
+      <h4 class="ratings-title">I Voti della Redazione</h4>
+      
+      <div class="ratings-grid">
+        {entry.data.bestPlayer && (
+          <div class="rating-card top-player">
+            <div class="emoji-icon">🏅</div>
+            <div class="rating-details">
+              <span class="rating-label">Migliore in campo</span>
+              <span class="player-name">{entry.data.bestPlayer}</span>
+            </div>
+          </div>
+        )}
+
+        {entry.data.worstPlayer && (
+          <div class="rating-card worst-player">
+            <div class="emoji-icon">💩</div>
+            <div class="rating-details">
+              <span class="rating-label">Peggiore in campo</span>
+              <span class="player-name">{entry.data.worstPlayer}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+
 </BaseLayout>
 
-<style>
-  .article-header {
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+<style is:global>
+  /* Pulsante Torna alla Home */
+  .back-nav {
+    margin-bottom: 25px;
   }
-  .subtitle {
+  .back-btn {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
+    color: #c0392b;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    display: inline-block;
+    padding: 8px 14px;
+    border: 2px solid #c0392b;
+    border-radius: 4px;
+    transition: background 0.3s, color 0.3s;
+  }
+  .back-btn:hover {
+    background-color: #c0392b;
+    color: #fff;
+  }
+
+  /* Intestazione Articolo */
+  .article-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+  .matchday-tag {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #c0392b;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .main-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 3rem; /* Molto più grande */
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 15px 0;
+    line-height: 1.1;
+  }
+  .main-subtitle {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem; /* Sottotitolo più grande */
+    color: #444;
+    font-weight: normal;
+    line-height: 1.4;
+    margin: 0 0 15px 0;
+  }
+  .meta-data {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.9rem;
+    color: #777;
+  }
+
+  /* Contenuto Articolo */
+  .article-content {
+    line-height: 1.7;
+    font-size: 1.2rem;
+    color: #222;
+  }
+  .article-content p {
+    margin-bottom: 20px;
+  }
+  
+  .article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 35px auto;
+    border-radius: 4px;
+  }
+
+  /* Stile Voti Redazione Migliorato */
+  .match-ratings-container {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 3px solid #111;
+  }
+  .ratings-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 0;
+  }
+  
+  .ratings-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .rating-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 6px solid #ccc; /* Bordo laterale come accento */
+  }
+
+  .top-player {
+    background-color: #f0fdf4; /* Sfondo verdino */
+    border-left-color: #22c55e; /* Bordo verde */
+  }
+
+  .worst-player {
+    background-color: #fef2f2; /* Sfondo rossastro */
+    border-left-color: #ef4444; /* Bordo rosso */
+  }
+
+  .emoji-icon {
+    font-size: 3rem;
+    margin-right: 20px;
+  }
+
+  .rating-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rating-label {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
     color: #555;
+    margin-bottom: 5px;
+  }
+
+  .player-name {
+    font-family: 'Georgia', serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #111;
+  }
+
+  /* STILE PER LE DIDASCALIE DELLE IMMAGINI */
+  .article-content p:has(img) em {
+    display: block;            /* Manda il testo a capo sotto l'immagine */
+    text-align: center;        /* Centra il testo */
+    font-size: 0.95rem;        /* Lo rende un po' più piccolo del testo normale */
+    color: #666;               /* Colore grigio scuro, stile giornale */
+    margin-top: -20px;         /* Avvicina la scritta all'immagine riducendo lo spazio */
+    margin-bottom: 30px;       /* Dà respiro prima del paragrafo successivo */
     font-style: italic;
   }
-  .article-content {
-    line-height: 1.6;
-    font-size: 1.1rem;
-  }
-  .match-ratings {
-    margin-top: 40px;
-    background: #f9f9f9;
-    padding: 15px;
-    border: 1px solid #ddd;
-  }
-  .article-content img {
-    display: block;        /* Permette di centrare l'immagine usando i margini */
-    margin: 30px auto;     /* 30px di spazio sopra e sotto, 'auto' a destra e sinistra per centrarla */
-    border-radius: 4px;    /* Opzionale: arrotonda leggermente gli angoli */
+
+  @media (max-width: 600px) {
+    .ratings-grid {
+      flex-direction: column;
+    }
+    .main-title {
+      font-size: 2.2rem;
+    }
+    .main-subtitle {
+      font-size: 1.2rem;
+    }
   }
 </style>

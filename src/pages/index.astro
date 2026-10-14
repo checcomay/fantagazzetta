@@ -7,10 +7,10 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
 ---
 
 <BaseLayout pageTitle="Home">
-  <div class="articles-list">
-    {sortedArticles.map((article) => (
-      <article class="article-row">
-        <!-- Lato Sinistro: Immagine -->
+  <div class="articles-list" id="articles-container">
+    {sortedArticles.map((article, index) => (
+      <article class={`article-row ${index >= 8 ? 'archive-item hidden' : ''}`}>
+        
         <div class="article-image">
           {article.data.image ? (
             <img src={article.data.image} alt="Copertina" />
@@ -19,18 +19,48 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
           )}
         </div>
         
-        <!-- Lato Destro: Contenuto -->
         <div class="article-content">
           <span class="matchday">{article.data.matchday}</span>
           <h2><a href={`/article/${article.id}`}>{article.data.title}</a></h2>
-          <p class="summary">{article.data.subtitle}</p>
+          <p class="summary summary-clamp">{article.data.subtitle}</p>
           
           <a href={`/article/${article.id}`} class="read-btn">Leggi l'edizione</a>
         </div>
       </article>
     ))}
   </div>
+
+  {sortedArticles.length > 8 && (
+    <div class="archive-toggle-container">
+      <button id="toggle-archive-btn" class="archive-btn">Visualizza archivio</button>
+    </div>
+  )}
 </BaseLayout>
+
+<script>
+  const btn = document.getElementById('toggle-archive-btn');
+  
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const hiddenItems = document.querySelectorAll('.archive-item');
+      
+      // Controlliamo lo stato usando una classe anziché il testo (per evitare problemi con l'uppercase del CSS)
+      const isExpanded = btn.classList.contains('is-expanded');
+      
+      if (isExpanded) {
+        // Se è aperto, nascondi gli elementi
+        hiddenItems.forEach(item => item.classList.add('hidden'));
+        btn.innerText = 'Visualizza archivio';
+        btn.classList.remove('is-expanded');
+      } else {
+        // Se è chiuso, mostra gli elementi
+        hiddenItems.forEach(item => item.classList.remove('hidden'));
+        btn.innerText = 'Nascondi';
+        btn.classList.add('is-expanded');
+      }
+    });
+  }
+</script>
 
 <style>
   .articles-list {
@@ -43,6 +73,10 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
     gap: 30px;
     padding: 30px 0;
     border-bottom: 1px solid #eaeaea;
+  }
+
+  .archive-item.hidden {
+    display: none;
   }
   
   .article-image {
@@ -68,7 +102,6 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
     color: #222;
   }
   
-  /* Stile Testo */
   .article-content {
     flex: 1;
     display: flex;
@@ -78,7 +111,7 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
   
   .matchday {
     font-family: 'Helvetica', 'Arial', sans-serif;
-    color: #c0392b; /* Rosso */
+    color: #c0392b;
     font-size: 0.85rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -87,7 +120,7 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
   
   .article-content h2 {
     font-family: 'Helvetica', 'Arial', sans-serif;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 900;
     text-transform: uppercase;
     margin: 0 0 10px 0;
@@ -109,8 +142,15 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
     line-height: 1.5;
     margin: 0 0 20px 0;
   }
+
+  .summary-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   
-  /* Bottone LEGGI L'EDIZIONE */
   .read-btn {
     align-self: flex-start;
     font-family: 'Helvetica', 'Arial', sans-serif;
@@ -128,8 +168,30 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
     background-color: #c0392b;
     color: #fff;
   }
+
+  .archive-toggle-container {
+    text-align: center;
+    margin-top: 40px;
+    padding-bottom: 20px;
+  }
   
-  /* Adattamento per dispositivi mobili */
+  .archive-btn {
+    background-color: #111;
+    color: #fff;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .archive-btn:hover {
+    background-color: #c0392b;
+  }
+  
   @media (max-width: 768px) {
     .article-row {
       flex-direction: column;
@@ -141,5 +203,4 @@ const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() -
       aspect-ratio: 16/9;
     }
   }
-  
 </style>
