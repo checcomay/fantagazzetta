@@ -257,7 +257,26 @@ const { Content } = await render(entry);
     margin-bottom: 10px;
   }
 
+  /* Adattamento articolo per dispositivi mobili */
   @media (max-width: 600px) {
+
+    .article-content {
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+    
+    .article-content p:has(img) em {
+      font-size: 0.85rem;
+      margin-bottom: 20px; 
+    }
+
+    .article-content h2 {
+      font-size: 1.4rem;
+    }
+    .article-content h3 {
+      font-size: 1.15rem; 
+    }
+
     .ratings-grid {
       flex-direction: column;
     }
