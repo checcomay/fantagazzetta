@@ -1,8 +1,18 @@
-import ExcelJS from 'exceljs';
 import fs from 'fs';
+import path from 'path';
+import ExcelJS from 'exceljs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const inputFile = process.argv[2];
-const outputFile = '../src/data/standings.json';
+
+const OUTPUT_DIR = path.join(__dirname, '..', 'src', 'data');
+if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+}
+const outputFile = path.join(OUTPUT_DIR, 'standings.json');
 
 async function convertiExcelInJson() {
     try {

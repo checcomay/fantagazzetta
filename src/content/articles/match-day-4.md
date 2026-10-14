@@ -29,4 +29,5 @@ Da stasera spazio alle coppe europee. Venerdì si torna in campo con l'anticipo 
 Cambiare tutto per dare una scossa? Obiettivo centrato. La nuova dirigenza del Sacara Team sta già raccogliendo i meritati frutti. La netta vittoria per 3-1 sul difficile campo dell'FC Tattulu dimostra come il cambio di rotta abbia rigenerato la rosa. Motivazione, cinismo e la fame di gol ritrovata del "Falco": ora i tifosi possono sognare.
 
 ### Il caso Caccurese
+
 Piove sul bagnato in casa Caccurese. A far discutere non è solo lo scivolone contro il Tettenham, ma il dilagante nervosismo. L'atteggiamento palesemente antisportivo sfociato nell'espulsione di Malen solleva pesanti interrogativi. In attesa delle decisioni del Giudice Sportivo, la Lega si interroga: basterà la squalifica di rito o serviranno giornate extra di stop per sanzionare questa condotta inaccettabile?

@@ -224,6 +224,39 @@ const { Content } = await render(entry);
     font-style: italic;
   }
 
+  /* STILI PER I SOTTOTITOLI NEL TESTO (## e ### nel Markdown) */
+  .article-content h2 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin-top: 45px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eaeaea; /* Sottile linea di separazione */
+    padding-bottom: 5px;
+  }
+
+  .article-content h3 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #c0392b; /* Rosso acceso per far risaltare i paragrafi */
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 15px;
+  }
+  
+  .article-content h4 {
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
   @media (max-width: 600px) {
     .ratings-grid {
       flex-direction: column;

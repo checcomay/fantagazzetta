@@ -1,43 +1,71 @@
-# Astro Starter Kit: Minimal
+# La penna del Lunedì 📰⚽
 
-```sh
-npm create astro@latest -- --template minimal
+"La penna del Lunedì" è il quotidiano ufficiale della lega Fantamacrì. È un sito web statico ad alte prestazioni generato con **Astro**, progettato per raccontare la cronaca, i drammi e i trionfi di ogni fanta-giornata. 
+
+L'interfaccia si ispira all'eleganza delle storiche testate sportive, offrendo articoli dettagliati, pagelle della redazione, un archivio storico delle giornate precedenti e una dashboard laterale con la classifica costantemente aggiornata.
+
+## 🛠️ Come funziona il progetto
+
+Il sito è costruito per separare completamente il codice dal contenuto editoriale:
+- **Articoli:** Vengono scritti in formato Markdown (`.md`) all'interno della cartella `src/content/articles/`. Ogni file genera in automatico la sua pagina web dedicata e compare nella Home Page in ordine cronologico.
+- **Classifica:** I dati delle squadre sono gestiti tramite un semplice file `src/data/standings.json`. Modificando i punti in questo file, la tabella nella Home Page si aggiorna automaticamente, ricalcolando la Fanta Media (FM) ed evidenziando i picchi massimi e minimi.
+- **Immagini e loghi:** Sono contenuti nella cartella `public/`. I loghi delle squadre vengono associati automaticamente al nome presente nel JSON della classifica.
+
+## 🚀 Comandi rapidi (Node.js)
+
+Per avviare il sito in locale durante la scrittura degli articoli:
+```bash
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Per generare la versione finale pronta per il caricamento su Vercel:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npm run build
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 📥 Esportare la classifica ufficiale in PDF
 
-Any static assets, like images, can be placed in the `public/` directory.
+Per aggiornare i dati del file `standings.json` o semplicemente per conservare uno storico ufficiale della lega, puoi consultare o scaricare la classifica direttamente dalla piattaforma Fantacalcio.it.
 
-## 🧞 Commands
+1. Vai alla pagina ufficiale della classifica della lega Fantamacrì:
+👉 **[Classifica Fantamacrì 26/27](https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings)**
+2. Assicurati di aver effettuato l'accesso con le tue credenziali utente.
+3. Una volta caricata la pagina con i dati aggiornati, puoi scaricare il PDF ed eseguire il seguente comando:
+```bash
+node scripts/ranking_reader.js ~/Downloads/Classifica_Campionato-2026-27.xlsx
+```
 
-All commands are run from the root of the project, from a terminal:
+---
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 📊 Aggiornare le statistiche dei giocatori
 
-## 👀 Want to learn more?
+Dopo ogni giornata di Serie A, va eseguito il seguente comando per aggiornare le statistiche (gol, assist, xG, xA, ecc.) di ogni giocatore.
+Tali modifiche sono memorizzate nel file `player_stats.json` e i passaggi da seguire sono i seguenti:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. Vai alla pagina ufficiale di Understat:
+👉 **[Statistiche Serie A](https://understat.com/league/Serie_A)**
+2. Vai in fondo alla pagina e scarica il file `.csv` dei giocatori.
+3. Una volta scaricato il file, esegui il seguente comando:
+```bash
+node scripts/assign_player_stats.js ~/Downloads/league-players.csv
+```
+
+---
+
+## ⚽️ Creazione delle Squadre e dei Roster
+
+Questo script legge il listone ufficiale e il file delle rose per creare un array piatto di tutti i giocatori acquistati, assegnandoli alle rispettive fanta-squadre.
+Va eseguito ogni volta che avviene un movimento interno alla lega (come scambi o svincoli) oppure in seguito ad un'asta.
+
+1. Vai alla pagina del listone Fantacalcio 2026/27:
+👉 **[Listone Quotazioni Fantacalcio](https://www.fantacalcio.it/quotazioni-fantacalcio)**
+2. Vai alla pagina dei rosters di ogni squadra del Fantamacrì:
+👉 **[Fantamacrì Rosters](https://leghe.fantacalcio.it/fantamacri-26-27/view/rosters/)**
+3. Eseguire il seguente comando:
+```bash
+node scripts/create_squads.js ~/Downloads/Quotazioni_Fantacalcio_Stagione_2026_27.xlsx ~/Downloads/\'fantamacri-26-27_rosters_*.csv
+```
+Viene generato il file `squads.json` che contiene i giocaotri per ogni fantasquadra.

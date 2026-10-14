@@ -1,0 +1,1442 @@
+[
+    {
+        "squadra": "Real Pisellini Cf",
+        "giocatori": [
+            {
+                "id": "7535",
+                "nome": "Fitz-Jim",
+                "ruolo": "C",
+                "squadraSerieA": "Torino",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7329",
+                "nome": "Obrador",
+                "ruolo": "D",
+                "squadraSerieA": "Sassuolo",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7301",
+                "nome": "Tornqvist",
+                "ruolo": "P",
+                "squadraSerieA": "Monza",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7240",
+                "nome": "Siebert",
+                "ruolo": "D",
+                "squadraSerieA": "Lecce",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7181",
+                "nome": "Wesley",
+                "ruolo": "D",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 66
+            },
+            {
+                "id": "7069",
+                "nome": "Fortini",
+                "ruolo": "D",
+                "squadraSerieA": "Torino",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6966",
+                "nome": "Butez",
+                "ruolo": "P",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 56
+            },
+            {
+                "id": "6925",
+                "nome": "Palma",
+                "ruolo": "D",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "6646",
+                "nome": "Adams C.",
+                "ruolo": "A",
+                "squadraSerieA": "Torino",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "6519",
+                "nome": "Camarda",
+                "ruolo": "A",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6294",
+                "nome": "Ndour",
+                "ruolo": "C",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6204",
+                "nome": "Kvernadze",
+                "ruolo": "A",
+                "squadraSerieA": "Frosinone",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6060",
+                "nome": "Laurientè",
+                "ruolo": "A",
+                "squadraSerieA": "Sassuolo",
+                "prezzoAcquisto": 70
+            },
+            {
+                "id": "5792",
+                "nome": "Ederson D.S.",
+                "ruolo": "C",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 49
+            },
+            {
+                "id": "5750",
+                "nome": "Ostigard",
+                "ruolo": "D",
+                "squadraSerieA": "Genoa",
+                "prezzoAcquisto": 21
+            },
+            {
+                "id": "5735",
+                "nome": "Volpato",
+                "ruolo": "C",
+                "squadraSerieA": "Sassuolo",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5637",
+                "nome": "Davis K.",
+                "ruolo": "A",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 191
+            },
+            {
+                "id": "5578",
+                "nome": "Kossounou",
+                "ruolo": "D",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5504",
+                "nome": "Coulibaly L.",
+                "ruolo": "C",
+                "squadraSerieA": "Lecce",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "4973",
+                "nome": "McKennie",
+                "ruolo": "C",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 36
+            },
+            {
+                "id": "4964",
+                "nome": "Vicario",
+                "ruolo": "P",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 13
+            },
+            {
+                "id": "4364",
+                "nome": "Gaetano",
+                "ruolo": "C",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 32
+            },
+            {
+                "id": "4287",
+                "nome": "Lobotka",
+                "ruolo": "C",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "2788",
+                "nome": "Bremer",
+                "ruolo": "D",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 35
+            },
+            {
+                "id": "2764",
+                "nome": "Martinez L.",
+                "ruolo": "A",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 401
+            }
+        ]
+    },
+    {
+        "squadra": "Ac Picchia",
+        "giocatori": [
+            {
+                "id": "7071",
+                "nome": "Esposito F.P.",
+                "ruolo": "A",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 91
+            },
+            {
+                "id": "7012",
+                "nome": "Provstgaard",
+                "ruolo": "D",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6967",
+                "nome": "Diao",
+                "ruolo": "A",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 33
+            },
+            {
+                "id": "6904",
+                "nome": "Yeboah J.",
+                "ruolo": "A",
+                "squadraSerieA": "Venezia",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6884",
+                "nome": "Conceicao",
+                "ruolo": "C",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 44
+            },
+            {
+                "id": "6867",
+                "nome": "Valle",
+                "ruolo": "D",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 8
+            },
+            {
+                "id": "6752",
+                "nome": "Woltemade",
+                "ruolo": "A",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 31
+            },
+            {
+                "id": "6727",
+                "nome": "Couto",
+                "ruolo": "D",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "6010",
+                "nome": "Fazzini",
+                "ruolo": "C",
+                "squadraSerieA": "Cagliari",
+                "prezzoAcquisto": 14
+            },
+            {
+                "id": "5559",
+                "nome": "Da Cunha",
+                "ruolo": "C",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 65
+            },
+            {
+                "id": "5555",
+                "nome": "Kamara H.",
+                "ruolo": "D",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5520",
+                "nome": "Cambiaso",
+                "ruolo": "D",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5507",
+                "nome": "Busio",
+                "ruolo": "C",
+                "squadraSerieA": "Venezia",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "4887",
+                "nome": "Bellanova",
+                "ruolo": "D",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 12
+            },
+            {
+                "id": "4360",
+                "nome": "Caprile",
+                "ruolo": "P",
+                "squadraSerieA": "Cagliari",
+                "prezzoAcquisto": 9
+            },
+            {
+                "id": "4236",
+                "nome": "Muric",
+                "ruolo": "P",
+                "squadraSerieA": "Sassuolo",
+                "prezzoAcquisto": 12
+            },
+            {
+                "id": "4179",
+                "nome": "Gonzalez N.",
+                "ruolo": "C",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "2816",
+                "nome": "Di Lorenzo",
+                "ruolo": "D",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 12
+            },
+            {
+                "id": "2521",
+                "nome": "De Gea",
+                "ruolo": "P",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 25
+            },
+            {
+                "id": "2517",
+                "nome": "De Bruyne",
+                "ruolo": "C",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 85
+            },
+            {
+                "id": "2194",
+                "nome": "Calhanoglu",
+                "ruolo": "C",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 107
+            },
+            {
+                "id": "2038",
+                "nome": "Pinamonti",
+                "ruolo": "A",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 193
+            },
+            {
+                "id": "1850",
+                "nome": "Kessiè",
+                "ruolo": "C",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "554",
+                "nome": "Zappacosta",
+                "ruolo": "D",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 17
+            },
+            {
+                "id": "531",
+                "nome": "Berardi",
+                "ruolo": "A",
+                "squadraSerieA": "Sassuolo",
+                "prezzoAcquisto": 60
+            }
+        ]
+    },
+    {
+        "squadra": "US Caccurese",
+        "giocatori": [
+            {
+                "id": "7294",
+                "nome": "Valdepenas",
+                "ruolo": "D",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7219",
+                "nome": "Bernasconi",
+                "ruolo": "D",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 12
+            },
+            {
+                "id": "7023",
+                "nome": "Pellegrino M.",
+                "ruolo": "A",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6678",
+                "nome": "Liberali",
+                "ruolo": "C",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 11
+            },
+            {
+                "id": "6530",
+                "nome": "Ghedjemis",
+                "ruolo": "A",
+                "squadraSerieA": "Frosinone",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6202",
+                "nome": "Beukema",
+                "ruolo": "D",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6020",
+                "nome": "Ellertsson",
+                "ruolo": "C",
+                "squadraSerieA": "Genoa",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5840",
+                "nome": "Olivera",
+                "ruolo": "D",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "5791",
+                "nome": "Frendrup",
+                "ruolo": "C",
+                "squadraSerieA": "Genoa",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "5734",
+                "nome": "Soulè",
+                "ruolo": "A",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5589",
+                "nome": "Konè M.",
+                "ruolo": "C",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 46
+            },
+            {
+                "id": "5585",
+                "nome": "Malen",
+                "ruolo": "A",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 675
+            },
+            {
+                "id": "4807",
+                "nome": "Hermoso",
+                "ruolo": "D",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "4479",
+                "nome": "Elmas",
+                "ruolo": "C",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "4436",
+                "nome": "Cambiaghi",
+                "ruolo": "C",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "4371",
+                "nome": "Raspadori",
+                "ruolo": "A",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 89
+            },
+            {
+                "id": "4317",
+                "nome": "N'Dicka",
+                "ruolo": "D",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 21
+            },
+            {
+                "id": "2845",
+                "nome": "Contini",
+                "ruolo": "P",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "2766",
+                "nome": "Zaniolo",
+                "ruolo": "C",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 36
+            },
+            {
+                "id": "2296",
+                "nome": "Mancini",
+                "ruolo": "D",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 10
+            },
+            {
+                "id": "2170",
+                "nome": "Milinkovic-Savic V.",
+                "ruolo": "P",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "2155",
+                "nome": "Cutrone",
+                "ruolo": "A",
+                "squadraSerieA": "Monza",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "1852",
+                "nome": "Spinazzola",
+                "ruolo": "D",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 16
+            },
+            {
+                "id": "572",
+                "nome": "Meret",
+                "ruolo": "P",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 51
+            },
+            {
+                "id": "536",
+                "nome": "Politano",
+                "ruolo": "C",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 12
+            }
+        ]
+    },
+    {
+        "squadra": "SACARA TEAM",
+        "giocatori": [
+            {
+                "id": "7612",
+                "nome": "Bobcek",
+                "ruolo": "A",
+                "squadraSerieA": "Frosinone",
+                "prezzoAcquisto": 13
+            },
+            {
+                "id": "7554",
+                "nome": "Romero D.",
+                "ruolo": "A",
+                "squadraSerieA": "Parma",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7547",
+                "nome": "Kevin Carlos",
+                "ruolo": "A",
+                "squadraSerieA": "Cagliari",
+                "prezzoAcquisto": 20
+            },
+            {
+                "id": "7070",
+                "nome": "Sucic P.",
+                "ruolo": "C",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 6
+            },
+            {
+                "id": "6908",
+                "nome": "Atta",
+                "ruolo": "C",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 20
+            },
+            {
+                "id": "6664",
+                "nome": "Delprato",
+                "ruolo": "D",
+                "squadraSerieA": "Parma",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6435",
+                "nome": "Krstovic",
+                "ruolo": "A",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 150
+            },
+            {
+                "id": "6434",
+                "nome": "Yildiz",
+                "ruolo": "A",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 90
+            },
+            {
+                "id": "6274",
+                "nome": "Diouf",
+                "ruolo": "C",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 50
+            },
+            {
+                "id": "6248",
+                "nome": "Stankovic F.",
+                "ruolo": "P",
+                "squadraSerieA": "Venezia",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5982",
+                "nome": "Spence",
+                "ruolo": "D",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 31
+            },
+            {
+                "id": "5858",
+                "nome": "Ferguson",
+                "ruolo": "C",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 5
+            },
+            {
+                "id": "5838",
+                "nome": "Birindelli",
+                "ruolo": "D",
+                "squadraSerieA": "Monza",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5641",
+                "nome": "Chalobah T.",
+                "ruolo": "D",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 10
+            },
+            {
+                "id": "5172",
+                "nome": "Jones C.",
+                "ruolo": "C",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 35
+            },
+            {
+                "id": "5119",
+                "nome": "Samardzic",
+                "ruolo": "C",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 18
+            },
+            {
+                "id": "5116",
+                "nome": "Martinez Jo.",
+                "ruolo": "P",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 67
+            },
+            {
+                "id": "4485",
+                "nome": "Thiam",
+                "ruolo": "P",
+                "squadraSerieA": "Monza",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "4433",
+                "nome": "Zortea",
+                "ruolo": "D",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 12
+            },
+            {
+                "id": "4210",
+                "nome": "Mina",
+                "ruolo": "D",
+                "squadraSerieA": "Cagliari",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "2606",
+                "nome": "Modric",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 10
+            },
+            {
+                "id": "2188",
+                "nome": "Marusic",
+                "ruolo": "D",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "2097",
+                "nome": "Kean",
+                "ruolo": "A",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 315
+            },
+            {
+                "id": "632",
+                "nome": "Zaccagni",
+                "ruolo": "C",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 51
+            },
+            {
+                "id": "254",
+                "nome": "Dimarco",
+                "ruolo": "D",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 90
+            }
+        ]
+    },
+    {
+        "squadra": "Joga Benito",
+        "giocatori": [
+            {
+                "id": "7625",
+                "nome": "Goncalves P.",
+                "ruolo": "C",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "7523",
+                "nome": "Varela G.",
+                "ruolo": "A",
+                "squadraSerieA": "Monza",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "7485",
+                "nome": "Mangas",
+                "ruolo": "D",
+                "squadraSerieA": "Monza",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7484",
+                "nome": "Adams A.",
+                "ruolo": "A",
+                "squadraSerieA": "Venezia",
+                "prezzoAcquisto": 34
+            },
+            {
+                "id": "7472",
+                "nome": "Calò",
+                "ruolo": "C",
+                "squadraSerieA": "Frosinone",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "7414",
+                "nome": "Kaiki",
+                "ruolo": "D",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7351",
+                "nome": "Santos A.",
+                "ruolo": "A",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 37
+            },
+            {
+                "id": "7314",
+                "nome": "Taylor K.",
+                "ruolo": "C",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7223",
+                "nome": "Vergara",
+                "ruolo": "C",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 8
+            },
+            {
+                "id": "6989",
+                "nome": "Tiago Gabriel",
+                "ruolo": "D",
+                "squadraSerieA": "Lecce",
+                "prezzoAcquisto": 9
+            },
+            {
+                "id": "6875",
+                "nome": "Paz N.",
+                "ruolo": "C",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 133
+            },
+            {
+                "id": "6869",
+                "nome": "Ramon",
+                "ruolo": "D",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 25
+            },
+            {
+                "id": "6482",
+                "nome": "Mandas",
+                "ruolo": "P",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 20
+            },
+            {
+                "id": "6320",
+                "nome": "Doekhi",
+                "ruolo": "D",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "5694",
+                "nome": "Beto",
+                "ruolo": "A",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 14
+            },
+            {
+                "id": "4998",
+                "nome": "Molina N.",
+                "ruolo": "D",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 48
+            },
+            {
+                "id": "4871",
+                "nome": "Thuram",
+                "ruolo": "A",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 260
+            },
+            {
+                "id": "4409",
+                "nome": "Rrahmani",
+                "ruolo": "D",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 13
+            },
+            {
+                "id": "2814",
+                "nome": "Provedel",
+                "ruolo": "P",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "2167",
+                "nome": "Orsolini",
+                "ruolo": "C",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 101
+            },
+            {
+                "id": "2134",
+                "nome": "Falcone",
+                "ruolo": "P",
+                "squadraSerieA": "Lecce",
+                "prezzoAcquisto": 11
+            },
+            {
+                "id": "2120",
+                "nome": "Bastoni",
+                "ruolo": "D",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 31
+            },
+            {
+                "id": "2061",
+                "nome": "Simeone",
+                "ruolo": "A",
+                "squadraSerieA": "Torino",
+                "prezzoAcquisto": 95
+            },
+            {
+                "id": "1870",
+                "nome": "Barella",
+                "ruolo": "C",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 6
+            },
+            {
+                "id": "152",
+                "nome": "Zielinski",
+                "ruolo": "C",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 30
+            }
+        ]
+    },
+    {
+        "squadra": "TETTENHAM",
+        "giocatori": [
+            {
+                "id": "7619",
+                "nome": "Monteiro J.",
+                "ruolo": "C",
+                "squadraSerieA": "Lecce",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7618",
+                "nome": "Hutchinson",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7603",
+                "nome": "Grabara",
+                "ruolo": "P",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7556",
+                "nome": "Mora",
+                "ruolo": "C",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 66
+            },
+            {
+                "id": "7268",
+                "nome": "Rodriguez Ju.",
+                "ruolo": "D",
+                "squadraSerieA": "Cagliari",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7078",
+                "nome": "Mastantuono",
+                "ruolo": "C",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 32
+            },
+            {
+                "id": "6990",
+                "nome": "Veiga D.",
+                "ruolo": "D",
+                "squadraSerieA": "Lecce",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6531",
+                "nome": "Jimenez A.",
+                "ruolo": "D",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6496",
+                "nome": "Bartesaghi",
+                "ruolo": "D",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 5
+            },
+            {
+                "id": "6372",
+                "nome": "Moreira",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 46
+            },
+            {
+                "id": "6229",
+                "nome": "Tourè E.",
+                "ruolo": "A",
+                "squadraSerieA": "Parma",
+                "prezzoAcquisto": 43
+            },
+            {
+                "id": "6217",
+                "nome": "Bisseck",
+                "ruolo": "D",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 13
+            },
+            {
+                "id": "5951",
+                "nome": "Kolo Muani",
+                "ruolo": "A",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 296
+            },
+            {
+                "id": "5841",
+                "nome": "Svilar",
+                "ruolo": "P",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 42
+            },
+            {
+                "id": "5800",
+                "nome": "Gudmundsson A.",
+                "ruolo": "C",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 19
+            },
+            {
+                "id": "5620",
+                "nome": "Tavares N.",
+                "ruolo": "D",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5436",
+                "nome": "Raimondo",
+                "ruolo": "A",
+                "squadraSerieA": "Frosinone",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "4994",
+                "nome": "Vojvoda",
+                "ruolo": "D",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 14
+            },
+            {
+                "id": "4892",
+                "nome": "Saelemaekers",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 11
+            },
+            {
+                "id": "4856",
+                "nome": "Chukwueze",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 28
+            },
+            {
+                "id": "4431",
+                "nome": "Carnesecchi",
+                "ruolo": "P",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 50
+            },
+            {
+                "id": "2832",
+                "nome": "Boga",
+                "ruolo": "A",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "2514",
+                "nome": "Stones",
+                "ruolo": "D",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 13
+            },
+            {
+                "id": "2137",
+                "nome": "Scamacca",
+                "ruolo": "A",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 200
+            },
+            {
+                "id": "309",
+                "nome": "Dybala",
+                "ruolo": "A",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 110
+            }
+        ]
+    },
+    {
+        "squadra": "Fc Tattulu",
+        "giocatori": [
+            {
+                "id": "7332",
+                "nome": "Bijlow",
+                "ruolo": "P",
+                "squadraSerieA": "Genoa",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7252",
+                "nome": "Stulic",
+                "ruolo": "A",
+                "squadraSerieA": "Lecce",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7203",
+                "nome": "Jashari",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "7126",
+                "nome": "Baturina",
+                "ruolo": "C",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "7060",
+                "nome": "Cacciamani",
+                "ruolo": "C",
+                "squadraSerieA": "Torino",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "7017",
+                "nome": "Douvikas",
+                "ruolo": "A",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 103
+            },
+            {
+                "id": "6977",
+                "nome": "Otoa",
+                "ruolo": "D",
+                "squadraSerieA": "Genoa",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6844",
+                "nome": "Rowe",
+                "ruolo": "C",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 18
+            },
+            {
+                "id": "6684",
+                "nome": "Ekkelenkamp",
+                "ruolo": "C",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 50
+            },
+            {
+                "id": "6618",
+                "nome": "Cissè A.",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 28
+            },
+            {
+                "id": "6572",
+                "nome": "Castro S.",
+                "ruolo": "A",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 48
+            },
+            {
+                "id": "6485",
+                "nome": "Kristensen T.",
+                "ruolo": "D",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "6462",
+                "nome": "Okoye",
+                "ruolo": "P",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 22
+            },
+            {
+                "id": "6397",
+                "nome": "Ramos G.",
+                "ruolo": "A",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 341
+            },
+            {
+                "id": "6042",
+                "nome": "Lucumì",
+                "ruolo": "D",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 5
+            },
+            {
+                "id": "5833",
+                "nome": "Gila",
+                "ruolo": "D",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 20
+            },
+            {
+                "id": "5695",
+                "nome": "Haps",
+                "ruolo": "D",
+                "squadraSerieA": "Venezia",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5603",
+                "nome": "Pongracic",
+                "ruolo": "D",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5365",
+                "nome": "Dragusin",
+                "ruolo": "D",
+                "squadraSerieA": "Fiorentina",
+                "prezzoAcquisto": 3
+            },
+            {
+                "id": "5022",
+                "nome": "Pavlovic",
+                "ruolo": "D",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 25
+            },
+            {
+                "id": "4923",
+                "nome": "Colombo",
+                "ruolo": "A",
+                "squadraSerieA": "Genoa",
+                "prezzoAcquisto": 46
+            },
+            {
+                "id": "4896",
+                "nome": "Maldini",
+                "ruolo": "A",
+                "squadraSerieA": "Cagliari",
+                "prezzoAcquisto": 20
+            },
+            {
+                "id": "4777",
+                "nome": "McTominay",
+                "ruolo": "C",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 142
+            },
+            {
+                "id": "2379",
+                "nome": "Rabiot",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 85
+            },
+            {
+                "id": "133",
+                "nome": "Skorupski",
+                "ruolo": "P",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 10
+            }
+        ]
+    },
+    {
+        "squadra": "sup",
+        "giocatori": [
+            {
+                "id": "7347",
+                "nome": "Bowie",
+                "ruolo": "A",
+                "squadraSerieA": "Sassuolo",
+                "prezzoAcquisto": 13
+            },
+            {
+                "id": "6956",
+                "nome": "Solet",
+                "ruolo": "D",
+                "squadraSerieA": "Udinese",
+                "prezzoAcquisto": 26
+            },
+            {
+                "id": "6675",
+                "nome": "Dovbyk",
+                "ruolo": "A",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 155
+            },
+            {
+                "id": "6662",
+                "nome": "Corvi",
+                "ruolo": "P",
+                "squadraSerieA": "Parma",
+                "prezzoAcquisto": 10
+            },
+            {
+                "id": "6151",
+                "nome": "Perrone",
+                "ruolo": "C",
+                "squadraSerieA": "Como",
+                "prezzoAcquisto": 7
+            },
+            {
+                "id": "6052",
+                "nome": "Hojlund",
+                "ruolo": "A",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 291
+            },
+            {
+                "id": "5995",
+                "nome": "De Ketelaere",
+                "ruolo": "A",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 111
+            },
+            {
+                "id": "5862",
+                "nome": "Valeri",
+                "ruolo": "D",
+                "squadraSerieA": "Parma",
+                "prezzoAcquisto": 18
+            },
+            {
+                "id": "5739",
+                "nome": "De Winter",
+                "ruolo": "D",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "5687",
+                "nome": "Vlasic",
+                "ruolo": "C",
+                "squadraSerieA": "Torino",
+                "prezzoAcquisto": 51
+            },
+            {
+                "id": "5526",
+                "nome": "Scalvini",
+                "ruolo": "D",
+                "squadraSerieA": "Atalanta",
+                "prezzoAcquisto": 7
+            },
+            {
+                "id": "5514",
+                "nome": "Vasquez",
+                "ruolo": "D",
+                "squadraSerieA": "Genoa",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "4976",
+                "nome": "Kalulu",
+                "ruolo": "D",
+                "squadraSerieA": "Juventus",
+                "prezzoAcquisto": 10
+            },
+            {
+                "id": "4463",
+                "nome": "Esposito Se.",
+                "ruolo": "A",
+                "squadraSerieA": "Sassuolo",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "4401",
+                "nome": "Gabbia",
+                "ruolo": "D",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 4
+            },
+            {
+                "id": "4359",
+                "nome": "Piccoli",
+                "ruolo": "A",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 2
+            },
+            {
+                "id": "4312",
+                "nome": "Maignan",
+                "ruolo": "P",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 56
+            },
+            {
+                "id": "4220",
+                "nome": "Zambo Anguissa",
+                "ruolo": "C",
+                "squadraSerieA": "Napoli",
+                "prezzoAcquisto": 5
+            },
+            {
+                "id": "4159",
+                "nome": "Akanji",
+                "ruolo": "D",
+                "squadraSerieA": "Inter",
+                "prezzoAcquisto": 30
+            },
+            {
+                "id": "2848",
+                "nome": "Frattesi",
+                "ruolo": "C",
+                "squadraSerieA": "Lazio",
+                "prezzoAcquisto": 52
+            },
+            {
+                "id": "2815",
+                "nome": "Terracciano",
+                "ruolo": "P",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 1
+            },
+            {
+                "id": "2765",
+                "nome": "Odgaard",
+                "ruolo": "C",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 10
+            },
+            {
+                "id": "2423",
+                "nome": "Pulisic",
+                "ruolo": "C",
+                "squadraSerieA": "Milan",
+                "prezzoAcquisto": 116
+            },
+            {
+                "id": "779",
+                "nome": "Cristante",
+                "ruolo": "C",
+                "squadraSerieA": "Roma",
+                "prezzoAcquisto": 4
+            },
+            {
+                "id": "184",
+                "nome": "Bernardeschi",
+                "ruolo": "C",
+                "squadraSerieA": "Bologna",
+                "prezzoAcquisto": 1
+            }
+        ]
+    }
+]
