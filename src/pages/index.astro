@@ -406,10 +406,19 @@ try {
   @media (max-width: 768px) {
     .article-row { flex-direction: column; }
     .article-image { flex: none; width: 100%; height: auto; aspect-ratio: 16/9; }
+
+    .widget-title { font-size: 1.3rem; }
+    .summary { font-size: 1rem; }
+    .article-content h2 { font-size: 1.6rem; }
+    .standings-meta { font-size: 0.65rem; }
     
     .standings-table { font-size: 0.8rem; }
     .standings-table th, .standings-table td { padding: 8px 4px; }
     .team-logo { width: 20px; height: 20px; }
+
+    /* Riduce leggermente il padding delle celle */
+    .standings-table th, .standings-table td { padding: 8px 6px; font-size: 0.75rem; }
+    .team-logo { width: 18px; height: 18px; }
 
     /* Nasconde la colonna GF:GS sui telefoni per non stringere troppo la tabella */
     .standings-table th:nth-child(5), .standings-table td:nth-child(5) { display: none; } 
@@ -417,6 +426,19 @@ try {
     /* Nasconde il testo della squadra sui telefoni, lascia solo il logo */
     .player-stats-table .desktop-only { display: none; }
     .player-stats-table th, .player-stats-table td { font-size: 0.75rem; padding: 6px 2px; }
+
+    /* Evita che il testo "V-P-S" o i nomi lunghi vadano a capo rovinando l'impaginazione */
+    .standings-table th, 
+    .standings-table td {
+      white-space: nowrap; 
+    }
+
+    /* Rende le tabelle scorrevoli orizzontalmente se superano la larghezza dello schermo */
+    .standings-widget {
+      overflow-x: auto; /* Permette lo scroll orizzontale */
+      -webkit-overflow-scrolling: touch; /* Rende lo scroll fluido su iOS */
+      padding-bottom: 10px; /* Aggiunge spazio per la barra di scorrimento */
+    }
   }
 
 </style>
