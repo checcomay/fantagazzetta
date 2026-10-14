@@ -420,6 +420,29 @@ try {
       padding: 8px 6px; 
       white-space: nowrap; /* Evita accavallamenti e andate a capo sgradite */
     }
+
+    /* Allarga la colonna "Squadra" nella tabella delle squadre */
+    .standings-table th.team-col, 
+    .standings-table td.team-col { 
+      min-width: 120px; 
+    }
+
+    /* Allarga le prime tre colonne nella tabella dei giocatori */
+    .player-stats-table th:nth-child(1), 
+    .player-stats-table td:nth-child(1) { 
+      min-width: 130px; /* Nome giocatore */
+    }
+    
+    .player-stats-table th:nth-child(2), 
+    .player-stats-table td:nth-child(2) { 
+      min-width: 30px; /* Ruolo (R) */
+      text-align: center; 
+    }
+    
+    .player-stats-table th:nth-child(3), 
+    .player-stats-table td:nth-child(3) { 
+      min-width: 80px; /* Squadra (con il logo) */
+    }
     
     /* Ridimensionamento loghi */
     .team-logo { width: 18px; height: 18px; }
