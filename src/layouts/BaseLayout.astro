@@ -119,6 +119,20 @@ const { pageTitle } = Astro.props;
         border-top: 1px solid #333;
         padding-top: 15px;
       }
+
+      /* Adattamento dell'intestazione per dispositivi mobili */
+      @media (max-width: 768px) {
+        .site-header h1 {
+          font-size: 2.2rem; /* Riduce il titolo gigante */
+          letter-spacing: 0;
+        }
+        .site-subtitle {
+          font-size: 0.75rem; /* Rimpicciolisce leggermente il sottotitolo per proporzione */
+        }
+        .container {
+          padding: 15px 20px; /* Riduce un po' i bordi bianchi laterali per recuperare spazio */
+        }
+      }
     </style>
   </head>
 

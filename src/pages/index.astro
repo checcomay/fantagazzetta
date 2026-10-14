@@ -149,8 +149,8 @@ try {
         <table class="standings-table player-stats-table">
           <thead>
             <tr>
-              <th style="text-align: left;">Nome giocatore</th>
-              <th style="text-align: center;">R</th>
+              <th style="text-align: left;">Giocatore</th>
+              <th style="text-align: center;"> R </th>
               <th class="team-col" style="text-align: left;">Squadra</th>
               <th data-sort="goals" style="text-align: center;">G ↕</th>
               <th data-sort="assists" style="text-align: center;">A ↕</th>
@@ -423,9 +423,6 @@ try {
     
     /* Ridimensionamento loghi */
     .team-logo { width: 18px; height: 18px; }
-
-    /* Nasconde la colonna GF:GS sui telefoni per non stringere troppo la tabella (opzionale, visto che ora c'è lo scroll) */
-    .standings-table th:nth-child(5), .standings-table td:nth-child(5) { display: none; } 
 
     /* Regole specifiche per la tabella dei giocatori */
     .player-stats-table .desktop-only { display: none; }
