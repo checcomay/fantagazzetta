@@ -35,6 +35,20 @@ const { Content } = await render(entry);
 
   <div class="article-content">
     <Content />
+
+    <!-- BOX AUTORE -->
+    {article.data.author && article.data.author.trim() !== "" && (
+      <div class="author-box">
+        <span class="author-badge">Autore</span>
+        <div class="author-info">
+          <div class="author-icon">
+            <!-- Usa favicon.png, con fallback a favicon.svg in caso di errore -->
+            <img src="/favicon.png" alt="Icona Autore" onerror="this.src='/favicon.svg'" />
+          </div>
+          <span class="author-name">{article.data.author}</span>
+        </div>
+      </div>
+    )}
   </div>
 
     <!-- NUOVA SEZIONE VOTI REDAZIONE (Condizionale) -->
@@ -255,6 +269,64 @@ const { Content } = await render(entry);
     color: #333;
     margin-top: 30px;
     margin-bottom: 10px;
+  }
+
+  /* ========================================= */
+  /* STILI BOX AUTORE                          */
+  /* ========================================= */
+  .author-box {
+    position: relative;
+    background-color: #f0f2f5; /* Grigio chiaro dello sfondo */
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin-top: 60px; /* Distanzia il box dalla fine del testo */
+    margin-bottom: 30px;
+  }
+  
+  .author-badge {
+    position: absolute;
+    top: -12px; /* Fa sbordare il badge verso l'alto */
+    left: 20px;
+    background-color: #1a73e8; /* Blu accesso */
+    color: #fff;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 12px;
+  }
+  
+  .author-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+  }
+  
+  .author-icon {
+    width: 45px;
+    height: 45px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Leggera ombra per staccarlo dal grigio */
+    overflow: hidden;
+  }
+  
+  .author-icon img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+  }
+  
+  .author-name {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #111;
   }
 
   /* Adattamento articolo per dispositivi mobili */
