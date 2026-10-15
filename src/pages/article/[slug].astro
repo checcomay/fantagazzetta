@@ -35,23 +35,9 @@ const { Content } = await render(entry);
 
   <div class="article-content">
     <Content />
-
-    <!-- BOX AUTORE -->
-    {entry.data.author && entry.data.author.trim() !== "" && (
-      <div class="author-box">
-        <span class="author-badge">Autore</span>
-        <div class="author-info">
-          <div class="author-icon">
-            <!-- Usa favicon.png, con fallback a favicon.svg in caso di errore -->
-            <img src="/favicon.png" alt="Icona Autore" onerror="this.src='/favicon.svg'" />
-          </div>
-          <span class="author-name">{entry.data.author}</span>
-        </div>
-      </div>
-    )}
   </div>
 
-    <!-- NUOVA SEZIONE VOTI REDAZIONE (Condizionale) -->
+  <!-- SEZIONE VOTI REDAZIONE (Prima dell'autore) -->
   { (entry.data.bestPlayer || entry.data.worstPlayer) && (
     <div class="match-ratings-container">
       <h4 class="ratings-title">I Voti della Redazione</h4>
@@ -76,6 +62,20 @@ const { Content } = await render(entry);
             </div>
           </div>
         )}
+      </div>
+    </div>
+  )}
+
+  <!-- BOX AUTORE (In fondo, dopo i voti) -->
+  {entry.data.author && entry.data.author.trim() !== "" && (
+    <div class="author-box">
+      <span class="author-badge">Autore</span>
+      <div class="author-info">
+        <div class="author-icon">
+          <!-- Usa favicon.png, con fallback a favicon.svg in caso di errore -->
+          <img src="/favicon.png" alt="Icona Autore" onerror="this.src='/favicon.svg'" />
+        </div>
+        <span class="author-name">{entry.data.author}</span>
       </div>
     </div>
   )}
@@ -160,20 +160,71 @@ const { Content } = await render(entry);
     border-radius: 4px;
   }
 
-  /* Stile Voti Redazione */
+  /* STILE PER LE DIDASCALIE DELLE IMMAGINI */
+  .article-content p:has(img) em {
+    display: block;            /* Manda il testo a capo sotto l'immagine */
+    text-align: center;        /* Centra il testo */
+    font-size: 0.95rem;        /* Lo rende un po' più piccolo del testo normale */
+    color: #666;               /* Colore grigio scuro, stile giornale */
+    margin-top: -20px;         /* Avvicina la scritta all'immagine riducendo lo spazio */
+    margin-bottom: 30px;       /* Dà respiro prima del paragrafo successivo */
+    font-style: italic;
+  }
+
+  /* STILI PER I SOTTOTITOLI NEL TESTO (## e ### nel Markdown) */
+  .article-content h2 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin-top: 45px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eaeaea; 
+    padding-bottom: 5px;
+  }
+
+  .article-content h3 {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #c0392b; 
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 15px;
+  }
+  
+  .article-content h4 {
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  /* ========================================= */
+  /* STILI VOTI REDAZIONE                      */
+  /* ========================================= */
   .match-ratings-container {
     margin-top: 50px;
     padding-top: 30px;
     border-top: 3px solid #111;
+    margin-bottom: 40px; /* Spazio prima del box autore */
   }
+  
   .ratings-title {
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Georgia', serif; /* Stile più classico ed elegante */
     font-size: 1.8rem;
-    font-weight: 900;
-    text-transform: uppercase;
+    font-weight: bold;
+    font-style: italic;
+    color: #c0392b;
     text-align: center;
     margin-bottom: 30px;
     margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted #ccc; /* Sottile linea divisoria */
   }
   
   .ratings-grid {
@@ -188,17 +239,17 @@ const { Content } = await render(entry);
     align-items: center;
     padding: 20px;
     border-radius: 8px;
-    border-left: 6px solid #ccc; /* Bordo laterale come accento */
+    border-left: 6px solid #ccc;
   }
 
   .top-player {
-    background-color: #f0fdf4; /* Sfondo verdino */
-    border-left-color: #22c55e; /* Bordo verde */
+    background-color: #f0fdf4;
+    border-left-color: #22c55e;
   }
 
   .worst-player {
-    background-color: #fef2f2; /* Sfondo rossastro */
-    border-left-color: #ef4444; /* Bordo rosso */
+    background-color: #fef2f2;
+    border-left-color: #ef4444;
   }
 
   .emoji-icon {
@@ -227,67 +278,22 @@ const { Content } = await render(entry);
     color: #111;
   }
 
-  /* STILE PER LE DIDASCALIE DELLE IMMAGINI */
-  .article-content p:has(img) em {
-    display: block;            /* Manda il testo a capo sotto l'immagine */
-    text-align: center;        /* Centra il testo */
-    font-size: 0.95rem;        /* Lo rende un po' più piccolo del testo normale */
-    color: #666;               /* Colore grigio scuro, stile giornale */
-    margin-top: -20px;         /* Avvicina la scritta all'immagine riducendo lo spazio */
-    margin-bottom: 30px;       /* Dà respiro prima del paragrafo successivo */
-    font-style: italic;
-  }
-
-  /* STILI PER I SOTTOTITOLI NEL TESTO (## e ### nel Markdown) */
-  .article-content h2 {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #111;
-    margin-top: 45px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #eaeaea; /* Sottile linea di separazione */
-    padding-bottom: 5px;
-  }
-
-  .article-content h3 {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #c0392b; /* Rosso acceso per far risaltare i paragrafi */
-    text-transform: uppercase;
-    margin-top: 40px;
-    margin-bottom: 15px;
-  }
-  
-  .article-content h4 {
-    font-family: 'Georgia', serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-    font-style: italic;
-    color: #333;
-    margin-top: 30px;
-    margin-bottom: 10px;
-  }
-
   /* ========================================= */
   /* STILI BOX AUTORE                          */
   /* ========================================= */
   .author-box {
     position: relative;
-    background-color: #f0f2f5; /* Grigio chiaro dello sfondo */
+    background-color: #f0f2f5; 
     border-radius: 12px;
     padding: 20px 25px;
-    margin-top: 60px; /* Distanzia il box dalla fine del testo */
     margin-bottom: 30px;
   }
   
   .author-badge {
     position: absolute;
-    top: -12px; /* Fa sbordare il badge verso l'alto */
+    top: -12px; 
     left: 20px;
-    background-color: #1a73e8; /* Blu accesso */
+    background-color: #e91e63; /* Rosa acceso e leggibile */
     color: #fff;
     font-family: 'Helvetica', 'Arial', sans-serif;
     font-size: 0.75rem;
@@ -312,7 +318,7 @@ const { Content } = await render(entry);
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Leggera ombra per staccarlo dal grigio */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
     overflow: hidden;
   }
   
