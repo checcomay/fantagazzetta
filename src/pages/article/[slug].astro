@@ -37,7 +37,7 @@ const { Content } = await render(entry);
     <Content />
 
     <!-- BOX AUTORE -->
-    {article.data.author && article.data.author.trim() !== "" && (
+    {entry.data.author && entry.data.author.trim() !== "" && (
       <div class="author-box">
         <span class="author-badge">Autore</span>
         <div class="author-info">
@@ -45,7 +45,7 @@ const { Content } = await render(entry);
             <!-- Usa favicon.png, con fallback a favicon.svg in caso di errore -->
             <img src="/favicon.png" alt="Icona Autore" onerror="this.src='/favicon.svg'" />
           </div>
-          <span class="author-name">{article.data.author}</span>
+          <span class="author-name">{entry.data.author}</span>
         </div>
       </div>
     )}
