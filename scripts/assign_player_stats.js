@@ -70,6 +70,10 @@ function assignStats() {
         // 3. Estrazione, Incrocio dei dati e Costruzione dell'array piatto
         squadreFanta.forEach(team => {
             team.giocatori.forEach(giocatore => {
+                // Ignora i portieri
+                if (giocatore.ruolo === 'P') 
+                    return;
+
                 const normSquadra = normalize(giocatore.squadraSerieA);
                 const searchKey = getSearchKey(giocatore.nome);
 
@@ -113,7 +117,7 @@ function assignStats() {
 
         // 4. Salvataggio del nuovo formato piatto
         fs.writeFileSync(OUTPUT_JSON, JSON.stringify(giocatoriFlat, null, 4), 'utf-8');
-        console.log(`Statistiche assegnate con successo! Generato elenco piatto in: ${OUTPUT_JSON}`);
+        console.log(`Statistiche assegnate con successo! File salvato in: ${OUTPUT_JSON}`);
 
     } catch (error) {
         console.error("Si è verificato un errore:", error.message);

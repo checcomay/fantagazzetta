@@ -36,24 +36,6 @@
         }
     },
     {
-        "id": "7301",
-        "nome": "Tornqvist",
-        "ruolo": "P",
-        "squadraSerieA": "Monza",
-        "fantaSquadra": "Real Pisellini Cf",
-        "prezzoAcquisto": 1,
-        "stats": {
-            "apps": 3,
-            "min": 270,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "7240",
         "nome": "Siebert",
         "ruolo": "D",
@@ -105,24 +87,6 @@
             "xA": 0.09,
             "xG90": 0.02,
             "xA90": 0.03
-        }
-    },
-    {
-        "id": "6966",
-        "nome": "Butez",
-        "ruolo": "P",
-        "squadraSerieA": "Como",
-        "fantaSquadra": "Real Pisellini Cf",
-        "prezzoAcquisto": 56,
-        "stats": {
-            "apps": 6,
-            "min": 540,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
         }
     },
     {
@@ -357,24 +321,6 @@
             "xA": 0.25,
             "xG90": 0.08,
             "xA90": 0.07
-        }
-    },
-    {
-        "id": "4964",
-        "nome": "Vicario",
-        "ruolo": "P",
-        "squadraSerieA": "Juventus",
-        "fantaSquadra": "Real Pisellini Cf",
-        "prezzoAcquisto": 13,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
         }
     },
     {
@@ -702,42 +648,6 @@
         }
     },
     {
-        "id": "4360",
-        "nome": "Caprile",
-        "ruolo": "P",
-        "squadraSerieA": "Cagliari",
-        "fantaSquadra": "Ac Picchia",
-        "prezzoAcquisto": 9,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
-        "id": "4236",
-        "nome": "Muric",
-        "ruolo": "P",
-        "squadraSerieA": "Sassuolo",
-        "fantaSquadra": "Ac Picchia",
-        "prezzoAcquisto": 12,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0.09,
-            "xG90": 0,
-            "xA90": 0.01
-        }
-    },
-    {
         "id": "4179",
         "nome": "Gonzalez N.",
         "ruolo": "C",
@@ -771,24 +681,6 @@
             "xA": 0.7,
             "xG90": 0.15,
             "xA90": 0.1
-        }
-    },
-    {
-        "id": "2521",
-        "nome": "De Gea",
-        "ruolo": "P",
-        "squadraSerieA": "Fiorentina",
-        "fantaSquadra": "Ac Picchia",
-        "prezzoAcquisto": 25,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0.29,
-            "xG90": 0,
-            "xA90": 0.04
         }
     },
     {
@@ -1206,24 +1098,6 @@
         }
     },
     {
-        "id": "2845",
-        "nome": "Contini",
-        "ruolo": "P",
-        "squadraSerieA": "Napoli",
-        "fantaSquadra": "AS CaccuRese",
-        "prezzoAcquisto": 1,
-        "stats": {
-            "apps": 0,
-            "min": 0,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "2766",
         "nome": "Zaniolo",
         "ruolo": "C",
@@ -1260,24 +1134,6 @@
         }
     },
     {
-        "id": "2170",
-        "nome": "Milinkovic-Savic V.",
-        "ruolo": "P",
-        "squadraSerieA": "Napoli",
-        "fantaSquadra": "AS CaccuRese",
-        "prezzoAcquisto": 2,
-        "stats": {
-            "apps": 2,
-            "min": 180,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "2155",
         "nome": "Cutrone",
         "ruolo": "A",
@@ -1311,24 +1167,6 @@
             "xA": 0.41,
             "xG90": 0.03,
             "xA90": 0.08
-        }
-    },
-    {
-        "id": "572",
-        "nome": "Meret",
-        "ruolo": "P",
-        "squadraSerieA": "Napoli",
-        "fantaSquadra": "AS CaccuRese",
-        "prezzoAcquisto": 51,
-        "stats": {
-            "apps": 5,
-            "min": 450,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
         }
     },
     {
@@ -1512,24 +1350,6 @@
         }
     },
     {
-        "id": "6248",
-        "nome": "Stankovic F.",
-        "ruolo": "P",
-        "squadraSerieA": "Venezia",
-        "fantaSquadra": "SACARA TEAM",
-        "prezzoAcquisto": 1,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "5982",
         "nome": "Spence",
         "ruolo": "D",
@@ -1635,42 +1455,6 @@
             "xA": 0.56,
             "xG90": 0.19,
             "xA90": 0.14
-        }
-    },
-    {
-        "id": "5116",
-        "nome": "Martinez Jo.",
-        "ruolo": "P",
-        "squadraSerieA": "Inter",
-        "fantaSquadra": "SACARA TEAM",
-        "prezzoAcquisto": 67,
-        "stats": {
-            "apps": 5,
-            "min": 352,
-            "goals": 4,
-            "assists": 0,
-            "xG": 5.35,
-            "xA": 0.99,
-            "xG90": 1.37,
-            "xA90": 0.25
-        }
-    },
-    {
-        "id": "4485",
-        "nome": "Thiam",
-        "ruolo": "P",
-        "squadraSerieA": "Monza",
-        "fantaSquadra": "SACARA TEAM",
-        "prezzoAcquisto": 1,
-        "stats": {
-            "apps": 3,
-            "min": 270,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0.04,
-            "xG90": 0,
-            "xA90": 0.01
         }
     },
     {
@@ -2016,24 +1800,6 @@
         }
     },
     {
-        "id": "6482",
-        "nome": "Mandas",
-        "ruolo": "P",
-        "squadraSerieA": "Lazio",
-        "fantaSquadra": "Joga Benito",
-        "prezzoAcquisto": 20,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "6320",
         "nome": "Doekhi",
         "ruolo": "D",
@@ -2124,24 +1890,6 @@
         }
     },
     {
-        "id": "2814",
-        "nome": "Provedel",
-        "ruolo": "P",
-        "squadraSerieA": "Inter",
-        "fantaSquadra": "Joga Benito",
-        "prezzoAcquisto": 2,
-        "stats": {
-            "apps": 0,
-            "min": 0,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "2167",
         "nome": "Orsolini",
         "ruolo": "C",
@@ -2157,24 +1905,6 @@
             "xA": 0.18,
             "xG90": 0.02,
             "xA90": 0.09
-        }
-    },
-    {
-        "id": "2134",
-        "nome": "Falcone",
-        "ruolo": "P",
-        "squadraSerieA": "Lecce",
-        "fantaSquadra": "Joga Benito",
-        "prezzoAcquisto": 11,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
         }
     },
     {
@@ -2282,24 +2012,6 @@
             "xG": 0.02,
             "xA": 0,
             "xG90": 0.03,
-            "xA90": 0
-        }
-    },
-    {
-        "id": "7603",
-        "nome": "Grabara",
-        "ruolo": "P",
-        "squadraSerieA": "Juventus",
-        "fantaSquadra": "TETTENHAM",
-        "prezzoAcquisto": 1,
-        "stats": {
-            "apps": 0,
-            "min": 0,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
             "xA90": 0
         }
     },
@@ -2484,24 +2196,6 @@
         }
     },
     {
-        "id": "5841",
-        "nome": "Svilar",
-        "ruolo": "P",
-        "squadraSerieA": "Roma",
-        "fantaSquadra": "TETTENHAM",
-        "prezzoAcquisto": 42,
-        "stats": {
-            "apps": 5,
-            "min": 450,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "5800",
         "nome": "Gudmundsson A.",
         "ruolo": "C",
@@ -2610,24 +2304,6 @@
         }
     },
     {
-        "id": "4431",
-        "nome": "Carnesecchi",
-        "ruolo": "P",
-        "squadraSerieA": "Atalanta",
-        "fantaSquadra": "TETTENHAM",
-        "prezzoAcquisto": 50,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0.08,
-            "xG90": 0,
-            "xA90": 0.01
-        }
-    },
-    {
         "id": "2832",
         "nome": "Boga",
         "ruolo": "A",
@@ -2697,24 +2373,6 @@
             "xA": 4.29,
             "xG90": 0.41,
             "xA90": 0.77
-        }
-    },
-    {
-        "id": "7332",
-        "nome": "Bijlow",
-        "ruolo": "P",
-        "squadraSerieA": "Genoa",
-        "fantaSquadra": "Fc Tattulu",
-        "prezzoAcquisto": 1,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0.03,
-            "xG90": 0,
-            "xA90": 0
         }
     },
     {
@@ -2912,24 +2570,6 @@
             "xG": 0.27,
             "xA": 0,
             "xG90": 0.09,
-            "xA90": 0
-        }
-    },
-    {
-        "id": "6462",
-        "nome": "Okoye",
-        "ruolo": "P",
-        "squadraSerieA": "Udinese",
-        "fantaSquadra": "Fc Tattulu",
-        "prezzoAcquisto": 22,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
             "xA90": 0
         }
     },
@@ -3132,24 +2772,6 @@
         }
     },
     {
-        "id": "133",
-        "nome": "Skorupski",
-        "ruolo": "P",
-        "squadraSerieA": "Bologna",
-        "fantaSquadra": "Fc Tattulu",
-        "prezzoAcquisto": 10,
-        "stats": {
-            "apps": 5,
-            "min": 450,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "7347",
         "nome": "Bowie",
         "ruolo": "A",
@@ -3201,24 +2823,6 @@
             "xA": 0.39,
             "xG90": 1.05,
             "xA90": 0.4
-        }
-    },
-    {
-        "id": "6662",
-        "nome": "Corvi",
-        "ruolo": "P",
-        "squadraSerieA": "Parma",
-        "fantaSquadra": "sup",
-        "prezzoAcquisto": 10,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
         }
     },
     {
@@ -3438,24 +3042,6 @@
         }
     },
     {
-        "id": "4312",
-        "nome": "Maignan",
-        "ruolo": "P",
-        "squadraSerieA": "Milan",
-        "fantaSquadra": "sup",
-        "prezzoAcquisto": 56,
-        "stats": {
-            "apps": 7,
-            "min": 630,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
-        }
-    },
-    {
         "id": "4220",
         "nome": "Zambo Anguissa",
         "ruolo": "C",
@@ -3507,24 +3093,6 @@
             "xA": 1.11,
             "xG90": 0.32,
             "xA90": 0.19
-        }
-    },
-    {
-        "id": "2815",
-        "nome": "Terracciano",
-        "ruolo": "P",
-        "squadraSerieA": "Milan",
-        "fantaSquadra": "sup",
-        "prezzoAcquisto": 1,
-        "stats": {
-            "apps": 1,
-            "min": 1,
-            "goals": 0,
-            "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
         }
     },
     {
