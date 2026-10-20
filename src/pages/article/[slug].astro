@@ -37,42 +37,52 @@ const { Content } = await render(entry);
     <Content />
   </div>
 
-  <!-- SEZIONE VOTI REDAZIONE (Prima dell'autore) -->
-  { (entry.data.bestPlayer || entry.data.worstPlayer) && (
-    <div class="match-ratings-container">
-      <h4 class="ratings-title">I voti della redazione</h4>
-      
-      <div class="ratings-grid">
-        {entry.data.bestPlayer && (
-          <div class="rating-card top-player">
-            <div class="emoji-icon">🏅</div>
-            <div class="rating-details">
-              <span class="rating-label">Migliore in campo</span>
-              <span class="player-name">{entry.data.bestPlayer}</span>
-            </div>
+  <!-- I VOTI DELLA REDAZIONE -->
+  <div class="match-ratings-container">
+    <h3 class="ratings-title">I voti della redazione</h3>
+    
+    <div class="ratings-grid">
+      <!-- SEZIONE MIGLIORE IN CAMPO -->
+      {entry.data.bestPlayer && (
+        <div class="rating-card top-player">
+          <span class="emoji-icon">🏅</span>
+          <div class="rating-details">
+            <span class="rating-label">Migliore in campo</span>
+            <strong class="player-name">{entry.data.bestPlayer}</strong>
           </div>
-        )}
+        </div>
+      )}
 
-        {entry.data.worstPlayer && (
-          <div class="rating-card worst-player">
-            <div class="emoji-icon">💩</div>
-            <div class="rating-details">
-              <span class="rating-label">Peggiore in campo</span>
-              <span class="player-name">{entry.data.worstPlayer}</span>
-            </div>
+      <!-- SEZIONE PEGGIORE IN CAMPO -->
+      {entry.data.worstPlayer && (
+        <div class="rating-card worst-player">
+          <span class="emoji-icon">💩</span>
+          <div class="rating-details">
+            <span class="rating-label">Peggiore in campo</span>
+            <strong class="player-name">{entry.data.worstPlayer}</strong>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
-  )}
 
-  <!-- BOX AUTORE (In fondo, dopo i voti) -->
+    <!-- SEZIONE GOL DELLA GIORNATA -->
+    {entry.data.bestGoal && (
+      <div class="rating-card best-goal">
+        <span class="emoji-icon">⚽</span>
+        <div class="rating-details">
+          <span class="rating-label">Gol della giornata</span>
+          <strong class="player-name">{entry.data.bestGoal}</strong>
+        </div>
+      </div>
+    )}
+  </div>
+
+  <!-- BOX AUTORE (in fondo) -->
   {entry.data.author && entry.data.author.trim() !== "" && (
     <div class="author-box">
       <span class="author-badge">Autore</span>
       <div class="author-info">
         <div class="author-icon">
-          <!-- Usa favicon.png, con fallback a favicon.svg in caso di errore -->
           <img src="/favicon.png" alt="Icona Autore" onerror="this.src='/favicon.svg'" />
         </div>
         <span class="author-name">{entry.data.author}</span>
@@ -205,7 +215,7 @@ const { Content } = await render(entry);
   }
 
   /* ========================================= */
-  /* STILI VOTI REDAZIONE                      */
+  /* STILI VOTI REDAZIONE & PREMI SPECIALI     */
   /* ========================================= */
   .match-ratings-container {
     margin-top: 50px;
@@ -213,7 +223,7 @@ const { Content } = await render(entry);
     border-top: 3px solid #111;
     margin-bottom: 80px; /* Spazio prima del box autore */
   }
-  
+
   .ratings-title {
     font-family: 'Georgia', serif;
     font-size: 1.4rem;
@@ -226,20 +236,23 @@ const { Content } = await render(entry);
     padding-bottom: 15px;
     border-bottom: 1px dotted #ccc; /* Sottile linea divisoria */
   }
-  
+
+  /* Contenitore per Top e Flop affiancati */
   .ratings-grid {
     display: flex;
     gap: 20px;
     justify-content: space-between;
+    margin-bottom: 20px; /* Spazio prima dell'eventuale premio centrale */
   }
 
+  /* Stile comune per tutti i riquadri premio */
   .rating-card {
     flex: 1;
     display: flex;
     align-items: center;
     padding: 20px;
     border-radius: 8px;
-    border-left: 6px solid #ccc;
+    border-left: 6px solid;
   }
 
   .top-player {
@@ -250,6 +263,15 @@ const { Content } = await render(entry);
   .worst-player {
     background-color: #fef2f2;
     border-left-color: #ef4444;
+  }
+
+  /* Stile per il Gol della giornata */
+  .best-goal {
+    background-color: #fdfaf0; /* Giallo/Oro molto chiaro */
+    border-left-color: #eab308; /* Giallo scuro / Oro */
+    margin: 0 auto; /* Lo centra se ha una larghezza massima */
+    max-width: 450px; /* Gli impedisce di allargarsi troppo */
+    justify-content: center; /* Centra anche il contenuto interno */
   }
 
   .emoji-icon {
@@ -363,6 +385,13 @@ const { Content } = await render(entry);
     }
     .main-subtitle {
       font-size: 1.2rem;
+    }
+
+    .ratings-grid {
+      flex-direction: column;
+    }
+    .best-goal {
+      max-width: 100%;
     }
   }
 </style>

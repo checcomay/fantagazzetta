@@ -1,4 +1,3 @@
-# Variabili dei percorsi
 DOWNLOADS := ~/Downloads
 
 # File statici
@@ -48,7 +47,7 @@ ranking:
 	@echo "🏆 Aggiornamento della classifica..."
 	@if [ ! -f "$(RANKING_FILE)" ]; then \
 		echo "❌ Errore: File classifica mancante."; \
-		echo "👉 Scaricalo in Excel da: https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings"; \
+		echo "👉 Scarica il file Excel da: https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings"; \
 		exit 1; \
 	fi
 	node scripts/ranking_reader.js "$(RANKING_FILE)"

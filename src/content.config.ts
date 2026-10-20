@@ -10,6 +10,7 @@ const articlesCollection = defineCollection({
     publishDate: z.date(),
     bestPlayer: z.string().optional(),
     worstPlayer: z.string().optional(),
+    bestGoal: z.string().optional(),
     author: z.string().default('Redazione'),
     image: z.string().optional(),
   }),
