@@ -206,22 +206,37 @@ try {
     tbody.innerHTML = '';
     
   const sorted = [...players].sort((a, b) => {
-      let valA, valB;
+      // Calcoliamo la performance
+      const perfA = (a.stats.goals - a.stats.xG) + (a.stats.assists - a.stats.xA);
+      const perfB = (b.stats.goals - b.stats.xG) + (b.stats.assists - b.stats.xA);
       
-      // Se si ordina per la colonna virtuale "perf"
-      if (currentSort === 'perf') {
-        valA = (a.stats.goals - a.stats.xG) + (a.stats.assists - a.stats.xA);
-        valB = (b.stats.goals - b.stats.xG) + (b.stats.assists - b.stats.xA);
-      } else {
-        // Ordinamento standard per le altre colonne
-        valA = a.stats[currentSort] !== undefined ? a.stats[currentSort] : a[currentSort];
-        valB = b.stats[currentSort] !== undefined ? b.stats[currentSort] : b[currentSort];
+      // 1. Ordinamento per la colonna "perf"
+      if (currentSort === 'perf') 
+        return isDesc ? perfB - perfA : perfA - perfB;
+
+      // 2. Ordinamento per "goals"
+      if (currentSort === 'goals') {
+        // Se i gol sono diversi, ordina normalmente per gol
+        if (a.stats.goals !== b.stats.goals) 
+          return isDesc ? b.stats.goals - a.stats.goals : a.stats.goals - b.stats.goals;
+        // A parità di gol, ordina per assist
+        if (a.stats.assists !== b.stats.assists) 
+          return isDesc ? b.stats.assists - a.stats.assists : a.stats.assists - b.stats.assists;
+        // A parità di gol e assist, ordina per performance (+/-)
+        return isDesc ? perfB - perfA : perfA - perfB;
       }
       
-      if (typeof valA === 'string') return isDesc ? valB.localeCompare(valA) : valA.localeCompare(valB);
+      // 3. Ordinamento standard per tutte le altre colonne
+      let valA = a.stats[currentSort] !== undefined ? a.stats[currentSort] : a[currentSort];
+      let valB = b.stats[currentSort] !== undefined ? b.stats[currentSort] : b[currentSort];
+      
+      if (typeof valA === 'string') 
+        return isDesc ? valB.localeCompare(valA) : valA.localeCompare(valB);
+      
       return isDesc ? valB - valA : valA - valB;
-    }).slice(0, 10);
 
+    }).slice(0, 10);
+    
     sorted.forEach(p => {
       const logoSrc = `/logos/${p.fantaSquadra}.png`;
 
