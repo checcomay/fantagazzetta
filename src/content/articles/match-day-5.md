@@ -24,7 +24,7 @@ Per mister Cadamo non basta la firma di Berardi a rimettere in gioco i suoi.
 In difesa e tar i pali i maggiori problemi. 
  
 ![La tripletta di Raimondo](/images/image5b.png)
-*La classica esultanza da "pistolero" di Raimondo, dominatore assoluto del match. Con la sua prima doppietta nel torneo, l'attaccante ha steso i campioni in carica dell'AC Picchia per 3-0, proiettando il Tettenham al secondo posto all'inseguimento della vetta.*
+*La classica esultanza da "pistolero" di Raimondo, dominatore assoluto del match. Con la sua prima tripletta nel torneo, l'attaccante ha steso i campioni in carica dell'AC Picchia per 3-0, proiettando il Tettenham al secondo posto all'inseguimento della vetta.*
  
 L'FC Tattulu (7) vince il derby  dei Parisi con il Real Pisellini (un punto in 5 partite, in affanno, ma con tante risorse ancora a disposizione come Siebert, Gaetano e Adams) imponendosi per **2-0**: Douvikas e Rabiot regalano i 3 punti pesanti e corroboranti.
  
