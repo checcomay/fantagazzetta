@@ -80,6 +80,23 @@ const minFM = Math.min(...fantaMedie);
     .standings-table { font-size: 0.75rem; }
     .standings-table th, .standings-table td { padding: 8px 6px; white-space: nowrap; }
     .team-logo { width: 18px; height: 18px; }
-    .standings-table th.team-col, .standings-table td.team-col { min-width: 120px; }
+    .standings-table { 
+      font-size: 0.75rem; 
+      
+      display: block; 
+      width: 100%; 
+      max-width: 100vw;
+      overflow-x: auto; 
+      -webkit-overflow-scrolling: touch; 
+    }
+    
+    .standings-table th, .standings-table td { 
+      padding: 8px 6px; 
+    }
+    
+    .team-logo { 
+      width: 18px; 
+      height: 18px; 
+    }
   }
 </style>

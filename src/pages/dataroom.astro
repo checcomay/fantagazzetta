@@ -269,6 +269,7 @@ const underTeam = performanceArray[performanceArray.length - 1]; // L'ultimo del
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     height: 500px; /* Altezza fissa necessaria per Chart.js */
     width: 100%;
+    margin-bottom: 50px;
   }
 
 /* ========================================= */
@@ -348,7 +349,10 @@ const underTeam = performanceArray[performanceArray.length - 1]; // L'ultimo del
     .chart-wrapper { height: 400px; padding: 10px; }
     .main-title { font-size: 1.8rem; }
     .subtitle { font-size: 1rem; }
-    .performance-verdict { flex-direction: column; }
+    .performance-verdict { 
+      flex-direction: column; 
+      gap: 30px;
+    }
     .team-name { font-size: 1.3rem; }
     .diff-value { font-size: 2rem; }
   }
