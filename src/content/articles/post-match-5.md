@@ -12,4 +12,4 @@ Una panchina che riesce ad offrire alternative valide e possibilità di operare 
 
 Il Tettenham si giocherà le sue chances scudetto con la scommessa finora vinta di Raimondo, ma con Moreira Mora e Mastantuono ancora discontinui. 
 
-Il prossimo match ci dirà le reali potenzialità di questi team. La Caccurese, in attesa di recuperare Zaniolo, Raspadori e Cutrone, tenterà di rimanere in scia con il rientro di Elmas e Malen e con il rosato 433.
+Il prossimo match ci dirà le reali potenzialità di questi team. La Caccurese, in attesa di recuperare Zaniolo, Raspadori e Cutrone, tenterà di rimanere in scia con il rientro di Elmas e Malen e con il rodato 433.
