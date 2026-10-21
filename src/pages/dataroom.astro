@@ -1,0 +1,355 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import players from '../data/player_stats.json';
+
+// --- LOGICA OVER/UNDER PERFORMANCE ---
+const teamAggregates = {};
+
+players.forEach(p => {
+  if (p.stats.min > 0) {
+    const team = p.fantaSquadra;
+    if (!teamAggregates[team]) {
+      teamAggregates[team] = { goals: 0, xG: 0 };
+    }
+    teamAggregates[team].goals += p.stats.goals;
+    teamAggregates[team].xG += p.stats.xG;
+  }
+});
+
+const performanceArray = Object.keys(teamAggregates).map(team => {
+  const diff = teamAggregates[team].goals - teamAggregates[team].xG;
+  return {
+    team,
+    diff: Number(diff.toFixed(2)),
+    goals: teamAggregates[team].goals,
+    xG: Number(teamAggregates[team].xG.toFixed(2))
+  };
+});
+
+// Ordiniamo dal più "fortunato" (differenza positiva più alta) al più "sfortunato"
+performanceArray.sort((a, b) => b.diff - a.diff);
+
+const overTeam = performanceArray[0]; // Il primo della lista
+const underTeam = performanceArray[performanceArray.length - 1]; // L'ultimo della lista
+---
+
+<BaseLayout pageTitle="Data Room">
+  <div class="data-room-container">
+    <div class="data-header">
+      <h2 class="main-title">DATA ROOM</h2>
+      <p class="subtitle">Analisi avanzata: Gol reali vs Expected Goals (xG)</p>
+    </div>
+
+    <div class="chart-description">
+      <p>
+        In questo grafico analizziamo il rapporto tra le occasioni create (xG) e le reti effettivamente realizzate. 
+        <strong> Chi si trova in alto a sinistra</strong> sta segnando gol difficili (overperformance). 
+        <strong> Chi si trova in basso a destra</strong> crea molto ma concretizza poco (underperformance).
+      </p>
+    </div>
+
+    <!-- Contenitore del grafico -->
+    <div class="chart-wrapper">
+      <canvas id="xgChart"></canvas>
+    </div>
+
+    <!-- Grafico: Gol vs xG di squadra -->
+    <div class="chart-wrapper" style="margin-top: 40px;">
+      <h3 style="text-align: center; font-family: 'Helvetica'; margin-bottom: 20px; font-weight: 900; text-transform: uppercase;">
+        Potenza Offensiva: Gol Reali vs xG di Squadra
+      </h3>
+      <div style="height: 400px;">
+        <canvas id="teamGoalsChart"></canvas>
+      </div>
+    </div>
+
+        <!-- VERDETTO OVER/UNDER PERFORMANCE -->
+    <div class="performance-verdict">
+      
+      <!-- Box Overperformance -->
+      <div class="verdict-card over">
+        <h4>🔥 Più Fortunata (Over)</h4>
+        <div class="team-info">
+          <img src={`/logos/${overTeam.team}.png`} alt={overTeam.team} class="verdict-logo" onerror="this.style.display='none'" />
+          <span class="team-name">{overTeam.team}</span>
+        </div>
+        <p class="diff-value">+{overTeam.diff}</p>
+        <p class="diff-details">Gol Reali: {overTeam.goals} | xG Attesi: {overTeam.xG}</p>
+      </div>
+
+      <!-- Box Underperformance -->
+      <div class="verdict-card under">
+        <h4>🥶 Più Sfortunata (Under)</h4>
+        <div class="team-info">
+          <img src={`/logos/${underTeam.team}.png`} alt={underTeam.team} class="verdict-logo" onerror="this.style.display='none'" />
+          <span class="team-name">{underTeam.team}</span>
+        </div>
+        <p class="diff-value">{underTeam.diff}</p>
+        <p class="diff-details">Gol Reali: {underTeam.goals} | xG Attesi: {underTeam.xG}</p>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<!-- Caricamento della libreria Chart.js -->
+<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Logica del grafico: usiamo define:vars per passare i dati di Astro al client JS -->
+<script define:vars={{ players }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('xgChart');
+    const activePlayers = players.filter(p => p.stats.min > 0);
+
+    // Mappiamo i dati e pre-carichiamo l'immagine del logo per ciascun giocatore
+    const chartData = activePlayers.map(p => {
+      // Creiamo l'oggetto immagine forzando la dimensione (es. 24x24 pixel)
+      const logoImg = new Image(24, 24);
+      logoImg.src = `/logos/${p.fantaSquadra}.png`;
+      
+      return {
+        x: p.stats.xG,
+        y: p.stats.goals,
+        playerName: p.nome,
+        fantaTeam: p.fantaSquadra,
+        logoObj: logoImg // Salviamo l'immagine direttamente dentro i dati
+      };
+    });
+
+    new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Giocatori Serie A',
+          data: chartData,
+          // Istruiamo Chart.js a usare l'immagine al posto del cerchio
+          pointStyle: (context) => {
+            // Estrae l'immagine precedentemente caricata dal dato grezzo
+            return context.raw ? context.raw.logoObj : 'circle';
+          }
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#111',
+            titleFont: { size: 14, family: 'Helvetica' },
+            bodyFont: { size: 13 },
+            callbacks: {
+              label: function(context) {
+                const p = context.raw;
+                return `${p.playerName} (${p.fantaTeam}) - Gol: ${p.y} | xG: ${p.x}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Expected goals (xG)', font: { weight: 'bold' } },
+            grid: { color: '#eaeaea' }
+          },
+          y: {
+            title: { display: true, text: 'Gol reali', font: { weight: 'bold' } },
+            grid: { color: '#eaeaea' },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // --- SECONDO GRAFICO: Somma Gol vs Somma xG per FantaSquadra ---
+    
+    // 1. Raggruppamento dei dati
+    const teamAggregates = {};
+    activePlayers.forEach(p => {
+      const team = p.fantaSquadra;
+      if (!teamAggregates[team]) {
+        teamAggregates[team] = { goals: 0, xG: 0 };
+      }
+      teamAggregates[team].goals += p.stats.goals;
+      teamAggregates[team].xG += p.stats.xG;
+    });
+
+    // 2. Estrazione in array per Chart.js
+    const teamLabels = Object.keys(teamAggregates);
+    const teamGoalsData = teamLabels.map(t => teamAggregates[t].goals);
+    const teamXGData = teamLabels.map(t => Number(teamAggregates[t].xG.toFixed(2))); // Arrotonda xG a 2 decimali
+
+    // 3. Creazione del grafico a barre
+    const ctx2 = document.getElementById('teamGoalsChart');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: teamLabels,
+        datasets: [
+          {
+            label: 'Somma Gol Reali',
+            data: teamGoalsData,
+            backgroundColor: '#22c55e', // Verde per i gol reali
+          },
+          {
+            label: 'Somma Expected Goals (xG)',
+            data: teamXGData,
+            backgroundColor: '#111', // Nero/Grigio scuro per gli xG
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            backgroundColor: '#111',
+            titleFont: { size: 14, family: 'Helvetica' },
+            bodyFont: { size: 13 }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Quantità (Gol)' }
+          }
+        }
+      }
+    });
+    });
+</script>
+
+<style>
+  .data-room-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  
+  .data-header {
+    text-align: center;
+    border-bottom: 3px solid #111;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .main-title {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0 0 10px 0;
+  }
+  
+  .subtitle {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: #c0392b;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .chart-description {
+    background-color: #f9f9f9;
+    border-left: 4px solid #c0392b;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    font-family: 'Georgia', serif;
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  .chart-wrapper {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    height: 500px; /* Altezza fissa necessaria per Chart.js */
+    width: 100%;
+  }
+
+/* ========================================= */
+  /* STILI VERDETTO OVER/UNDER                 */
+  /* ========================================= */
+  .performance-verdict {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  
+  .verdict-card {
+    flex: 1;
+    padding: 25px 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  
+  .verdict-card.over { background-color: #f0fdf4; border: 1px solid #bbf7d0; border-top: 5px solid #22c55e; }
+  .verdict-card.under { background-color: #fef2f2; border: 1px solid #fecaca; border-top: 5px solid #ef4444; }
+  
+  .verdict-card h4 {
+    margin: 0 0 20px 0;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+  
+  .verdict-card.over h4 { color: #166534; }
+  .verdict-card.under h4 { color: #991b1b; }
+  
+  .team-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .verdict-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid #ccc;
+  }
+  
+  .team-name {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #111;
+  }
+  
+  .diff-value {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 0 0 5px 0;
+  }
+  
+  .verdict-card.over .diff-value { color: #22c55e; }
+  .verdict-card.under .diff-value { color: #ef4444; }
+  
+  .diff-details {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .chart-wrapper { height: 400px; padding: 10px; }
+    .main-title { font-size: 1.8rem; }
+    .subtitle { font-size: 1rem; }
+    .performance-verdict { flex-direction: column; }
+    .team-name { font-size: 1.3rem; }
+    .diff-value { font-size: 2rem; }
+  }
+</style>

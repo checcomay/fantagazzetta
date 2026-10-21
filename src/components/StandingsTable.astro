@@ -1,0 +1,85 @@
+---
+import standings from '../data/standings.json';
+
+// Parametro per decidere se mostrare le colonne extra (nella pagina Classifica) o no (nella Home)
+const { isExtended = false } = Astro.props;
+
+// Calcolo FM e individuazione Top/Flop
+const classificaConFM = standings.map(team => {
+  const fantaMedia = team.PuntiTotali / team.NumGiornate;
+  return {
+    ...team,
+    fantaMedia: Number(fantaMedia.toFixed(2)) // Arrotonda a 2 decimali
+  };
+});
+
+// Trova la fanta media più alta e più bassa per colorarle
+const fantaMedie = classificaConFM.map(t => t.fantaMedia);
+const maxFM = Math.max(...fantaMedie);
+const minFM = Math.min(...fantaMedie);
+---
+
+<table class="standings-table">
+  <thead>
+    <tr>
+      <th>Pos</th>
+      <th class="team-col">Squadra</th>
+      {isExtended && <th title="Giornate Giocate">G</th>}
+      <th title="Punti Classifica">Pt</th>
+      <th title="Vittorie, Pareggi, Sconfitte">V-P-S</th>
+      <th title="Gol Fatti / Subiti">GF:GS</th>
+      <th title="Fanta Punti Totali">Pt. TOT</th>
+      <th title="Fanta Media">FM media</th> 
+    </tr>
+  </thead>
+  <tbody>
+    {classificaConFM.map((team) => (
+      <tr>
+        <td class="pos">{team.Posizione}</td>
+        <td class="team-col">
+          <div class="team-name-cell">
+            <img src={`/logos/${team.Squadra}.png`} alt={team.Squadra} class="team-logo" onerror="this.style.display='none'" />
+            <strong>{team.Squadra}</strong>
+          </div>
+        </td>
+        {isExtended && <td style="text-align: center;">{team.NumGiornate}</td>}
+        <td class="points"><strong>{team.PuntiClassifica}</strong></td>
+        <td class="stats">{team.Vittorie}-{team.Pareggi}-{team.Sconfitte}</td>
+        <td class="stats">{team.GolFatti}:{team.GolSubiti}</td>
+        <td class="stats" style="font-weight: bold; color: #333;">{team.PuntiTotali}</td>
+        
+        <!-- Colora in verde il max, in rosso il min -->
+        <td class={`fanta-media 
+          ${team.fantaMedia === maxFM ? 'fm-max' : ''} 
+          ${team.fantaMedia === minFM ? 'fm-min' : ''}
+        `}>
+          {team.fantaMedia}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<style>
+  .standings-table { width: 100%; border-collapse: collapse; font-family: 'Helvetica', 'Arial', sans-serif; font-size: 0.95rem; }
+  .standings-table th, .standings-table td { padding: 10px 8px; text-align: center; border-bottom: 1px solid #ddd; }
+  .standings-table th { background-color: #111; color: #fff; font-size: 0.85rem; text-transform: uppercase; }
+  .standings-table th.team-col, .standings-table td.team-col { text-align: left; }
+  .team-name-cell { display: flex; align-items: center; gap: 10px; }
+  .team-logo { width: 25px; height: 25px; object-fit: contain; border-radius: 50%; background-color: #fff; border: 1px solid #ccc; }
+  .pos { font-weight: bold; color: #555; }
+  .points { font-size: 1.1rem; color: #c0392b; }
+  .stats { color: #555; font-size: 0.85rem; }
+  .fanta-media { font-weight: bold; }
+  
+  /* Colori Fanta Media */
+  .fm-max { color: #22c55e; } 
+  .fm-min { color: #ef4444; } 
+
+  @media (max-width: 768px) {
+    .standings-table { font-size: 0.75rem; }
+    .standings-table th, .standings-table td { padding: 8px 6px; white-space: nowrap; }
+    .team-logo { width: 18px; height: 18px; }
+    .standings-table th.team-col, .standings-table td.team-col { min-width: 120px; }
+  }
+</style>

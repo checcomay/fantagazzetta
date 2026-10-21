@@ -7,7 +7,7 @@ const { pageTitle } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle} - La penna del Martedì</title>
     <style is:global>
-      /* ASSICURA CHE IL FOOTER RESTI IN FONDO SE LA PAGINA È CORTA */
+      /* assicura che il footer resti in fondo se la pagina è corta */
       html, body {
         height: 100%;
       }
@@ -73,7 +73,35 @@ const { pageTitle } = Astro.props;
         padding-top: 30px;
       }
 
-      /* NUOVO STILE FOOTER NERO */
+      /* MENU DI NAVIGAZIONE SUPERIORE */
+      .top-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center; /* centra verticalmente */
+        gap: 30px;
+        padding: 12px 20px;
+        background-color: #111;
+        border-bottom: 3px solid #c0392b;
+        margin-bottom: 20px;
+      }
+      .top-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+        font-size: 0.85rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px; 
+      }
+      .top-nav a:hover {
+        color: #c0392b;
+      }
+
+      /* FOOTER NERO INFERIORE */
       .site-footer {
         background-color: #111;
         color: #fff;
@@ -120,7 +148,7 @@ const { pageTitle } = Astro.props;
         padding-top: 15px;
       }
 
-      /* Adattamento dell'intestazione per dispositivi mobili */
+      /* Adattamento per dispositivi mobili */
       @media (max-width: 768px) {
         .site-header h1 {
           font-size: 2.6rem; /* Riduce il titolo gigante */
@@ -132,6 +160,13 @@ const { pageTitle } = Astro.props;
         .container {
           padding: 15px 20px; /* Riduce un po' i bordi bianchi laterali per recuperare spazio */
         }
+        .top-nav { 
+          gap: 15px; 
+          flex-wrap: wrap; 
+          text-align: center; 
+        }
+        .top-nav a { 
+          font-size: 0.75rem; 
       }
     </style>
   </head>
@@ -139,6 +174,13 @@ const { pageTitle } = Astro.props;
   <body>
     <div class="container">
       <header class="site-header">
+        <nav class="top-nav">
+          <a href="/">🏠 Home</a>
+          <a href="/classification">🏆 Classifica</a>
+          <a href="/dataroom">📊 Data Room</a>
+          <a href="https://fantaculo.it/analisi/FANTAMACRI%2026-27/Campionato%25202026%252F27/384061" target="_blank" rel="noopener noreferrer">🔮 Fantaculo</a>
+        </nav>
+
         <a href="/">
           <h1>La penna del Martedì</h1>
         </a>
@@ -163,6 +205,11 @@ const { pageTitle } = Astro.props;
               Alimentari Pronto Spesa
             </a>
           </p>
+          <p>
+            <a href="https://it.wikipedia.org/wiki/Caccuri" target="_blank" rel="noopener noreferrer">
+              Visita il meraviglioso borgo di Caccuri!
+            </a>
+          </p>
           <p>Contatti: prof. Macrì</p>
         </div>
         <div class="footer-copyright">
@@ -172,3 +219,4 @@ const { pageTitle } = Astro.props;
     </footer>
   </body>
 </html>
+

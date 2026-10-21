@@ -23,9 +23,9 @@ const { Content } = await render(entry);
 
   <div class="article-header">
     <span class="matchday-tag">{entry.data.matchday}</span>
-    <!-- Titolo ingrandito -->
+    <!-- Titolo -->
     <h2 class="main-title">{entry.data.title}</h2>
-    <!-- Sottotitolo ingrandito -->
+    <!-- Sottotitolo -->
     <h3 class="main-subtitle">{entry.data.subtitle}</h3>
     
     <div class="meta-data">
@@ -37,45 +37,47 @@ const { Content } = await render(entry);
     <Content />
   </div>
 
-  <!-- I VOTI DELLA REDAZIONE -->
-  <div class="match-ratings-container">
-    <h3 class="ratings-title">I voti della redazione</h3>
-    
-    <div class="ratings-grid">
-      <!-- SEZIONE MIGLIORE IN CAMPO -->
-      {entry.data.bestPlayer && (
-        <div class="rating-card top-player">
-          <span class="emoji-icon">🏅</span>
-          <div class="rating-details">
-            <span class="rating-label">Migliore in campo</span>
-            <strong class="player-name">{entry.data.bestPlayer}</strong>
+    <!-- I VOTI DELLA REDAZIONE -->
+  {(entry.data.bestPlayer || entry.data.worstPlayer || entry.data.bestGoal) && (
+    <div class="match-ratings-container">
+      <h3 class="ratings-title">I voti della redazione</h3>
+      
+      <div class="ratings-grid">
+        <!-- SEZIONE MIGLIORE IN CAMPO -->
+        {entry.data.bestPlayer && (
+          <div class="rating-card top-player">
+            <span class="emoji-icon">🏅</span>
+            <div class="rating-details">
+              <span class="rating-label">Migliore in campo</span>
+              <strong class="player-name">{entry.data.bestPlayer}</strong>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <!-- SEZIONE PEGGIORE IN CAMPO -->
-      {entry.data.worstPlayer && (
-        <div class="rating-card worst-player">
-          <span class="emoji-icon">💩</span>
+        <!-- SEZIONE PEGGIORE IN CAMPO -->
+        {entry.data.worstPlayer && (
+          <div class="rating-card worst-player">
+            <span class="emoji-icon">💩</span>
+            <div class="rating-details">
+              <span class="rating-label">Peggiore in campo</span>
+              <strong class="player-name">{entry.data.worstPlayer}</strong>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- SEZIONE GOL DELLA GIORNATA -->
+      {entry.data.bestGoal && (
+        <div class="rating-card best-goal">
+          <span class="emoji-icon">⚽</span>
           <div class="rating-details">
-            <span class="rating-label">Peggiore in campo</span>
-            <strong class="player-name">{entry.data.worstPlayer}</strong>
+            <span class="rating-label">Gol della giornata</span>
+            <strong class="player-name">{entry.data.bestGoal}</strong>
           </div>
         </div>
       )}
     </div>
-
-    <!-- SEZIONE GOL DELLA GIORNATA -->
-    {entry.data.bestGoal && (
-      <div class="rating-card best-goal">
-        <span class="emoji-icon">⚽</span>
-        <div class="rating-details">
-          <span class="rating-label">Gol della giornata</span>
-          <strong class="player-name">{entry.data.bestGoal}</strong>
-        </div>
-      </div>
-    )}
-  </div>
+  )}
 
   <!-- BOX AUTORE (in fondo) -->
   {entry.data.author && entry.data.author.trim() !== "" && (
@@ -93,7 +95,7 @@ const { Content } = await render(entry);
 </BaseLayout>
 
 <style is:global>
-  /* Pulsante Torna alla Home */
+  /* Pulsante "Torna alla Home" */
   .back-nav {
     margin-bottom: 25px;
   }
@@ -175,10 +177,10 @@ const { Content } = await render(entry);
     display: block;            /* Manda il testo a capo sotto l'immagine */
     text-align: center;        /* Centra il testo */
     font-size: 0.95rem;        /* Lo rende un po' più piccolo del testo normale */
-    color: #666;               /* Colore grigio scuro, stile giornale */
+    color: #666;             /* Colore grigio scuro, stile giornale */
     margin-top: -20px;         /* Avvicina la scritta all'immagine riducendo lo spazio */
     margin-bottom: 30px;       /* Dà respiro prima del paragrafo successivo */
-    font-style: italic;
+    font-style: italic;        /* Font corsivo */
   }
 
   /* STILI PER I SOTTOTITOLI NEL TESTO (## e ### nel Markdown) */
@@ -253,6 +255,8 @@ const { Content } = await render(entry);
     padding: 20px;
     border-radius: 8px;
     border-left: 6px solid;
+    box-sizing: border-box; 
+    width: 100%;
   }
 
   .top-player {
@@ -271,7 +275,6 @@ const { Content } = await render(entry);
     border-left-color: #eab308; /* Giallo scuro / Oro */
     margin: 0 auto; /* Lo centra se ha una larghezza massima */
     max-width: 450px; /* Gli impedisce di allargarsi troppo */
-    justify-content: center; /* Centra anche il contenuto interno */
   }
 
   .emoji-icon {
@@ -308,6 +311,7 @@ const { Content } = await render(entry);
     background-color: #f0f2f5; 
     border-radius: 12px;
     padding: 20px 25px;
+    margin-top: 40px;
     margin-bottom: 30px;
   }
   
@@ -370,6 +374,12 @@ const { Content } = await render(entry);
       margin-bottom: 20px; 
     }
 
+    .main-title {
+      font-size: 2.2rem;
+    }
+    .main-subtitle {
+      font-size: 1.2rem;
+    }
     .article-content h2 {
       font-size: 1.4rem;
     }
@@ -380,18 +390,9 @@ const { Content } = await render(entry);
     .ratings-grid {
       flex-direction: column;
     }
-    .main-title {
-      font-size: 2.2rem;
-    }
-    .main-subtitle {
-      font-size: 1.2rem;
-    }
-
-    .ratings-grid {
-      flex-direction: column;
-    }
     .best-goal {
       max-width: 100%;
+      margin: 0;
     }
   }
 </style>
