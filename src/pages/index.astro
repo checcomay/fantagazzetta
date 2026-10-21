@@ -225,8 +225,20 @@ try {
         // A parità di gol e assist, ordina per performance (+/-)
         return isDesc ? perfB - perfA : perfA - perfB;
       }
+
+      // 3. Ordinamento per "assists"
+      if (currentSort === 'assists') {
+        // Se gli assists sono diversi, ordina normalmente per assists
+        if (a.stats.assists !== b.stats.assists) 
+          return isDesc ? b.stats.assists - a.stats.assists : a.stats.assists - b.stats.assists;
+        // A parità di assists, ordina per gol
+        if (a.stats.goals !== b.stats.goals) 
+          return isDesc ? b.stats.goals - a.stats.goals : a.stats.goals - b.stats.goals;
+        // A parità di gol e assist, ordina per performance (+/-)
+        return isDesc ? perfB - perfA : perfA - perfB;
+      }
       
-      // 3. Ordinamento standard per tutte le altre colonne
+      // 4. Ordinamento standard per tutte le altre colonne
       let valA = a.stats[currentSort] !== undefined ? a.stats[currentSort] : a[currentSort];
       let valB = b.stats[currentSort] !== undefined ? b.stats[currentSort] : b[currentSort];
       

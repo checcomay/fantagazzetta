@@ -1,7 +1,7 @@
 ---
 title: "Il Joga Benito vola. Crollo Caccurese e sorpresa Sacara Team"
 subtitle: "Il Joga Benito vola a punteggio pieno trascinato dalla prodezza di Orsolini. Cade invece la Caccurese dopo un ottimo inzio di fantacampionato."
-author: "Gianpiero Macrì"
+author: "Giampiero Macrì"
 matchday: "4ª Giornata"
 publishDate: 2026-10-13
 bestPlayer: "Nikola Krstovic"

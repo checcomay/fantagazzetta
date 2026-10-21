@@ -1,7 +1,7 @@
 ---
 title: "Uragano Joga, 6-1 da record! Tettenham, scatto da vice-regina"
 subtitle: "Set tennistico alla Cacurrese e record infranto. L'AC Picchia abdica sotto i colpi di Raimondo, mentre la cura Mandorino rilancia il Sacara col minimo sforzo. Real Pisellini a picco."
-author: "Gianpiero Macrì"
+author: "Giampiero Macrì"
 matchday: "5ª Giornata"
 publishDate: 2026-10-20
 bestPlayer: "Raimondo, Varela, Simeone"
