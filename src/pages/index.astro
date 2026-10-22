@@ -74,7 +74,20 @@ try {
     <!-- SEZIONE DESTRA / INFERIORE: LA CLASSIFICA -->
     <aside class="sidebar-section">
       
-      <StandingsTable />
+      <!-- WIDGET: CLASSIFICA -->
+      <div class="standings-widget">
+        <h3 class="widget-title">
+          <a href="/classification" style="color: inherit; text-decoration: none;">
+            Classifica
+          </a>
+        </h3>
+        
+        <StandingsTable />
+        
+        <div class="standings-meta">
+          Dati aggiornati al: {lastModifiedDate}
+        </div>
+      </div>
 
       <!-- NUOVO WIDGET: TOP 10 GIOCATORI -->
       <div class="standings-widget" style="margin-top: 30px;">

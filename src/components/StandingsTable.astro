@@ -9,7 +9,7 @@ const classificaConFM = standings.map(team => {
   const fantaMedia = team.PuntiTotali / team.NumGiornate;
   return {
     ...team,
-    fantaMedia: Number(fantaMedia.toFixed(2)) // Arrotonda a 2 decimali
+    fantaMedia: Number(fantaMedia.toFixed(2)) // arrotonda a 2 decimali
   };
 });
 

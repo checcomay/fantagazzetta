@@ -1,0 +1,4271 @@
+{
+  "total_rounds": 36,
+  "rounds": [
+    {
+      "round": 1,
+      "serie_a_round": 3,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "Joga Benito",
+          "score": "1-2",
+          "home_points": 67.5,
+          "away_points": 74,
+          "played": true
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Ac Picchia",
+          "score": "2-3",
+          "home_points": 76.5,
+          "away_points": 81.5,
+          "played": true
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "AS CaccuRese",
+          "score": "1-3",
+          "home_points": 70,
+          "away_points": 78.5,
+          "played": true
+        },
+        {
+          "home": "sup",
+          "away": "TETTENHAM",
+          "score": "2-2",
+          "home_points": 77,
+          "away_points": 74,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "serie_a_round": 4,
+      "matches": [
+        {
+          "home": "Joga Benito",
+          "away": "sup",
+          "score": "4-0",
+          "home_points": 88.5,
+          "away_points": 63,
+          "played": true
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "SACARA TEAM",
+          "score": "4-0",
+          "home_points": 84,
+          "away_points": 64.5,
+          "played": true
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Real Pisellini Cf",
+          "score": "2-1",
+          "home_points": 72.5,
+          "away_points": 70.5,
+          "played": true
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Fc Tattulu",
+          "score": "1-1",
+          "home_points": 68.5,
+          "away_points": 69,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "serie_a_round": 5,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "TETTENHAM",
+          "score": "2-2",
+          "home_points": 74.5,
+          "away_points": 75.5,
+          "played": true
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "Joga Benito",
+          "score": "1-3",
+          "home_points": 70.5,
+          "away_points": 83,
+          "played": true
+        },
+        {
+          "home": "sup",
+          "away": "Fc Tattulu",
+          "score": "1-2",
+          "home_points": 69.5,
+          "away_points": 74.5,
+          "played": true
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Ac Picchia",
+          "score": "1-0",
+          "home_points": 67.5,
+          "away_points": 53,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "serie_a_round": 6,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "SACARA TEAM",
+          "score": "1-3",
+          "home_points": 71,
+          "away_points": 80.5,
+          "played": true
+        },
+        {
+          "home": "Joga Benito",
+          "away": "Real Pisellini Cf",
+          "score": "2-0",
+          "home_points": 76,
+          "away_points": 64.5,
+          "played": true
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "AS CaccuRese",
+          "score": "2-1",
+          "home_points": 73,
+          "away_points": 67,
+          "played": true
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "sup",
+          "score": "3-0",
+          "home_points": 79,
+          "away_points": 64,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "serie_a_round": 7,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Fc Tattulu",
+          "score": "0-2",
+          "home_points": 63.5,
+          "away_points": 73,
+          "played": true
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "sup",
+          "score": "1-0",
+          "home_points": 68.5,
+          "away_points": 65,
+          "played": true
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Ac Picchia",
+          "score": "3-0",
+          "home_points": 80.5,
+          "away_points": 58.5,
+          "played": true
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Joga Benito",
+          "score": "1-6",
+          "home_points": 68,
+          "away_points": 100.5,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "serie_a_round": 8,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "serie_a_round": 9,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "serie_a_round": 10,
+      "matches": [
+        {
+          "home": "Joga Benito",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 9,
+      "serie_a_round": 11,
+      "matches": [
+        {
+          "home": "sup",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Fc Tattulu",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 10,
+      "serie_a_round": 12,
+      "matches": [
+        {
+          "home": "TETTENHAM",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Fc Tattulu",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 11,
+      "serie_a_round": 13,
+      "matches": [
+        {
+          "home": "SACARA TEAM",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 12,
+      "serie_a_round": 14,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 13,
+      "serie_a_round": 15,
+      "matches": [
+        {
+          "home": "AS CaccuRese",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 14,
+      "serie_a_round": 16,
+      "matches": [
+        {
+          "home": "SACARA TEAM",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Fc Tattulu",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 15,
+      "serie_a_round": 17,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 16,
+      "serie_a_round": 18,
+      "matches": [
+        {
+          "home": "Joga Benito",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 17,
+      "serie_a_round": 19,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 18,
+      "serie_a_round": 20,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 19,
+      "serie_a_round": 21,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 20,
+      "serie_a_round": 22,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 21,
+      "serie_a_round": 23,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 22,
+      "serie_a_round": 24,
+      "matches": [
+        {
+          "home": "Joga Benito",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 23,
+      "serie_a_round": 25,
+      "matches": [
+        {
+          "home": "sup",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Fc Tattulu",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 24,
+      "serie_a_round": 26,
+      "matches": [
+        {
+          "home": "TETTENHAM",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Fc Tattulu",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 25,
+      "serie_a_round": 27,
+      "matches": [
+        {
+          "home": "SACARA TEAM",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 26,
+      "serie_a_round": 28,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 27,
+      "serie_a_round": 29,
+      "matches": [
+        {
+          "home": "AS CaccuRese",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 28,
+      "serie_a_round": 30,
+      "matches": [
+        {
+          "home": "SACARA TEAM",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Fc Tattulu",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 29,
+      "serie_a_round": 31,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 30,
+      "serie_a_round": 32,
+      "matches": [
+        {
+          "home": "Joga Benito",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 31,
+      "serie_a_round": 33,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 32,
+      "serie_a_round": 34,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 33,
+      "serie_a_round": 35,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 34,
+      "serie_a_round": 36,
+      "matches": [
+        {
+          "home": "Fc Tattulu",
+          "away": "AS CaccuRese",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Joga Benito",
+          "away": "TETTENHAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "SACARA TEAM",
+          "away": "Ac Picchia",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "sup",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 35,
+      "serie_a_round": 37,
+      "matches": [
+        {
+          "home": "Real Pisellini Cf",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Joga Benito",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    },
+    {
+      "round": 36,
+      "serie_a_round": 38,
+      "matches": [
+        {
+          "home": "Joga Benito",
+          "away": "Fc Tattulu",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "Ac Picchia",
+          "away": "Real Pisellini Cf",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "AS CaccuRese",
+          "away": "SACARA TEAM",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        },
+        {
+          "home": "TETTENHAM",
+          "away": "sup",
+          "score": "-",
+          "home_points": 0,
+          "away_points": 0,
+          "played": false
+        }
+      ]
+    }
+  ],
+  "teams": {
+    "Fc Tattulu": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "1-2",
+        "team_points": 67.5,
+        "opponent_points": 74,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "1-1",
+        "team_points": 69,
+        "opponent_points": 68.5,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "1-2",
+        "team_points": 74.5,
+        "opponent_points": 69.5,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "1-3",
+        "team_points": 71,
+        "opponent_points": 80.5,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "0-2",
+        "team_points": 73,
+        "opponent_points": 63.5,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ],
+    "Joga Benito": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "1-2",
+        "team_points": 74,
+        "opponent_points": 67.5,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "4-0",
+        "team_points": 88.5,
+        "opponent_points": 63,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "1-3",
+        "team_points": 83,
+        "opponent_points": 70.5,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "2-0",
+        "team_points": 76,
+        "opponent_points": 64.5,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "1-6",
+        "team_points": 100.5,
+        "opponent_points": 68,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ],
+    "Real Pisellini Cf": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "2-3",
+        "team_points": 76.5,
+        "opponent_points": 81.5,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "2-1",
+        "team_points": 70.5,
+        "opponent_points": 72.5,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "2-2",
+        "team_points": 74.5,
+        "opponent_points": 75.5,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "2-0",
+        "team_points": 64.5,
+        "opponent_points": 76,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "0-2",
+        "team_points": 63.5,
+        "opponent_points": 73,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ],
+    "Ac Picchia": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "2-3",
+        "team_points": 81.5,
+        "opponent_points": 76.5,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "1-1",
+        "team_points": 68.5,
+        "opponent_points": 69,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "1-0",
+        "team_points": 53,
+        "opponent_points": 67.5,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "3-0",
+        "team_points": 79,
+        "opponent_points": 64,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "3-0",
+        "team_points": 58.5,
+        "opponent_points": 80.5,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ],
+    "SACARA TEAM": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "1-3",
+        "team_points": 70,
+        "opponent_points": 78.5,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "4-0",
+        "team_points": 64.5,
+        "opponent_points": 84,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "1-3",
+        "team_points": 70.5,
+        "opponent_points": 83,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "1-3",
+        "team_points": 80.5,
+        "opponent_points": 71,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "1-0",
+        "team_points": 68.5,
+        "opponent_points": 65,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ],
+    "AS CaccuRese": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "1-3",
+        "team_points": 78.5,
+        "opponent_points": 70,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "2-1",
+        "team_points": 72.5,
+        "opponent_points": 70.5,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "1-0",
+        "team_points": 67.5,
+        "opponent_points": 53,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "2-1",
+        "team_points": 67,
+        "opponent_points": 73,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "1-6",
+        "team_points": 68,
+        "opponent_points": 100.5,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ],
+    "sup": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "2-2",
+        "team_points": 77,
+        "opponent_points": 74,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "4-0",
+        "team_points": 63,
+        "opponent_points": 88.5,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "1-2",
+        "team_points": 69.5,
+        "opponent_points": 74.5,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "3-0",
+        "team_points": 64,
+        "opponent_points": 79,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "1-0",
+        "team_points": 65,
+        "opponent_points": 68.5,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": true,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": false,
+        "opponent": "TETTENHAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ],
+    "TETTENHAM": [
+      {
+        "round": 1,
+        "serie_a_round": 3,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "2-2",
+        "team_points": 74,
+        "opponent_points": 77,
+        "played": true
+      },
+      {
+        "round": 2,
+        "serie_a_round": 4,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "4-0",
+        "team_points": 84,
+        "opponent_points": 64.5,
+        "played": true
+      },
+      {
+        "round": 3,
+        "serie_a_round": 5,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "2-2",
+        "team_points": 75.5,
+        "opponent_points": 74.5,
+        "played": true
+      },
+      {
+        "round": 4,
+        "serie_a_round": 6,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "2-1",
+        "team_points": 73,
+        "opponent_points": 67,
+        "played": true
+      },
+      {
+        "round": 5,
+        "serie_a_round": 7,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "3-0",
+        "team_points": 80.5,
+        "opponent_points": 58.5,
+        "played": true
+      },
+      {
+        "round": 6,
+        "serie_a_round": 8,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 7,
+        "serie_a_round": 9,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 8,
+        "serie_a_round": 10,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 9,
+        "serie_a_round": 11,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 10,
+        "serie_a_round": 12,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 11,
+        "serie_a_round": 13,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 12,
+        "serie_a_round": 14,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 13,
+        "serie_a_round": 15,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 14,
+        "serie_a_round": 16,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 15,
+        "serie_a_round": 17,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 16,
+        "serie_a_round": 18,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 17,
+        "serie_a_round": 19,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 18,
+        "serie_a_round": 20,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 19,
+        "serie_a_round": 21,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 20,
+        "serie_a_round": 22,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 21,
+        "serie_a_round": 23,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 22,
+        "serie_a_round": 24,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 23,
+        "serie_a_round": 25,
+        "is_home": false,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 24,
+        "serie_a_round": 26,
+        "is_home": true,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 25,
+        "serie_a_round": 27,
+        "is_home": false,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 26,
+        "serie_a_round": 28,
+        "is_home": false,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 27,
+        "serie_a_round": 29,
+        "is_home": true,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 28,
+        "serie_a_round": 30,
+        "is_home": false,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 29,
+        "serie_a_round": 31,
+        "is_home": false,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 30,
+        "serie_a_round": 32,
+        "is_home": true,
+        "opponent": "SACARA TEAM",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 31,
+        "serie_a_round": 33,
+        "is_home": false,
+        "opponent": "Real Pisellini Cf",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 32,
+        "serie_a_round": 34,
+        "is_home": true,
+        "opponent": "AS CaccuRese",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 33,
+        "serie_a_round": 35,
+        "is_home": true,
+        "opponent": "Ac Picchia",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 34,
+        "serie_a_round": 36,
+        "is_home": false,
+        "opponent": "Joga Benito",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 35,
+        "serie_a_round": 37,
+        "is_home": true,
+        "opponent": "Fc Tattulu",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      },
+      {
+        "round": 36,
+        "serie_a_round": 38,
+        "is_home": true,
+        "opponent": "sup",
+        "score": "-",
+        "team_points": 0,
+        "opponent_points": 0,
+        "played": false
+      }
+    ]
+  }
+}

@@ -40,62 +40,91 @@ for (const team of xFMsData) {
   teamXfmMap.set(team.fantasy_team.toLowerCase().trim(), team);
 }
 
-// 3. MODELLO MONTE CARLO (5.000 SIMULAZIONI SUI SINGOLI GIOCATORI DEL TOP 11)
-function simulateTeamGoalsDistribution(teamData, iterations = 5000) {
+// 3. SELEZIONE TITOLARI 4-3-3 E CALCOLO MEDIA + BONUS DIFESA (+1.5)
+const DEFENSE_BONUS = 1.5;
+
+function getBest433Lineup(roster = []) {
+  const pick = (role, count) =>
+    roster
+      .filter((p) => (p.role || '').toUpperCase() === role)
+      .sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating)
+      .slice(0, count);
+
+  return [
+    ...pick('P', 1),
+    ...pick('D', 4),
+    ...pick('C', 3),
+    ...pick('A', 3)
+  ];
+}
+
+function getTeam433ProjectedScore(teamData) {
+  if (!teamData || !teamData.roster) return 68.5;
+  const lineup = getBest433Lineup(teamData.roster);
+  const sum = lineup.reduce((acc, p) => acc + p.expected_fantasy_rating, 0);
+  return sum + DEFENSE_BONUS;
+}
+
+// 4. SIMULAZIONE MONTE CARLO (10.000 ITERAZIONI SU MODULO 4-3-3 + 1.5 BONUS DIFESA)
+function simulateTeamGoalsDistribution(teamData, iterations = 10000) {
   const maxGoals = 6;
   const goalCounts = new Array(maxGoals + 1).fill(0);
-  const top11 = (teamData?.roster || []).slice(0, 11);
-
-  // Fallback se la rosa non è completa: usa distribuzione realistica (std = 8.5)
-  const fallbackMean = teamData ? teamData.projected_top11_score : 70.0;
+  const lineup433 = getBest433Lineup(teamData?.roster || []);
+  const fallbackMean = getTeam433ProjectedScore(teamData);
 
   for (let i = 0; i < iterations; i++) {
-    let totalScore = 0;
+    let totalScore = DEFENSE_BONUS; // Parte già con +1.5 di Bonus Difesa
 
-    if (top11.length === 11) {
-      for (const p of top11) {
-        // Oscillazione naturale del voto in pagella (Box-Muller std = 0.55)
+    if (lineup433.length === 11) {
+      for (const p of lineup433) {
+        // Estrazione normale standard (Box-Muller) per la variabilità del voto pagella
         const u1 = Math.random() || 1e-6;
         const u2 = Math.random();
         const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
-        let playerScore = 6.0 + z * 0.55;
 
+        // Peso titolarità / subentro
+        const startProb = (p.starter_probability ?? 80) / 100;
+        const playsWeight = startProb + 0.35 * (1 - startProb);
+
+        let playerScore = 6.0 + z * 0.55;
         const m = p.metrics || {};
+
         if ((p.role || '').toUpperCase() === 'P') {
           // Simulazione Portiere
           const pCs = (m.clean_sheet_probability ?? 25) / 100;
           if (Math.random() < pCs) {
-            playerScore += 1.0 + 0.25; // Bonus imbattibilità + spinta voto
+            playerScore += 1.0 + 0.25; // Bonus imbattibilità (+1) + lieve spinta sul voto
           } else {
-            // Estrazione gol subiti attorno al valore atteso
             const expConceded = m.expected_goals_conceded ?? 1.35;
             const goalsConceded = Math.max(1, Math.round(expConceded + z * 0.7));
-            playerScore -= goalsConceded * 1.0;
+            playerScore -= goalsConceded * 1.0 + 0.15;
           }
         } else {
-          // Simulazione giocatore di movimento (eventi discreti reali)
+          // Simulazione Giocatori di Movimento (4 D, 3 C, 3 A)
           const pGol = (m.goal_probability ?? 5) / 100;
           const pBrace = (m.brace_probability ?? 1) / 100;
           const pAss = (m.assist_probability ?? 6) / 100;
           const pYel = (m.yellow_card_probability ?? 15) / 100;
           const pRed = (m.red_card_probability ?? 1) / 100;
+          const pOwn = (m.own_goal_probability ?? 1) / 100;
 
           const rollGol = Math.random();
           if (rollGol < pBrace) {
-            playerScore += 6.0 + 0.7; // doppietta (+6 + voto alto)
+            playerScore += 6.0 + 0.7; // Doppietta (+6 + voto alto)
           } else if (rollGol < pGol) {
-            playerScore += 3.0 + 0.35; // gol singolo (+3 + voto)
+            playerScore += 3.0 + 0.35; // Gol singolo (+3 + voto)
           }
 
           if (Math.random() < pAss) playerScore += 1.0 + 0.2;
           if (Math.random() < pRed) playerScore -= 1.0 + 0.5;
-          else if (Math.random() < pYel) playerScore -= 0.5 + 0.2;
+          else if (Math.random() < pYel) playerScore -= 0.5 + 0.25;
+          if (Math.random() < pOwn) playerScore -= 2.0 + 0.4;
         }
 
-        totalScore += playerScore;
+        totalScore += playerScore * playsWeight;
       }
     } else {
-      // Fallback con deviazione standard reale di lega (8.5 pt)
+      // Fallback calibrato sulla deviazione standard storica della lega (8.5 pt)
       const u1 = Math.random() || 1e-6;
       const u2 = Math.random();
       const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
@@ -113,33 +142,7 @@ function simulateTeamGoalsDistribution(teamData, iterations = 5000) {
   return goalCounts.map((count) => count / iterations);
 }
 
-function normalCDF(x, mean, std) {
-  return 0.5 * (1 + erf((x - mean) / (std * Math.sqrt(2))));
-}
-
-/**
- * Calcola la distribuzione di probabilità dei gol (0, 1, 2, 3, 4, 5, 6)
- * Fasce: <66 = 0 gol | 66-71.99 = 1 gol | 72-77.99 = 2 gol | 78-83.99 = 3 gol...
- */
-function getGoalsDistribution(meanScore, std = 3.0) {
-  const thresholds = [66, 72, 78, 84, 90, 96];
-  const probs = [];
-
-  // 0 gol (< 66)
-  probs.push(normalCDF(thresholds[0], meanScore, std));
-
-  // Da 1 a 5 gol
-  for (let i = 0; i < thresholds.length - 1; i++) {
-    const p = normalCDF(thresholds[i + 1], meanScore, std) - normalCDF(thresholds[i], meanScore, std);
-    probs.push(Math.max(0, p));
-  }
-
-  // 6+ gol (>= 96)
-  probs.push(Math.max(0, 1 - normalCDF(thresholds[thresholds.length - 1], meanScore, std)));
-  return probs;
-}
-
-// Converte probabilità (0-1) in quota stile SNAI con leggero allibramento (margine 5%)
+// Converte probabilità (0-1) in quota stile SNAI con allibramento del 5%
 function probToSnaiOdd(prob) {
   const marginedProb = Math.min(0.92, Math.max(0.03, prob * 1.05));
   return (1 / marginedProb).toFixed(2);
@@ -150,39 +153,42 @@ const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
   const homeTeamData = teamXfmMap.get(match.home.toLowerCase().trim());
   const awayTeamData = teamXfmMap.get(match.away.toLowerCase().trim());
 
-  const homeXfm = homeTeamData ? homeTeamData.projected_top11_score : 68.0;
-  const awayXfm = awayTeamData ? awayTeamData.projected_top11_score : 68.0;
+  // 1. Definisci le due variabili qui all'inizio del .map() (con la 'u' minuscola)
+  const homeLineup = getBest433Lineup(homeTeamData?.roster || []);
+  const awayLineup = getBest433Lineup(awayTeamData?.roster || []);
 
-  const homeGoalProbs = simulateTeamGoalsDistribution(homeTeamData);
-  const awayGoalProbs = simulateTeamGoalsDistribution(awayTeamData);
+  const homeXfm = getTeam433ProjectedScore(homeTeamData);
+  const awayXfm = getTeam433ProjectedScore(awayTeamData);
 
-  let p1 = 0, pX = 0, p2 = 0, pOver25 = 0, pGoal = 0;
+  const homeGoalProbs = simulateTeamGoalsDistribution(homeTeamData, 10000);
+  const awayGoalProbs = simulateTeamGoalsDistribution(awayTeamData, 10000);
 
-  for (let h = 0; h < homeGoalProbs.length; h++) {
+  let p1 = 0, pX = 0, p2 = 0, pOver15 = 0, pOver25 = 0, pGoal = 0;
+
+for (let h = 0; h < homeGoalProbs.length; h++) {
     for (let a = 0; a < awayGoalProbs.length; a++) {
       const jointProb = homeGoalProbs[h] * awayGoalProbs[a];
       if (h > a) p1 += jointProb;
       else if (h === a) pX += jointProb;
       else p2 += jointProb;
 
+      if (h + a > 1.5) pOver15 += jointProb;
       if (h + a > 2.5) pOver25 += jointProb;
       if (h > 0 && a > 0) pGoal += jointProb;
     }
   }
 
+  const pUnder15 = 1 - pOver15;
   const pUnder25 = 1 - pOver25;
   const pNoGoal = 1 - pGoal;
-
-  // Calcolo gol attesi per il risultato esatto consigliato
-  const expectedHomeGoals = Math.max(0, Math.floor((homeXfm - 60) / 6));
-  const expectedAwayGoals = Math.max(0, Math.floor((awayXfm - 60) / 6));
 
   return {
     home: match.home,
     away: match.away,
     homeXfm: homeXfm.toFixed(1),
     awayXfm: awayXfm.toFixed(1),
-    expectedScore: `${expectedHomeGoals}-${expectedAwayGoals}`,
+    homeLineup,
+    awayLineup,
     probs: {
       p1: Math.round(p1 * 100),
       pX: Math.round(pX * 100),
@@ -192,15 +198,17 @@ const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
       one: probToSnaiOdd(p1),
       draw: probToSnaiOdd(pX),
       two: probToSnaiOdd(p2),
-      over25: probToSnaiOdd(pOver25),
+      under15: probToSnaiOdd(pUnder15),
+      over15: probToSnaiOdd(pOver15),
       under25: probToSnaiOdd(pUnder25),
+      over25: probToSnaiOdd(pOver25),
       gg: probToSnaiOdd(pGoal),
       ng: probToSnaiOdd(pNoGoal)
     }
   };
 });
 
-// 4. ESTRAZIONE TOP 3 GIOCATORI PER RUOLO (A, C, D, P)
+// 5. ESTRAZIONE TOP 3 GIOCATORI PER RUOLO (A, C, D, P)
 const allPlayers = [];
 for (const team of xFMsData) {
   for (const player of team.roster || []) {
@@ -228,6 +236,42 @@ function getTeamLogo(teamName) {
   if (!teamName) return '/logos/default.png';
   return `/logos/${teamName}.png`;
 }
+
+/**
+ * Converte la probabilità (0-1) in quota applicando l'allibramento (5%),
+ * arrotonda al tick corrispondente per fascia di prezzo e omette gli zeri finali.
+ */
+function probToSnaiOdd(prob) {
+  // Allibramento al 5% con limiti di sicurezza per evitare divisioni per zero
+  const marginedProb = Math.min(0.99, Math.max(0.005, prob * 1.05));
+  const rawOdd = 1 / marginedProb;
+
+  let step;
+  if (rawOdd < 2.0) {
+    step = 0.01;
+  } else if (rawOdd < 3.0) {
+    step = 0.02;
+  } else if (rawOdd < 4.0) {
+    step = 0.05;
+  } else if (rawOdd < 6.0) {
+    step = 0.1;
+  } else if (rawOdd < 10.0) {
+    step = 0.2;
+  } else if (rawOdd < 20.0) {
+    step = 0.5;
+  } else if (rawOdd <= 50.0) {
+    step = 1;
+  } else {
+    step = 5;
+  }
+
+  // Arrotonda al multiplo di 'step' più vicino
+  const rounded = Math.round(rawOdd / step) * step;
+
+  // Number(rounded.toFixed(2)) pulisce gli errori di virgola mobile di JS (es. 2.4000000000000004)
+  // e rimuove automaticamente tutti gli zeri superflui dopo la virgola (es. 2.50 -> 2.5, 4.00 -> 4)
+  return String(Number(rounded.toFixed(2)));
+}
 ---
 
 <BaseLayout pageTitle="Pronostici e quote">
@@ -253,36 +297,47 @@ function getTeamLogo(teamName) {
       <p class="update-timestamp">Ultimo aggiornamento dati xFM: <strong>{formattedLastUpdate}</strong></p>
     </div>
 
-    <!-- SEZIONE 1: TABELLONE QUOTE STILE SNAI -->
+    <!-- SEZIONE 1: TABELLONE QUOTE STILE SNAI (MONTE CARLO) -->
     <section class="betting-section">
       <div class="section-header">
         <h3>📊 LAVAGNA QUOTE E PRONOSTICI DI LEGA</h3>
-        <span class="model-note">Modello Gaussiano (σ = 3.0 pt • Soglia Gol ogni 6 pt da 66)</span>
+        <span class="model-note">Simulazione Monte Carlo (10.000 match • Modulo 4-3-3 • Gol ogni 6 pt da 66)</span>
       </div>
 
       <div class="matches-grid">
         {matchPredictions.map((m) => (
-          <div class="match-card">
-            <div class="match-teams">
-              <div class="team-row">
-                <img src={getTeamLogo(m.home)} alt={m.home} class="team-logo-sm" onerror="this.style.display='none'" />
-                <span class="team-name">{m.home}</span>
-                <span class="team-xfm">{m.homeXfm} <small>xFM</small></span>
+          <div class="match-card-wrapper">
+            <div class="match-card">
+              <!-- 1. SQUADRE UNA ACCANTO ALL'ALTRA -->
+              <div class="match-header-versus">
+                <div class="team-side home-side">
+                  <img src={getTeamLogo(m.home)} alt={m.home} class="team-logo-md" onerror="this.style.display='none'" />
+                  <span class="team-name">{m.home}</span>
+                </div>
+                
+                <span class="vs-badge">VS</span>
+                
+                <div class="team-side away-side">
+                  <span class="team-name">{m.away}</span>
+                  <img src={getTeamLogo(m.away)} alt={m.away} class="team-logo-md" onerror="this.style.display='none'" />
+                </div>
               </div>
-              <div class="team-row">
-                <img src={getTeamLogo(m.away)} alt={m.away} class="team-logo-sm" onerror="this.style.display='none'" />
-                <span class="team-name">{m.away}</span>
-                <span class="team-xfm">{m.awayXfm} <small>xFM</small></span>
-              </div>
-              <div class="prob-bar-wrapper" title={`1: ${m.probs.p1}% | X: ${m.probs.pX}% | 2: ${m.probs.p2}%`}>
-                <div class="prob-bar p1" style={`width: ${m.probs.p1}%`}></div>
-                <div class="prob-bar pX" style={`width: ${m.probs.pX}%`}></div>
-                <div class="prob-bar p2" style={`width: ${m.probs.p2}%`}></div>
-              </div>
-            </div>
 
-            <div class="odds-board">
-              <div class="odds-group">
+              <!-- 2. BARRA A 3 COLORI CON PERCENTUALI DENTRO -->
+              <div class="prob-bar-wrapper">
+                <div class="prob-bar p1" style={`width: ${m.probs.p1}%`}>
+                  {m.probs.p1 >= 10 && <span>{m.probs.p1}%</span>}
+                </div>
+                <div class="prob-bar pX" style={`width: ${m.probs.pX}%`}>
+                  {m.probs.pX >= 10 && <span>{m.probs.pX}%</span>}
+                </div>
+                <div class="prob-bar p2" style={`width: ${m.probs.p2}%`}>
+                  {m.probs.p2 >= 10 && <span>{m.probs.p2}%</span>}
+                </div>
+              </div>
+
+              <!-- 3. PULSANTI QUOTE 1 - X - 2 -->
+              <div class="odds-row main-odds-row">
                 <div class="odd-box">
                   <span class="odd-label">1</span>
                   <span class="odd-val">{m.odds.one}</span>
@@ -297,7 +352,16 @@ function getTeamLogo(teamName) {
                 </div>
               </div>
 
-              <div class="odds-group secondary-odds">
+              <!-- 4. PULSANTI QUOTE SECONDARIE (U/O 1.5, U/O 2.5, GG/NG) -->
+              <div class="odds-row secondary-odds-row">
+                <div class="odd-box">
+                  <span class="odd-label">U 1.5</span>
+                  <span class="odd-val">{m.odds.under15}</span>
+                </div>
+                <div class="odd-box">
+                  <span class="odd-label">O 1.5</span>
+                  <span class="odd-val">{m.odds.over15}</span>
+                </div>
                 <div class="odd-box">
                   <span class="odd-label">U 2.5</span>
                   <span class="odd-val">{m.odds.under25}</span>
@@ -315,12 +379,56 @@ function getTeamLogo(teamName) {
                   <span class="odd-val">{m.odds.ng}</span>
                 </div>
               </div>
-
-              <div class="exact-score-box">
-                <span class="score-label">Proiezione</span>
-                <span class="score-value">{m.expectedScore}</span>
-              </div>
             </div>
+
+
+            <!-- TENDINA ESPANDIBILE TOP 11 (MODULO 4-3-3) -->
+            <details class="lineups-drawer">
+              <summary class="drawer-toggle">
+                <span>📋 Confronta Top 11 schierati dalla simulazione (Modulo 4-3-3)</span>
+                <span class="chevron">▼</span>
+              </summary>
+
+              <div class="lineups-comparison">
+                <!-- Colonna Squadra Casa -->
+                <div class="lineup-col">
+                  <div class="lineup-col-header">
+                    <img src={getTeamLogo(m.home)} alt={m.home} class="team-logo-xs" onerror="this.style.display='none'" />
+                    <strong>{m.home}</strong>
+                    <span class="mod-tag">+1.5 Mod. Difesa</span>
+                  </div>
+                  <ul class="lineup-list">
+                    {m.homeLineup.map((p) => (
+                      <li class="lineup-item">
+                        <span class={`role-pill role-pill-${p.role.toLowerCase()}`}>{p.role}</span>
+                        <span class="lineup-player-name">{p.name} <small>({p.real_team})</small></span>
+                        <span class="lineup-tit" title="Probabilità titolare">{p.starter_probability}%</span>
+                        <span class="lineup-xfm">{p.expected_fantasy_rating.toFixed(2)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <!-- Colonna Squadra Ospite -->
+                <div class="lineup-col">
+                  <div class="lineup-col-header">
+                    <img src={getTeamLogo(m.away)} alt={m.away} class="team-logo-xs" onerror="this.style.display='none'" />
+                    <strong>{m.away}</strong>
+                    <span class="mod-tag">+1.5 Mod. Difesa</span>
+                  </div>
+                  <ul class="lineup-list">
+                    {m.awayLineup.map((p) => (
+                      <li class="lineup-item">
+                        <span class={`role-pill role-pill-${p.role.toLowerCase()}`}>{p.role}</span>
+                        <span class="lineup-player-name">{p.name} <small>({p.real_team})</small></span>
+                        <span class="lineup-tit" title="Probabilità titolare">{p.starter_probability}%</span>
+                        <span class="lineup-xfm">{p.expected_fantasy_rating.toFixed(2)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </details>
           </div>
         ))}
       </div>
@@ -538,7 +646,6 @@ function getTeamLogo(teamName) {
     font-style: italic;
   }
 
-  /* LAVAGNA QUOTE STILE SNAI */
   .betting-section {
     margin-bottom: 45px;
   }
@@ -549,18 +656,147 @@ function getTeamLogo(teamName) {
   }
   .match-card {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 14px;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 14px 18px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-    gap: 20px;
+    padding: 18px 22px;
   }
   .match-teams {
+    width: 100%;
+  }
+  .match-header-versus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .team-side {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     flex: 1;
-    min-width: 240px;
+  }
+  .home-side {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .away-side {
+    justify-content: flex-end;
+    text-align: right;
+  }
+  .team-logo-md {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+  }
+  .team-name {
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #111;
+    text-transform: uppercase;
+  }
+  .vs-badge {
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: #888;
+    background: #f0f2f5;
+    padding: 4px 10px;
+    border-radius: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* BARRA PROBABILITÀ ALLARGATA CON PERCENTUALI DENTRO */
+  .prob-bar-wrapper {
+    display: flex;
+    height: 24px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #eee;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+  .prob-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: width 0.3s ease;
+  }
+  .prob-bar.p1 { background: #27ae60; }
+  .prob-bar.pX { background: #f39c12; color: #111; }
+  .prob-bar.p2 { background: #2980b9; }
+
+  /* RIGHE PULSANTI QUOTE */
+  .odds-row {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+  }
+  /* Riga 1X2: 3 colonne uguali */
+  .main-odds-row {
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: 4px;
+  }
+  /* Riga altre quote: 6 colonne uguali */
+  .secondary-odds-row {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .odd-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1e272e;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border-bottom: 3px solid #f39c12;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.2s ease,
+                background-color 0.2s ease;
+  }
+  .odd-box:hover {
+    transform: scale(1.07) translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+    background: #2f3640;
+    z-index: 2;
+  }
+  .secondary-odds-row .odd-box {
+    background: #f8f9fa;
+    color: #222;
+    border: 1px solid #d1d5db;
+    border-bottom: 3px solid #7f8c8d;
+  }
+  .secondary-odds-row .odd-box:hover {
+    background: #fff;
+    border-color: #f39c12;
+    border-bottom: 3px solid #f39c12;
+  }
+
+  @media (max-width: 640px) {
+    .team-name { font-size: 1rem; }
+    .secondary-odds-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .odds-board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 6px;
+    border-top: 1px dashed #eee;
+  }
+  .odds-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
   }
   .team-row {
     display: flex;
@@ -592,28 +828,10 @@ function getTeamLogo(teamName) {
     color: #666;
   }
 
-  .prob-bar-wrapper {
-    display: flex;
-    height: 6px;
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 8px;
-    background: #eee;
-  }
   .prob-bar.p1 { background: #27ae60; }
   .prob-bar.pX { background: #f1c40f; }
   .prob-bar.p2 { background: #2980b9; }
 
-  .odds-board {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .odds-group {
-    display: flex;
-    gap: 6px;
-  }
   .odd-box {
     display: flex;
     flex-direction: column;
@@ -626,8 +844,8 @@ function getTeamLogo(teamName) {
     border-radius: 6px;
     border-bottom: 3px solid #f39c12;
     cursor: pointer;
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                box-shadow 0.2s ease, 
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.2s ease,
                 background-color 0.2s ease;
   }
   .odd-box:hover {
@@ -636,7 +854,14 @@ function getTeamLogo(teamName) {
     background: #2f3640;
     z-index: 2;
   }
+  .secondary-odds .odd-box {
+    background: #f8f9fa;
+    color: #222;
+    border: 1px solid #ccc;
+    border-bottom: 3px solid #7f8c8d;
+  }
   .secondary-odds .odd-box:hover {
+    background: #fff;
     border-color: #f39c12;
     border-bottom: 3px solid #f39c12;
   }
@@ -655,25 +880,141 @@ function getTeamLogo(teamName) {
     margin-top: 2px;
   }
 
-  .exact-score-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #fff8e7;
-    border: 1px dashed #f39c12;
-    padding: 6px 12px;
-    border-radius: 6px;
+  /* TENDINA ESPANDIBILE TOP 11 (4-3-3) */
+  .match-card-wrapper {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    overflow: hidden;
   }
-  .score-label {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    color: #b7791f;
+  .match-card-wrapper .match-card {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .lineups-drawer {
+    border-top: 1px solid #eee;
+    background: #fcfcfc;
+  }
+  .drawer-toggle {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 18px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .drawer-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .drawer-toggle:hover {
+    background: #f2f4f6;
+    color: #111;
+  }
+  .chevron {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+  }
+  .lineups-drawer[open] .chevron {
+    transform: rotate(180deg);
+  }
+  .lineups-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 15px 18px;
+    border-top: 1px dashed #e0e0e0;
+    background: #fff;
+  }
+  .lineup-col-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #111;
+    font-size: 0.9rem;
+  }
+  .team-logo-xs {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+  .mod-tag {
+    margin-left: auto;
+    font-size: 0.7rem;
+    background: #e8f8f5;
+    color: #16a085;
+    padding: 2px 6px;
+    border-radius: 4px;
     font-weight: 700;
   }
-  .score-value {
-    font-size: 1.1rem;
+  .lineup-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .lineup-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    padding: 4px 6px;
+    border-radius: 4px;
+    background: #f9f9f9;
+  }
+  .role-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: #fff;
+  }
+  .role-pill-p { background: #d35400; }
+  .role-pill-d { background: #27ae60; }
+  .role-pill-c { background: #2980b9; }
+  .role-pill-a { background: #c0392b; }
+
+  .lineup-player-name {
+    flex: 1;
+    font-weight: 700;
+    color: #222;
+  }
+  .lineup-player-name small {
+    font-weight: normal;
+    color: #777;
+  }
+  .lineup-tit {
+    font-size: 0.72rem;
+    color: #666;
+    background: #eaecee;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .lineup-xfm {
     font-weight: 900;
     color: #111;
+    min-width: 34px;
+    text-align: right;
+  }
+
+  @media (max-width: 820px) {
+    .lineups-comparison {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* TOP 3 PER RUOLO */

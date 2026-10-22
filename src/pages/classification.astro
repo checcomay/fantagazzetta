@@ -23,7 +23,7 @@ const classificaConFM = standings.map(team => {
 
     <StandingsTable isExtended={true} />
 
-    <!-- Grafico a Barre con Soglie -->
+    <!-- Grafico a barre con soglie -->
     <div class="chart-wrapper">
       <h3 style="text-align: center; font-family: 'Helvetica'; margin-bottom: 20px;">MEDIA PUNTI (RENDIMENTO)</h3>
       <div style="position: relative; height: 400px; width: 100%;">
@@ -34,7 +34,6 @@ const classificaConFM = standings.map(team => {
 </BaseLayout>
 
 <script is:inline src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script is:inline src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
 
 <script define:vars={{ classificaConFM, teamColors }}>
@@ -44,12 +43,8 @@ const classificaConFM = standings.map(team => {
     const labels = classificaConFM.map(t => t.Squadra);
     const dataPunti = classificaConFM.map(t => t.mediaPunti); 
     const barColors = labels.map(team => teamColors[team] || '#888888');
-    
-    // Linee costanti per le soglie (lunghe quanto il numero di squadre)
-    const lineaChampions = Array(labels.length).fill(2.0); // Circa 2.0 per vittoria/alta classifica
-    const lineaSalvezza = Array(labels.length).fill(1.0); // Circa 1.0 per pareggio/salvezza
 
- // 1. PRE-CARICAMENTO LOGHI
+    // 1. PRE-CARICAMENTO LOGHI
     const logoImages = labels.map(team => {
       const img = new Image();
       img.src = `/logos/${team}.png`;
@@ -84,30 +79,29 @@ const classificaConFM = standings.map(team => {
           {
             data: dataPunti,
             backgroundColor: barColors,
-            borderRadius: 4 // Arrotonda leggermente la punta delle colonne
+            borderRadius: 4
           }
         ]
       },
       plugins: [logoPlugin],
       options: {
         layout: {
-          padding: { bottom: 35, right: 120 } // Aggiunge spazio a destra per non tagliare le finestrelle
+          padding: { bottom: 35, right: 10 } 
         },
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
           legend: { 
-            display: false // Nasconde le etichette della legenda
+            display: false
           },
           tooltip: {
             backgroundColor: '#111',
             callbacks: {
               label: function(context) {
-                return `Media Punti: ${context.raw}`; 
+                return `Media punti: ${context.raw}`; 
               }
             }
           },
-          // 3. NUOVO PLUGIN ANNOTAZIONI: Finestrelle ancorate alle linee
           annotation: {
             annotations: {
               lineaChampions: {
@@ -117,15 +111,26 @@ const classificaConFM = standings.map(team => {
                 borderColor: '#eab308',
                 borderWidth: 2,
                 borderDash: [5, 5],
+                hitTolerance: 12,
                 label: {
-                  display: true,
-                  content: 'CHAMPIONS (2.0)',
-                  position: 'end', // Ancora la finestrella all'estremità destra
+                  display: false,
+                  content: 'Media Champions',
+                  position: 'end',
                   backgroundColor: '#eab308',
                   color: '#111',
                   font: { weight: 'bold', family: 'Helvetica', size: 11 },
                   padding: { x: 8, y: 4 },
-                  borderRadius: 4
+                  borderRadius: 4,
+                },
+                enter({ element }) {
+                  element.label.options.display = true;
+                  element.options.borderWidth = 4;
+                  return true;
+                },
+                leave({ element }) {
+                  element.label.options.display = false;
+                  element.options.borderWidth = 2;
+                  return true;
                 }
               },
               lineaSalvezza: {
@@ -135,15 +140,26 @@ const classificaConFM = standings.map(team => {
                 borderColor: '#ef4444',
                 borderWidth: 2,
                 borderDash: [5, 5],
+                hitTolerance: 12,
                 label: {
-                  display: true,
-                  content: 'SALVEZZA (1.0)',
+                  display: false,
+                  content: 'Media salvezza',
                   position: 'end',
                   backgroundColor: '#ef4444',
                   color: '#fff',
                   font: { weight: 'bold', family: 'Helvetica', size: 11 },
                   padding: { x: 8, y: 4 },
                   borderRadius: 4
+                },
+                enter({ element }) {
+                  element.label.options.display = true;
+                  element.options.borderWidth = 4;
+                  return true;
+                },
+                leave({ element }) {
+                  element.label.options.display = false;
+                  element.options.borderWidth = 2;
+                  return true;
                 }
               }
             }
@@ -157,7 +173,7 @@ const classificaConFM = standings.map(team => {
           y: {
             beginAtZero: true,
             max: 3,
-            title: { display: true, text: 'Media punti classifica', font: { weight: 'bold' } }
+            title: { display: true, text: 'Punti medi per giornata', font: { weight: 'bold' } }
           }
         }
       }
@@ -185,6 +201,7 @@ const classificaConFM = standings.map(team => {
     padding: 30px; 
     box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
     border-radius: 8px; 
+    margin-top: 30px;
     margin-bottom: 50px;
     width: 100%;
     box-sizing: border-box; 
@@ -192,7 +209,7 @@ const classificaConFM = standings.map(team => {
   
   @media (max-width: 768px) {
     .header-section h2 { font-size: 1.8rem; }
-    .chart-wrapper { padding: 15px 5px; }
+    .chart-wrapper { padding: 15px 5px; margin-top: 20px; }
     .standings-table { font-size: 0.8rem; }
     .standings-table th, .standings-table td { padding: 8px 5px; }
   }
