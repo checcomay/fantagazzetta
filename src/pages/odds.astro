@@ -1,0 +1,799 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import calendarData from '../data/calendar.json';
+import xFMsData from '../data/xFMs.json';
+
+// 1. CONTROLLO DATA DI ULTIMA MODIFICA DI xFMs.json
+const xfmFilePath = path.resolve(process.cwd(), 'src/data/xFMs.json');
+let lastModifiedDate = new Date();
+let isDataStale = false;
+let daysOld = 0;
+
+try {
+  const stats = fs.statSync(xfmFilePath);
+  lastModifiedDate = stats.mtime;
+  const diffMs = Date.now() - lastModifiedDate.getTime();
+  daysOld = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  isDataStale = daysOld >= 4;
+} catch (e) {
+  isDataStale = true;
+}
+
+const formattedLastUpdate = lastModifiedDate.toLocaleDateString('it-IT', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit'
+});
+
+// 2. INDIVIDUAZIONE PRIMA GIORNATA NON ANCORA GIOCATA
+const nextRoundObj = calendarData.rounds?.find((r) =>
+  r.matches.some((m) => !m.played)
+) || calendarData.rounds?.[0];
+
+// Mappa rapida: nome squadra -> dati xFM
+const teamXfmMap = new Map();
+for (const team of xFMsData) {
+  teamXfmMap.set(team.fantasy_team.toLowerCase().trim(), team);
+}
+
+// 3. MODELLO MONTE CARLO (5.000 SIMULAZIONI SUI SINGOLI GIOCATORI DEL TOP 11)
+function simulateTeamGoalsDistribution(teamData, iterations = 5000) {
+  const maxGoals = 6;
+  const goalCounts = new Array(maxGoals + 1).fill(0);
+  const top11 = (teamData?.roster || []).slice(0, 11);
+
+  // Fallback se la rosa non è completa: usa distribuzione realistica (std = 8.5)
+  const fallbackMean = teamData ? teamData.projected_top11_score : 70.0;
+
+  for (let i = 0; i < iterations; i++) {
+    let totalScore = 0;
+
+    if (top11.length === 11) {
+      for (const p of top11) {
+        // Oscillazione naturale del voto in pagella (Box-Muller std = 0.55)
+        const u1 = Math.random() || 1e-6;
+        const u2 = Math.random();
+        const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+        let playerScore = 6.0 + z * 0.55;
+
+        const m = p.metrics || {};
+        if ((p.role || '').toUpperCase() === 'P') {
+          // Simulazione Portiere
+          const pCs = (m.clean_sheet_probability ?? 25) / 100;
+          if (Math.random() < pCs) {
+            playerScore += 1.0 + 0.25; // Bonus imbattibilità + spinta voto
+          } else {
+            // Estrazione gol subiti attorno al valore atteso
+            const expConceded = m.expected_goals_conceded ?? 1.35;
+            const goalsConceded = Math.max(1, Math.round(expConceded + z * 0.7));
+            playerScore -= goalsConceded * 1.0;
+          }
+        } else {
+          // Simulazione giocatore di movimento (eventi discreti reali)
+          const pGol = (m.goal_probability ?? 5) / 100;
+          const pBrace = (m.brace_probability ?? 1) / 100;
+          const pAss = (m.assist_probability ?? 6) / 100;
+          const pYel = (m.yellow_card_probability ?? 15) / 100;
+          const pRed = (m.red_card_probability ?? 1) / 100;
+
+          const rollGol = Math.random();
+          if (rollGol < pBrace) {
+            playerScore += 6.0 + 0.7; // doppietta (+6 + voto alto)
+          } else if (rollGol < pGol) {
+            playerScore += 3.0 + 0.35; // gol singolo (+3 + voto)
+          }
+
+          if (Math.random() < pAss) playerScore += 1.0 + 0.2;
+          if (Math.random() < pRed) playerScore -= 1.0 + 0.5;
+          else if (Math.random() < pYel) playerScore -= 0.5 + 0.2;
+        }
+
+        totalScore += playerScore;
+      }
+    } else {
+      // Fallback con deviazione standard reale di lega (8.5 pt)
+      const u1 = Math.random() || 1e-6;
+      const u2 = Math.random();
+      const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+      totalScore = fallbackMean + z * 8.5;
+    }
+
+    // Conversione FantaPunti -> Gol (Soglia 66 = 1 gol, poi 1 gol ogni 6 punti)
+    let goals = 0;
+    if (totalScore >= 66) {
+      goals = Math.min(maxGoals, Math.floor((totalScore - 60) / 6));
+    }
+    goalCounts[goals]++;
+  }
+
+  return goalCounts.map((count) => count / iterations);
+}
+
+function normalCDF(x, mean, std) {
+  return 0.5 * (1 + erf((x - mean) / (std * Math.sqrt(2))));
+}
+
+/**
+ * Calcola la distribuzione di probabilità dei gol (0, 1, 2, 3, 4, 5, 6)
+ * Fasce: <66 = 0 gol | 66-71.99 = 1 gol | 72-77.99 = 2 gol | 78-83.99 = 3 gol...
+ */
+function getGoalsDistribution(meanScore, std = 3.0) {
+  const thresholds = [66, 72, 78, 84, 90, 96];
+  const probs = [];
+
+  // 0 gol (< 66)
+  probs.push(normalCDF(thresholds[0], meanScore, std));
+
+  // Da 1 a 5 gol
+  for (let i = 0; i < thresholds.length - 1; i++) {
+    const p = normalCDF(thresholds[i + 1], meanScore, std) - normalCDF(thresholds[i], meanScore, std);
+    probs.push(Math.max(0, p));
+  }
+
+  // 6+ gol (>= 96)
+  probs.push(Math.max(0, 1 - normalCDF(thresholds[thresholds.length - 1], meanScore, std)));
+  return probs;
+}
+
+// Converte probabilità (0-1) in quota stile SNAI con leggero allibramento (margine 5%)
+function probToSnaiOdd(prob) {
+  const marginedProb = Math.min(0.92, Math.max(0.03, prob * 1.05));
+  return (1 / marginedProb).toFixed(2);
+}
+
+// Elaborazione pronostici per ogni partita della giornata
+const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
+  const homeTeamData = teamXfmMap.get(match.home.toLowerCase().trim());
+  const awayTeamData = teamXfmMap.get(match.away.toLowerCase().trim());
+
+  const homeXfm = homeTeamData ? homeTeamData.projected_top11_score : 68.0;
+  const awayXfm = awayTeamData ? awayTeamData.projected_top11_score : 68.0;
+
+  const homeGoalProbs = simulateTeamGoalsDistribution(homeTeamData);
+  const awayGoalProbs = simulateTeamGoalsDistribution(awayTeamData);
+
+  let p1 = 0, pX = 0, p2 = 0, pOver25 = 0, pGoal = 0;
+
+  for (let h = 0; h < homeGoalProbs.length; h++) {
+    for (let a = 0; a < awayGoalProbs.length; a++) {
+      const jointProb = homeGoalProbs[h] * awayGoalProbs[a];
+      if (h > a) p1 += jointProb;
+      else if (h === a) pX += jointProb;
+      else p2 += jointProb;
+
+      if (h + a > 2.5) pOver25 += jointProb;
+      if (h > 0 && a > 0) pGoal += jointProb;
+    }
+  }
+
+  const pUnder25 = 1 - pOver25;
+  const pNoGoal = 1 - pGoal;
+
+  // Calcolo gol attesi per il risultato esatto consigliato
+  const expectedHomeGoals = Math.max(0, Math.floor((homeXfm - 60) / 6));
+  const expectedAwayGoals = Math.max(0, Math.floor((awayXfm - 60) / 6));
+
+  return {
+    home: match.home,
+    away: match.away,
+    homeXfm: homeXfm.toFixed(1),
+    awayXfm: awayXfm.toFixed(1),
+    expectedScore: `${expectedHomeGoals}-${expectedAwayGoals}`,
+    probs: {
+      p1: Math.round(p1 * 100),
+      pX: Math.round(pX * 100),
+      p2: Math.round(p2 * 100)
+    },
+    odds: {
+      one: probToSnaiOdd(p1),
+      draw: probToSnaiOdd(pX),
+      two: probToSnaiOdd(p2),
+      over25: probToSnaiOdd(pOver25),
+      under25: probToSnaiOdd(pUnder25),
+      gg: probToSnaiOdd(pGoal),
+      ng: probToSnaiOdd(pNoGoal)
+    }
+  };
+});
+
+// 4. ESTRAZIONE TOP 3 GIOCATORI PER RUOLO (A, C, D, P)
+const allPlayers = [];
+for (const team of xFMsData) {
+  for (const player of team.roster || []) {
+    allPlayers.push({
+      ...player,
+      fantasy_team: team.fantasy_team
+    });
+  }
+}
+
+function getTopByRole(roleCode, limit = 3) {
+  return allPlayers
+    .filter((p) => (p.role || '').toUpperCase() === roleCode)
+    .sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating)
+    .slice(0, limit);
+}
+
+const topAttackers = getTopByRole('A', 3);
+const topMidfielders = getTopByRole('C', 3);
+const topDefenders = getTopByRole('D', 3);
+const topGoalkeepers = getTopByRole('P', 3);
+
+// Helper per ottenere il percorso del logo in /public/logos/
+function getTeamLogo(teamName) {
+  if (!teamName) return '/logos/default.png';
+  return `/logos/${teamName}.png`;
+}
+---
+
+<BaseLayout pageTitle="Pronostici e quote">
+  <div class="odds-container">
+    
+    <!-- BANNER ROSSO DI AVVISO DATI VECCHI (>= 4 GIORNI) -->
+    {isDataStale && (
+      <div class="stale-banner">
+        <div class="stale-icon">⚠️</div>
+        <div class="stale-text">
+          <strong>ATTENZIONE: DATI OBSOLETI ({daysOld} giorni fa)!</strong>
+          <p>Le quote e le probabili formazioni risalgono a più di 4 giorni fa. La preghiamo di contattare l'assistenza per aggiornare i pronostici della giornata.</p>
+        </div>
+      </div>
+    )}
+
+    <div class="header-section">
+      <div class="round-badge">
+        {nextRoundObj ? `${nextRoundObj.round}ª Giornata Lega • ${nextRoundObj.serie_a_round}ª Serie A` : 'Prossimo Turno'}
+      </div>
+      <h2 class="main-title">PRONOSTICI DELLA SETTIMANA</h2>
+      <p class="subtitle">Quote, probabilità e analisi avanzate per schierare la formazione perfetta</p>
+      <p class="update-timestamp">Ultimo aggiornamento dati xFM: <strong>{formattedLastUpdate}</strong></p>
+    </div>
+
+    <!-- SEZIONE 1: TABELLONE QUOTE STILE SNAI -->
+    <section class="betting-section">
+      <div class="section-header">
+        <h3>📊 LAVAGNA QUOTE E PRONOSTICI DI LEGA</h3>
+        <span class="model-note">Modello Gaussiano (σ = 3.0 pt • Soglia Gol ogni 6 pt da 66)</span>
+      </div>
+
+      <div class="matches-grid">
+        {matchPredictions.map((m) => (
+          <div class="match-card">
+            <div class="match-teams">
+              <div class="team-row">
+                <img src={getTeamLogo(m.home)} alt={m.home} class="team-logo-sm" onerror="this.style.display='none'" />
+                <span class="team-name">{m.home}</span>
+                <span class="team-xfm">{m.homeXfm} <small>xFM</small></span>
+              </div>
+              <div class="team-row">
+                <img src={getTeamLogo(m.away)} alt={m.away} class="team-logo-sm" onerror="this.style.display='none'" />
+                <span class="team-name">{m.away}</span>
+                <span class="team-xfm">{m.awayXfm} <small>xFM</small></span>
+              </div>
+              <div class="prob-bar-wrapper" title={`1: ${m.probs.p1}% | X: ${m.probs.pX}% | 2: ${m.probs.p2}%`}>
+                <div class="prob-bar p1" style={`width: ${m.probs.p1}%`}></div>
+                <div class="prob-bar pX" style={`width: ${m.probs.pX}%`}></div>
+                <div class="prob-bar p2" style={`width: ${m.probs.p2}%`}></div>
+              </div>
+            </div>
+
+            <div class="odds-board">
+              <div class="odds-group">
+                <div class="odd-box">
+                  <span class="odd-label">1</span>
+                  <span class="odd-val">{m.odds.one}</span>
+                </div>
+                <div class="odd-box">
+                  <span class="odd-label">X</span>
+                  <span class="odd-val">{m.odds.draw}</span>
+                </div>
+                <div class="odd-box">
+                  <span class="odd-label">2</span>
+                  <span class="odd-val">{m.odds.two}</span>
+                </div>
+              </div>
+
+              <div class="odds-group secondary-odds">
+                <div class="odd-box">
+                  <span class="odd-label">U 2.5</span>
+                  <span class="odd-val">{m.odds.under25}</span>
+                </div>
+                <div class="odd-box">
+                  <span class="odd-label">O 2.5</span>
+                  <span class="odd-val">{m.odds.over25}</span>
+                </div>
+                <div class="odd-box">
+                  <span class="odd-label">GG</span>
+                  <span class="odd-val">{m.odds.gg}</span>
+                </div>
+                <div class="odd-box">
+                  <span class="odd-label">NG</span>
+                  <span class="odd-val">{m.odds.ng}</span>
+                </div>
+              </div>
+
+              <div class="exact-score-box">
+                <span class="score-label">Proiezione</span>
+                <span class="score-value">{m.expectedScore}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- SEZIONE 2: TOP 3 GIOCATORI PER RUOLO -->
+    <section class="top-players-section">
+      <div class="section-header">
+        <h3>🔥 I CONSIGLIATI DELLA REDAZIONE (TOP 3 PER RUOLO)</h3>
+        <span class="model-note">Ordinati per Expected Fantamedia (xFM) di giornata</span>
+      </div>
+
+      <div class="roles-grid">
+        <!-- ATTACCANTI -->
+        <div class="role-column">
+          <div class="role-banner role-a">⚡ TOP 3 ATTACCANTI</div>
+          {topAttackers.map((p, idx) => (
+            <div class="player-card">
+              <div class="rank-number">#{idx + 1}</div>
+              <img src={getTeamLogo(p.fantasy_team)} alt={p.fantasy_team} class="fanta-logo" onerror="this.style.display='none'" />
+              <div class="player-info">
+                <div class="player-name">{p.name} <span class="serie-a-team">({p.real_team})</span></div>
+                <div class="fanta-owner">{p.fantasy_team}</div>
+                <div class="player-badges">
+                  <span class="badge badge-gol">⚽ Gol: {p.metrics?.goal_probability ?? 0}%</span>
+                  <span class="badge badge-assist">👟 Assist: {p.metrics?.assist_probability ?? 0}%</span>
+                  <span class="badge badge-tit">👕 Tit: {p.starter_probability}%</span>
+                </div>
+              </div>
+              <div class="xfm-score">
+                <span class="xfm-number">{p.expected_fantasy_rating.toFixed(2)}</span>
+                <span class="xfm-label">xFM</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- CENTROCAMPISTI -->
+        <div class="role-column">
+          <div class="role-banner role-c">🎯 TOP 3 CENTROCAMPISTI</div>
+          {topMidfielders.map((p, idx) => (
+            <div class="player-card">
+              <div class="rank-number">#{idx + 1}</div>
+              <img src={getTeamLogo(p.fantasy_team)} alt={p.fantasy_team} class="fanta-logo" onerror="this.style.display='none'" />
+              <div class="player-info">
+                <div class="player-name">{p.name} <span class="serie-a-team">({p.real_team})</span></div>
+                <div class="fanta-owner">{p.fantasy_team}</div>
+                <div class="player-badges">
+                  <span class="badge badge-gol">⚽ Gol: {p.metrics?.goal_probability ?? 0}%</span>
+                  <span class="badge badge-assist">👟 Assist: {p.metrics?.assist_probability ?? 0}%</span>
+                  <span class="badge badge-tit">👕 Tit: {p.starter_probability}%</span>
+                </div>
+              </div>
+              <div class="xfm-score">
+                <span class="xfm-number">{p.expected_fantasy_rating.toFixed(2)}</span>
+                <span class="xfm-label">xFM</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- DIFENSORI -->
+        <div class="role-column">
+          <div class="role-banner role-d">🛡️ TOP 3 DIFENSORI</div>
+          {topDefenders.map((p, idx) => (
+            <div class="player-card">
+              <div class="rank-number">#{idx + 1}</div>
+              <img src={getTeamLogo(p.fantasy_team)} alt={p.fantasy_team} class="fanta-logo" onerror="this.style.display='none'" />
+              <div class="player-info">
+                <div class="player-name">{p.name} <span class="serie-a-team">({p.real_team})</span></div>
+                <div class="fanta-owner">{p.fantasy_team}</div>
+                <div class="player-badges">
+                  <span class="badge badge-assist">👟 Assist: {p.metrics?.assist_probability ?? 0}%</span>
+                  <span class="badge badge-gol">⚽ Gol: {p.metrics?.goal_probability ?? 0}%</span>
+                  <span class="badge badge-warn">🟨 Giallo: {p.metrics?.yellow_card_probability ?? 0}%</span>
+                </div>
+              </div>
+              <div class="xfm-score">
+                <span class="xfm-number">{p.expected_fantasy_rating.toFixed(2)}</span>
+                <span class="xfm-label">xFM</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- PORTIERI -->
+        <div class="role-column">
+          <div class="role-banner role-p">🧤 TOP 3 PORTIERI</div>
+          {topGoalkeepers.map((p, idx) => (
+            <div class="player-card">
+              <div class="rank-number">#{idx + 1}</div>
+              <img src={getTeamLogo(p.fantasy_team)} alt={p.fantasy_team} class="fanta-logo" onerror="this.style.display='none'" />
+              <div class="player-info">
+                <div class="player-name">{p.name} <span class="serie-a-team">({p.real_team})</span></div>
+                <div class="fanta-owner">{p.fantasy_team}</div>
+                <div class="player-badges">
+                  <span class="badge badge-cs">🔒 Imbattibilità: {p.metrics?.clean_sheet_probability ?? 0}%</span>
+                  <span class="badge badge-warn">🥅 Gol Subiti Att.: {p.metrics?.expected_goals_conceded ?? '-'}</span>
+                </div>
+              </div>
+              <div class="xfm-score">
+                <span class="xfm-number">{p.expected_fantasy_rating.toFixed(2)}</span>
+                <span class="xfm-label">xFM</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .odds-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+  }
+
+  /* BANNER ROSSO DATI VECCHI */
+  .stale-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #c0392b;
+    color: #fff;
+    padding: 18px 24px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 2px solid #962d22;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.35);
+  }
+  .stale-icon {
+    font-size: 2.2rem;
+  }
+  .stale-text strong {
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .stale-text p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.95;
+  }
+  .stale-text code {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+
+  /* HEADER */
+  .header-section {
+    text-align: center;
+    border-bottom: 3px solid #111;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+  }
+  .round-badge {
+    display: inline-block;
+    background: #111;
+    color: #f39c12;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .main-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0 0 8px 0;
+  }
+  .subtitle {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: #c0392b;
+    font-size: 1.2rem;
+    margin: 0 0 8px 0;
+  }
+  .update-timestamp {
+    font-size: 0.82rem;
+    color: #666;
+    margin: 0;
+  }
+
+  /* SEZIONI */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-left: 5px solid #c0392b;
+    padding-left: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-header h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #111;
+  }
+  .model-note {
+    font-size: 0.8rem;
+    color: #777;
+    font-style: italic;
+  }
+
+  /* LAVAGNA QUOTE STILE SNAI */
+  .betting-section {
+    margin-bottom: 45px;
+  }
+  .matches-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .match-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    gap: 20px;
+  }
+  .match-teams {
+    flex: 1;
+    min-width: 240px;
+  }
+  .team-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .team-logo-sm {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+  .team-name {
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: #111;
+    flex: 1;
+  }
+  .team-xfm {
+    font-weight: 800;
+    color: #2c3e50;
+    background: #f0f3f5;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+  }
+  .team-xfm small {
+    font-weight: normal;
+    color: #666;
+  }
+
+  .prob-bar-wrapper {
+    display: flex;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+    background: #eee;
+  }
+  .prob-bar.p1 { background: #27ae60; }
+  .prob-bar.pX { background: #f1c40f; }
+  .prob-bar.p2 { background: #2980b9; }
+
+  .odds-board {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .odds-group {
+    display: flex;
+    gap: 6px;
+  }
+  .odd-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1e272e;
+    color: #fff;
+    min-width: 54px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border-bottom: 3px solid #f39c12;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.2s ease, 
+                background-color 0.2s ease;
+  }
+  .odd-box:hover {
+    transform: scale(1.12) translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+    background: #2f3640;
+    z-index: 2;
+  }
+  .secondary-odds .odd-box:hover {
+    border-color: #f39c12;
+    border-bottom: 3px solid #f39c12;
+  }
+  .odd-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #f39c12;
+    text-transform: uppercase;
+  }
+  .secondary-odds .odd-label {
+    color: #555;
+  }
+  .odd-val {
+    font-size: 0.98rem;
+    font-weight: 900;
+    margin-top: 2px;
+  }
+
+  .exact-score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff8e7;
+    border: 1px dashed #f39c12;
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+  .score-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    color: #b7791f;
+    font-weight: 700;
+  }
+  .score-value {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #111;
+  }
+
+  /* TOP 3 PER RUOLO */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  .role-column {
+    background: #fafafa;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .role-banner {
+    padding: 10px 15px;
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+  .role-a { background: #c0392b; }
+  .role-c { background: #2980b9; }
+  .role-d { background: #27ae60; }
+  .role-p { background: #d35400; }
+
+  .player-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+  }
+  .player-card:last-child {
+    border-bottom: none;
+  }
+  .rank-number {
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #999;
+    width: 24px;
+  }
+  .fanta-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #f4f4f4;
+    padding: 2px;
+  }
+  .player-info {
+    flex: 1;
+  }
+  .player-name {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #111;
+  }
+  .serie-a-team {
+    font-weight: normal;
+    font-size: 0.82rem;
+    color: #666;
+  }
+  .fanta-owner {
+    font-size: 0.78rem;
+    color: #c0392b;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .player-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .badge {
+    font-size: 0.72rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .badge-gol { background: #fdeaea; color: #c0392b; }
+  .badge-assist { background: #eaf2f8; color: #2980b9; }
+  .badge-cs { background: #e8f8f5; color: #16a085; }
+  .badge-tit { background: #f2f4f4; color: #333; }
+  .badge-warn { background: #fef9e7; color: #b7950b; }
+
+  .xfm-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #111;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    min-width: 52px;
+  }
+  .xfm-number {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #f1c40f;
+  }
+  .xfm-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 820px) {
+    .match-card {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .odds-board {
+      justify-content: space-between;
+    }
+    .roles-grid {
+      grid-template-columns: 1fr;
+    }
+    .main-title { font-size: 1.8rem; }
+    .subtitle { font-size: 1rem; }
+  }
+</style>
