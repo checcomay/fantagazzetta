@@ -13,12 +13,50 @@ const OUTFIELD_ODDS_PATH = path.resolve(__dirname, '../src/data/daily_odds.json'
 const GK_ODDS_PATH = path.resolve(__dirname, '../src/data/daily_gk_odds.json');
 const OUTPUT_PATH = path.resolve(__dirname, '../src/data/xFMs.json');
 
-// ==================== VALUE CONFIGURATION ====================
-const DEFENSE_MODIFIER_BONUS = 1.5;         // bonus difesa medio
-const X_GOALS_CONCEDED = 1.35;              // media standard gol subiti in Serie A se non quotato
+// ==================== VALUE & MODEL CONFIGURATION ====================
 
-const CLEAN_SHEET_BONUS = 1.0;
-const GOAL_CONCEDED_MALUS = 1.0;
+// Bonus e Malus Regolamento Fantacalcio
+const GOAL_BONUS = 3.0;                     // +3 per ogni gol segnato
+const BRACE_BONUS = 3.0;                    // +3 addizionali per la doppietta
+const ASSIST_BONUS = 1.0;                   // +1 per ogni assist
+const CLEAN_SHEET_BONUS = 1.0;              // +1 imbattibilità portiere
+const GOAL_CONCEDED_MALUS = 1.0;            // -1 per ogni gol subito dal portiere
+const YELLOW_CARD_MALUS = 0.5;              // -0.5 ammonizione
+const RED_CARD_MALUS = 1.0;                 // -1.0 espulsione
+const OWN_GOAL_MALUS = 2.0;                 // -2.0 autogol
+const DEFENSE_MODIFIER_BONUS = 1.5;         // +1.5 bonus medio modificatore difesa (4-3-3)
+
+// Voto Base e Oscillazione Pagella (impatto di bonus/malus sul voto puro)
+const BASE_RATING = 6.0;                    // Voto di partenza standard
+const GK_CS_RATING_BOOST = 0.25;            // Aumento voto puro portiere in caso di clean sheet
+const GK_CONCEDED_RATING_MALUS = 0.15;      // Calo voto puro portiere per gol subito
+const GOAL_RATING_BOOST = 0.35;             // Aumento voto puro giocatore in caso di gol
+const ASSIST_RATING_BOOST = 0.20;           // Aumento voto puro giocatore in caso di assist
+const YELLOW_RATING_MALUS = 0.25;           // Calo voto puro giocatore per cartellino giallo
+const RED_RATING_MALUS = 0.50;              // Calo voto puro giocatore per cartellino rosso
+
+// 3. Gestione Titolarità e Panchina
+// Peso assegnato alla quota di non-titolarità (es. 0.85 = conserva l'85% del valore se parte dalla panchina,
+// evitando che la xFM venga dimezzata nei ballottaggi o per i subentranti).
+const NON_STARTER_WEIGHT = 0.85;
+
+// 4. Probabilità e Valori di Default (usati come fallback se il giocatore non è quotato)
+const DEFAULT_STARTER_PROB = 5;             // % titolarità di default se non presente nelle formazioni
+const DEFAULT_CLEAN_SHEET_PROB = 25;        // % imbattibilità di default
+const X_GOALS_CONCEDED = 1.35;              // Media standard gol subiti in Serie A se non quotato
+const DEFAULT_GOAL_PROB = 5;                // % gol di default
+const DEFAULT_BRACE_PROB = 1;               // % doppietta di default
+const DEFAULT_ASSIST_PROB = 6;              // % assist di default
+const DEFAULT_YELLOW_PROB = 15;             // % cartellino giallo di default
+const DEFAULT_RED_PROB = 1;                 // % cartellino rosso di default
+const DEFAULT_OWN_GOAL_PROB = 1;            // % autogol storica empirica media
+
+// 5. Configurazione Modulo e Fuzzy Matching
+const DEFAULT_FORMATION = '4-3-3';
+const MATCH_THRESHOLD = 0.60;               // Soglia minima string-similarity sul nome intero
+const LAST_NAME_MATCH_THRESHOLD = 0.85;     // Soglia minima fallback sul solo cognome
+
+// ==================== HELPER FUNCTIONS ====================
 
 // Normalizza i nomi per un fuzzy match accurato tra i diversi dataset
 function normalizeName(name) {
@@ -47,13 +85,16 @@ function findBestMatch(name, datasetMap) {
   if (parts.length > 1) {
     const lastName = parts[parts.length - 1];
     const lastNameMatch = stringSimilarity.findBestMatch(lastName, keys);
-    if (lastNameMatch.bestMatch.rating > bestScore && lastNameMatch.bestMatch.rating >= 0.85) {
+    if (
+      lastNameMatch.bestMatch.rating > bestScore &&
+      lastNameMatch.bestMatch.rating >= LAST_NAME_MATCH_THRESHOLD
+    ) {
       bestScore = lastNameMatch.bestMatch.rating;
       bestKey = lastNameMatch.bestMatch.target;
     }
   }
 
-  if (bestScore >= 0.6) {
+  if (bestScore >= MATCH_THRESHOLD) {
     return datasetMap.get(bestKey);
   }
   return null;
@@ -88,6 +129,8 @@ function selectTop11With433(enrichedRoster) {
 
   return [...gk, ...def, ...mid, ...att];
 }
+
+// ==================== MAIN EXECUTION ====================
 
 async function main() {
   console.log('📊 Calculating Expected Match Fantasy Ratings (xFM)...');
@@ -132,10 +175,12 @@ async function main() {
 
       // 1. Probabilità titolarità (0 - 1)
       const lineupMatch = findBestMatch(player.nome, lineupsMap);
-      const startProb = lineupMatch ? (lineupMatch.probabilita_titolare || 5) / 100 : 0.05;
+      const startProb = lineupMatch
+        ? (lineupMatch.probabilita_titolare || DEFAULT_STARTER_PROB) / 100
+        : DEFAULT_STARTER_PROB / 100;
       const lineupStatus = lineupMatch ? lineupMatch.status : 'bench';
 
-      let expectedBaseRating = 6.0;
+      let expectedBaseRating = BASE_RATING;
       let expectedBonus = 0;
       let expectedPenalty = 0;
       let details = {};
@@ -144,15 +189,20 @@ async function main() {
         // --- PORTIERE ---
         const gkOdds = findBestMatch(player.nome, gkMap);
 
-        const cleanSheetProb = gkOdds ? (gkOdds.prob_0_gol_subiti || 25) / 100 : 0.25;
-        const expectedGoalsConceded = gkOdds && gkOdds.malus_gol_atteso !== null
-          ? gkOdds.malus_gol_atteso
-          : X_GOALS_CONCEDED; // media standard gol subiti in Serie A se non quotato
+        const cleanSheetProb = gkOdds
+          ? (gkOdds.prob_0_gol_subiti || DEFAULT_CLEAN_SHEET_PROB) / 100
+          : DEFAULT_CLEAN_SHEET_PROB / 100;
+        const expectedGoalsConceded =
+          gkOdds && gkOdds.malus_gol_atteso !== null
+            ? gkOdds.malus_gol_atteso
+            : X_GOALS_CONCEDED;
 
-        // Il voto base del portiere aumenta con l'imbattibilità e scende se incassa molti gol
-        expectedBaseRating = 6.0 + (cleanSheetProb * 0.25) - (expectedGoalsConceded * 0.15);
+        // Voto base del portiere modulato da imbattibilità e gol subiti attesi
+        expectedBaseRating =
+          BASE_RATING +
+          cleanSheetProb * GK_CS_RATING_BOOST -
+          expectedGoalsConceded * GK_CONCEDED_RATING_MALUS;
 
-        // Bonus imbattibilità = +1 | Malus gol subito = -1 per gol
         expectedBonus = cleanSheetProb * CLEAN_SHEET_BONUS;
         expectedPenalty = expectedGoalsConceded * GOAL_CONCEDED_MALUS;
 
@@ -166,21 +216,31 @@ async function main() {
         // --- GIOCATORE DI MOVIMENTO ---
         const odds = findBestMatch(player.nome, outfieldMap);
 
-        const pGoal = odds ? (odds.probabilita_gol || 5) / 100 : 0.05;
-        const pBrace = odds ? (odds.probabilita_doppietta || 1) / 100 : 0.01;
-        const pAssist = odds ? (odds.probabilita_assist || 6) / 100 : 0.06;
-        const pYellow = odds ? (odds.probabilita_giallo || 15) / 100 : 0.15;
-        const pRed = odds ? (odds.probabilita_rosso || 1) / 100 : 0.01;
-        const pOwnGoal = 0.01; // Probabilità storica empirica media
+        const pGoal = odds ? (odds.probabilita_gol || DEFAULT_GOAL_PROB) / 100 : DEFAULT_GOAL_PROB / 100;
+        const pBrace = odds ? (odds.probabilita_doppietta || DEFAULT_BRACE_PROB) / 100 : DEFAULT_BRACE_PROB / 100;
+        const pAssist = odds ? (odds.probabilita_assist || DEFAULT_ASSIST_PROB) / 100 : DEFAULT_ASSIST_PROB / 100;
+        const pYellow = odds ? (odds.probabilita_giallo || DEFAULT_YELLOW_PROB) / 100 : DEFAULT_YELLOW_PROB / 100;
+        const pRed = odds ? (odds.probabilita_rosso || DEFAULT_RED_PROB) / 100 : DEFAULT_RED_PROB / 100;
+        const pOwnGoal = DEFAULT_OWN_GOAL_PROB / 100;
 
         // Correzione voto pagella influenzato da bonus/malus
-        expectedBaseRating = 6.0 + pGoal * 0.35 + pAssist * 0.2 - pYellow * 0.25 - pRed * 0.5;
+        expectedBaseRating =
+          BASE_RATING +
+          pGoal * GOAL_RATING_BOOST +
+          pAssist * ASSIST_RATING_BOOST -
+          pYellow * YELLOW_RATING_MALUS -
+          pRed * RED_RATING_MALUS;
 
-        // Bonus: Gol (+3), Doppietta (+3 addizionali), Assist (+1)
-        expectedBonus = pGoal * 3.0 + pBrace * 3.0 + pAssist * 1.0;
+        // Calcolo Bonus e Malus attesi tramite costanti
+        expectedBonus =
+          pGoal * GOAL_BONUS +
+          pBrace * BRACE_BONUS +
+          pAssist * ASSIST_BONUS;
 
-        // Malus: Giallo (-0.5), Rosso (-1), Autogol (-2)
-        expectedPenalty = pYellow * 0.5 + pRed * 1.0 + pOwnGoal * 2.0;
+        expectedPenalty =
+          pYellow * YELLOW_CARD_MALUS +
+          pRed * RED_CARD_MALUS +
+          pOwnGoal * OWN_GOAL_MALUS;
 
         details = {
           goal_probability: Math.round(pGoal * 100),
@@ -192,12 +252,12 @@ async function main() {
         };
       }
 
-      // Expected Rating a pieno minutaggio (Titolare)
+      // Expected Rating a pieno minutaggio
       const fullMatchExpectedRating = expectedBaseRating + expectedBonus - expectedPenalty;
 
-      // Ponderazione con la probabilità di andare a voto/titolare
-      // Chi parte dalla panchina ha una chance ridotta (35%) di impatto
-      const appearanceWeight = startProb + (0.35 * (1 - startProb));
+      // Ponderazione morbida sulla titolarità:
+      // Con NON_STARTER_WEIGHT = 0.85, anche chi parte dalla panchina non subisce un crollo innaturale della xFM
+      const appearanceWeight = startProb + NON_STARTER_WEIGHT * (1 - startProb);
       const expectedFantasyRating = fullMatchExpectedRating * appearanceWeight;
 
       enrichedPlayers.push({
@@ -210,7 +270,7 @@ async function main() {
         expected_base_rating: Number(expectedBaseRating.toFixed(2)),
         expected_bonus: Number(expectedBonus.toFixed(2)),
         expected_penalty: Number(expectedPenalty.toFixed(2)),
-        expected_fantasy_rating: Number(expectedFantasyRating.toFixed(2)), // Valore xFM
+        expected_fantasy_rating: Number(expectedFantasyRating.toFixed(2)),
         metrics: details
       });
     }
@@ -218,14 +278,14 @@ async function main() {
     // Ordina i giocatori della rosa dal valore xFM più alto al più basso
     enrichedPlayers.sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating);
 
-    // Selezione 11 titolare col modulo 4-3-3 (1 P, 4 D, 3 C, 3 A) + 1.5 Bonus Difesa
+    // Selezione 11 titolare col modulo 4-3-3 (1 P, 4 D, 3 C, 3 A) + Bonus Difesa
     const best11 = selectTop11With433(enrichedPlayers);
     const playersSum = best11.reduce((acc, p) => acc + p.expected_fantasy_rating, 0);
     const teamExpectedTotal = playersSum + DEFENSE_MODIFIER_BONUS;
 
     outputByFantasyTeam.push({
       fantasy_team: teamName,
-      formation: '4-3-3',
+      formation: DEFAULT_FORMATION,
       defense_modifier_bonus: DEFENSE_MODIFIER_BONUS,
       projected_top11_score: Number(teamExpectedTotal.toFixed(2)),
       total_players: enrichedPlayers.length,

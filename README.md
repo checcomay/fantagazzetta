@@ -42,24 +42,7 @@ Usa questi comandi dalla root del progetto:
 
 ## 📥 Dettaglio script, tempistiche e sorgenti dati
 
-### 🏆 1. Aggiornare la classifica ufficiale
-- **Quando eseguirlo:** Il martedì mattina, alla chiusura ufficiale della giornata di Fantacalcio.
-- **Sorgente:** [Classifica Fantamacrì 26/27](https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings) (scarica il file Excel).
-- **Comando:**
-```bash
-node scripts/ranking_reader.js ~/Downloads/Classifica_Campionato-2026-27.xlsx
-```
-
-### 📊 2. Aggiornare le statistiche dei giocatori (Understat)
-
-* **Quando eseguirlo:** Il martedì dopo la conclusione di tutte le partite del turno di Serie A.
-* **Sorgente:** [Statistiche Serie A - Understat](https://understat.com/league/Serie_A) (in fondo alla tabella clicca "Download CSV").
-* **Comando:**
-```bash
-node scripts/assign_player_stats.js ~/Downloads/league-players.csv
-```
-
-### ⚽ 3. Creazione delle Squadre e dei Roster
+### ⚽ 1. Creazione delle Squadre e dei Roster
 
 * **Quando eseguirlo:** Dopo le aste iniziali, sessioni di riparazione o scambi ufficializzati.
 * **Sorgenti:**
@@ -71,7 +54,34 @@ node scripts/assign_player_stats.js ~/Downloads/league-players.csv
 node scripts/create_squads.js ~/Downloads/Quotazioni_Fantacalcio_Stagione_2026_27.xlsx ~/Downloads/'fantamacri-26-27_rosters_*.csv'
 ```
 
-### 🎯 4. Pipeline previsionale quote & titolarità (pre-match)
+### 🏆 2. Aggiornare la classifica ufficiale
+- **Quando eseguirlo:** Il martedì mattina, alla chiusura ufficiale della giornata di Fantacalcio.
+- **Sorgente:** [Classifica Fantamacrì 26/27](https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings) (scarica il file Excel).
+- **Comando:**
+```bash
+node scripts/ranking_reader.js ~/Downloads/Classifica_Campionato-2026-27.xlsx
+```
+
+### 📊 3. Aggiornare le statistiche dei giocatori (Understat)
+
+* **Quando eseguirlo:** Il martedì dopo la conclusione di tutte le partite del turno di Serie A.
+* **Sorgente:** [Statistiche Serie A - Understat](https://understat.com/league/Serie_A) (in fondo alla tabella clicca "Download CSV").
+* **Comando:**
+```bash
+node scripts/assign_player_stats.js ~/Downloads/league-players.csv
+```
+
+### 🗓️ 4. Inserimento del calendario di lega
+
+* **Quando eseguirlo:** Meglio farlo ogni gioranta, in modo che tiene conto del punteggio cumulativo della lega.
+* **Sorgente:** [Calendario Fantamacrì](https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/fixtures).
+* **Comando:**
+```bash
+node scripts/gen_calendar.js
+```
+*Output:* `src/data/calendar.json`.
+
+### 🎯 5. Pipeline previsionale quote & titolarità (pre-match)
 
 Questa suite prepara l'analisi della giornata in arrivo per consigliare chi schierare.
 
@@ -107,7 +117,7 @@ node scripts/calculate_xFM.js
 
 *Nota:* Con il comando **`make pre-match`** tutti e quattro i passaggi vengono eseguiti automaticamente in sequenza.
 
-### 🏟️ 5. Modifica logo o colori squadra
+### 🏟️ 6. Modifica logo o colori squadra
 
 * **Quando eseguirlo:** Se viene aggiornata l'immagine di un logo in `public/`.
 * **Comando:**
@@ -115,13 +125,3 @@ node scripts/calculate_xFM.js
 node scripts/gen_team_colors.js
 ```
 *Output:* `src/data/team_colors.json`.
-
-### 🗓️ 6. Inserimento del calendario di lega
-
-* **Quando eseguirlo:** Meglio farlo ogni gioranta, in modo che tiene conto del punteggio cumulativo della lega.
-* **Sorgente:** [Calendario Fantamacrì](https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/fixtures).
-* **Comando:**
-```bash
-node scripts/gen_calendar.js
-```
-*Output:* `src/data/calendar.json`.

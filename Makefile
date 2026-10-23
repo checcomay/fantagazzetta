@@ -1,9 +1,10 @@
 DOWNLOADS := ~/Downloads
 
 # File statici da scaricare
-QUOTES_FILE  := $(DOWNLOADS)/Quotazioni_Fantacalcio_Stagione_2026_27.xlsx
-STATS_FILE   := $(DOWNLOADS)/league-players.csv
-RANKING_FILE := $(DOWNLOADS)/Classifica_Campionato-2026-27.xlsx
+QUOTES_FILE   := $(DOWNLOADS)/Quotazioni_Fantacalcio_Stagione_2026_27.xlsx
+STATS_FILE    := $(DOWNLOADS)/league-players.csv
+RANKING_FILE  := $(DOWNLOADS)/Classifica_Campionato-2026-27.xlsx
+CALENDAR_FILE := $(DOWNLOADS)/Calendario_Campionato-2026-27.xlsx
 
 # Risolve dinamicamente il file più recente delle rose esportate
 ROSTERS_FILE := $(shell ls -t $(DOWNLOADS)/\'fantamacri-26-27_rosters_*.csv 2>/dev/null | head -n 1)
@@ -59,6 +60,11 @@ ranking:
 # 4. Generazione e aggiornamento del calendario della competizione
 calendar:
 	@echo "🗓️ Aggiornamento calendario di lega..."
+	@if [ ! -f "$(CALENDAR_FILE)" ]; then \
+		echo "❌ Errore: File calendario mancante in $(DOWNLOADS)."; \
+		echo "👉 Scarica il file Excel da: https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/fixtures"; \
+		exit 1; \
+	fi
 	node scripts/gen_calendar.js
 
 # ==========================================
@@ -67,7 +73,7 @@ calendar:
 
 # Esegue in cascata l'estrazione quote, scraping formazioni e calcolo xFM
 pre-match: odds-players odds-gk lineups xfm
-	@echo "🎯 Pipeline pre-partita completata! File expected_fanta_stats.json pronto per Astro."
+	@echo "🎯 Pipeline pre-partita completata!"
 
 # Quote marcatori, doppiette, assist e cartellini
 odds-players:
@@ -82,7 +88,7 @@ odds-gk:
 # Scraping probabili formazioni e ballottaggi da Fantacalcio.it
 lineups:
 	@echo "🌐 Scraping probabili formazioni da Fantacalcio.it..."
-	node scripts/get_indeces.js
+	node scripts/get_indices.js
 
 # Calcolo xFM (Expected Fantavoto) ponderato
 xfm:

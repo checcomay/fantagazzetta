@@ -1,6 +1,9 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import StandingsTable from '../components/StandingsTable.astro';
 import standings from '../data/standings.json';
+import calendarData from '../data/calendar.json';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import teamColors from '../data/team_colors.json';
 
@@ -11,6 +14,74 @@ const classificaConFM = standings.map(team => {
     mediaPunti: Number(mediaPunti.toFixed(2))
   };
 });
+
+// 1. LETTURA DATA DI ULTIMO AGGIORNAMENTO DI calendar.json
+const calendarFilePath = path.resolve(process.cwd(), 'src/data/calendar.json');
+let formattedLastUpdate = 'Non disponibile';
+
+try {
+  const stats = fs.statSync(calendarFilePath);
+  formattedLastUpdate = stats.mtime.toLocaleDateString('it-IT', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+} catch (e) {
+  // Ignora se il file non viene trovato a runtime
+}
+
+// 2. ELABORAZIONE PUNTEGGI PROGRESSIVI DAL CALENDARIO
+const teamNames = standings.map(t => t.Squadra);
+const playedRounds = (calendarData.rounds || []).filter(r => r.matches.some(m => m.played));
+const totalPlayedRounds = playedRounds.length;
+
+const cumulativePoints = {};
+teamNames.forEach(team => {
+  cumulativePoints[team] = [0]; // Giornata 0 = 0 punti
+});
+
+playedRounds.forEach(roundData => {
+  const roundPoints = {};
+  teamNames.forEach(team => { roundPoints[team] = 0; });
+
+  roundData.matches.forEach(m => {
+    if (m.played && m.score && m.score.includes('-')) {
+      const [homeGoals, awayGoals] = m.score.split('-').map(Number);
+      let homePts = 0, awayPts = 0;
+
+      if (homeGoals > awayGoals) {
+        homePts = 3; awayPts = 0;
+      } else if (homeGoals < awayGoals) {
+        homePts = 0; awayPts = 3;
+      } else {
+        homePts = 1; awayPts = 1;
+      }
+
+      if (roundPoints[m.home] !== undefined) roundPoints[m.home] = homePts;
+      if (roundPoints[m.away] !== undefined) roundPoints[m.away] = awayPts;
+    }
+  });
+
+  teamNames.forEach(team => {
+    const prevTotal = cumulativePoints[team][cumulativePoints[team].length - 1];
+    cumulativePoints[team].push(prevTotal + roundPoints[team]);
+  });
+});
+
+const roundLabels = Array.from({ length: totalPlayedRounds + 1 }, (_, i) => i === 0 ? 'Inizio' : `${i}ª G`);
+
+const progressDatasets = teamNames.map(team => ({
+  label: team,
+  data: cumulativePoints[team],
+  borderColor: teamColors[team] || '#888888',
+  backgroundColor: teamColors[team] || '#888888',
+  borderWidth: 2.5,
+  tension: 0.2,
+  pointRadius: 3,
+  pointHoverRadius: 6
+}));
 ---
 
 <BaseLayout pageTitle="Classifica e rendimento">
@@ -23,35 +94,81 @@ const classificaConFM = standings.map(team => {
 
     <StandingsTable isExtended={true} />
 
-    <!-- Grafico a barre con soglie -->
+    <!-- 1° GRAFICO: Punti Progressivi per Giornata -->
+    <div class="chart-wrapper">
+      <h3 style="text-align: center; font-family: 'Helvetica'; margin-bottom: 20px;">ANDAMENTO PUNTI PROGRESSIVI</h3>
+      <div style="position: relative; height: 450px; width: 100%;">
+        <canvas id="progressivoChart"></canvas>
+      </div>
+      <p class="chart-footer-update">
+        Ultimo aggiornamento del calendario: <strong>{formattedLastUpdate}</strong>
+      </p>
+    </div>
+
+    <!-- 2° GRAFICO: Grafico a barre con soglie (Media Punti) -->
     <div class="chart-wrapper">
       <h3 style="text-align: center; font-family: 'Helvetica'; margin-bottom: 20px;">MEDIA PUNTI (RENDIMENTO)</h3>
       <div style="position: relative; height: 400px; width: 100%;">
         <canvas id="rendimentoChart"></canvas>
       </div>
     </div>
+
   </div>
 </BaseLayout>
 
 <script is:inline src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script is:inline src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
 
-<script define:vars={{ classificaConFM, teamColors }}>
+<script define:vars={{ classificaConFM, teamColors, roundLabels, progressDatasets }}>
   document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('rendimentoChart');
     
+    // --- 1. GRAFICO A LINEE (PUNTI PROGRESSIVI) ---
+    const ctxLine = document.getElementById('progressivoChart');
+    new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: roundLabels,
+        datasets: progressDatasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { font: { family: 'Helvetica', size: 12 }, usePointStyle: true }
+          },
+          tooltip: {
+            backgroundColor: '#111',
+            mode: 'index',
+            intersect: false
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            title: { display: true, text: 'Giornate', font: { weight: 'bold' } }
+          },
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Punti in classifica', font: { weight: 'bold' } }
+          }
+        }
+      }
+    });
+
+    // --- 2. GRAFICO A BARRE (MEDIA PUNTI) ---
+    const ctxBar = document.getElementById('rendimentoChart');
     const labels = classificaConFM.map(t => t.Squadra);
     const dataPunti = classificaConFM.map(t => t.mediaPunti); 
     const barColors = labels.map(team => teamColors[team] || '#888888');
 
-    // 1. PRE-CARICAMENTO LOGHI
     const logoImages = labels.map(team => {
       const img = new Image();
       img.src = `/logos/${team}.png`;
       return img;
     });
 
-    // 2. PLUGIN CUSTOM PER DISEGNARE I LOGHI SULL'ASSE X
     const logoPlugin = {
       id: 'logoPlugin',
       afterDraw: (chart) => {
@@ -71,117 +188,48 @@ const classificaConFM = standings.map(team => {
       }
     };
 
-    const myChart = new Chart(ctx, {
+    const myBarChart = new Chart(ctxBar, {
       type: 'bar',
       data: {
         labels: labels, 
-        datasets: [
-          {
-            data: dataPunti,
-            backgroundColor: barColors,
-            borderRadius: 4
-          }
-        ]
+        datasets: [{ data: dataPunti, backgroundColor: barColors, borderRadius: 4 }]
       },
       plugins: [logoPlugin],
       options: {
-        layout: {
-          padding: { bottom: 35, right: 10 } 
-        },
+        layout: { padding: { bottom: 35, right: 10 } },
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { 
-            display: false
-          },
+          legend: { display: false },
           tooltip: {
             backgroundColor: '#111',
-            callbacks: {
-              label: function(context) {
-                return `Media punti: ${context.raw}`; 
-              }
-            }
+            callbacks: { label: (context) => `Media punti: ${context.raw}` }
           },
           annotation: {
             annotations: {
               lineaChampions: {
-                type: 'line',
-                yMin: 2.0,
-                yMax: 2.0,
-                borderColor: '#eab308',
-                borderWidth: 2,
-                borderDash: [5, 5],
-                hitTolerance: 12,
-                label: {
-                  display: false,
-                  content: 'Media Champions',
-                  position: 'end',
-                  backgroundColor: '#eab308',
-                  color: '#111',
-                  font: { weight: 'bold', family: 'Helvetica', size: 11 },
-                  padding: { x: 8, y: 4 },
-                  borderRadius: 4,
-                },
-                enter({ element }) {
-                  element.label.options.display = true;
-                  element.options.borderWidth = 4;
-                  return true;
-                },
-                leave({ element }) {
-                  element.label.options.display = false;
-                  element.options.borderWidth = 2;
-                  return true;
-                }
+                type: 'line', yMin: 2.0, yMax: 2.0, borderColor: '#eab308', borderWidth: 2, borderDash: [5, 5], hitTolerance: 12,
+                label: { display: false, content: 'Media Champions', position: 'end', backgroundColor: '#eab308', color: '#111', font: { weight: 'bold', family: 'Helvetica', size: 11 }, padding: { x: 8, y: 4 }, borderRadius: 4 },
+                enter({ element }) { element.label.options.display = true; element.options.borderWidth = 4; return true; },
+                leave({ element }) { element.label.options.display = false; element.options.borderWidth = 2; return true; }
               },
               lineaSalvezza: {
-                type: 'line',
-                yMin: 1.0,
-                yMax: 1.0,
-                borderColor: '#ef4444',
-                borderWidth: 2,
-                borderDash: [5, 5],
-                hitTolerance: 12,
-                label: {
-                  display: false,
-                  content: 'Media salvezza',
-                  position: 'end',
-                  backgroundColor: '#ef4444',
-                  color: '#fff',
-                  font: { weight: 'bold', family: 'Helvetica', size: 11 },
-                  padding: { x: 8, y: 4 },
-                  borderRadius: 4
-                },
-                enter({ element }) {
-                  element.label.options.display = true;
-                  element.options.borderWidth = 4;
-                  return true;
-                },
-                leave({ element }) {
-                  element.label.options.display = false;
-                  element.options.borderWidth = 2;
-                  return true;
-                }
+                type: 'line', yMin: 1.0, yMax: 1.0, borderColor: '#ef4444', borderWidth: 2, borderDash: [5, 5], hitTolerance: 12,
+                label: { display: false, content: 'Media salvezza', position: 'end', backgroundColor: '#ef4444', color: '#fff', font: { weight: 'bold', family: 'Helvetica', size: 11 }, padding: { x: 8, y: 4 }, borderRadius: 4 },
+                enter({ element }) { element.label.options.display = true; element.options.borderWidth = 4; return true; },
+                leave({ element }) { element.label.options.display = false; element.options.borderWidth = 2; return true; }
               }
             }
           }
         },
         scales: {
-          x: {
-            ticks: { display: false },
-            grid: { display: false }
-          },
-          y: {
-            beginAtZero: true,
-            max: 3,
-            title: { display: true, text: 'Punti medi per giornata', font: { weight: 'bold' } }
-          }
+          x: { ticks: { display: false }, grid: { display: false } },
+          y: { beginAtZero: true, max: 3, title: { display: true, text: 'Punti medi per giornata', font: { weight: 'bold' } } }
         }
       }
     });
 
-    logoImages.forEach(img => {
-      img.onload = () => myChart.update();
-    });
+    logoImages.forEach(img => { img.onload = () => myBarChart.update(); });
   });
 </script>
 
@@ -206,11 +254,20 @@ const classificaConFM = standings.map(team => {
     width: 100%;
     box-sizing: border-box; 
   }
+
+  .chart-footer-update {
+    text-align: right;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 0.8rem;
+    color: #777;
+    margin: 15px 0 0 0;
+  }
   
   @media (max-width: 768px) {
     .header-section h2 { font-size: 1.8rem; }
     .chart-wrapper { padding: 15px 5px; margin-top: 20px; }
     .standings-table { font-size: 0.8rem; }
     .standings-table th, .standings-table td { padding: 8px 5px; }
+    .chart-footer-update { text-align: center; }
   }
 </style>
