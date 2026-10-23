@@ -6,6 +6,7 @@ Questo documento raccoglie le linee guida, le criticità tecniche attuali e le p
 
 ## 1. Risoluzione del "name mismatch" (Odds API vs JSON Locale)
 
+
 ### Il Problema
 Quando lo script Node.js interroga *The Odds API* per estrarre le quote dei marcatori (Player Props), i nomi restituiti dai bookmaker internazionali non coincidono quasi mai con quelli presenti nel database locale della nostra lega (`squads.json`).
 Esempi tipici includono differenze di formattazione, accenti mancanti o abbreviazioni di nome/cognome. 
