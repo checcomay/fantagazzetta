@@ -1,36 +1,39 @@
 ---
-
+// src/components/VisitorCounter.astro
 ---
 
 <div class="visitor-counter">
-  Visite totali: <span id="count">Caricamento...</span>
+  👀 Visite totali: <span id="visitor-count">--</span>
 </div>
 
 <script>
-  async function updateCounter() {
-    try {
-      // Chiamata all'API pubblica per incrementare e restituire le visite della lega
-      const response = await fetch('https://api.counterapi.dev/v1/fantamacri/visite/up');
-      const data = await response.json();
-      
-      const countElement = document.getElementById('count');
-      if (countElement && data.count) {
-        countElement.textContent = data.count.toLocaleString();
-      }
-    } catch (e) {
-      console.error("Impossibile caricare il contatore", e);
-      const countElement = document.getElementById('count');
-      if (countElement) countElement.textContent = "N/D";
+  function initCounter() {
+    // Recupera le visite salvate o imposta un valore iniziale
+    let visits = localStorage.getItem('fantamacri_visits');
+    
+    if (!visits) {
+      visits = 0; // Valore di partenza personalizzabile
+    } else {
+      visits = parseInt(visits, 10) + 1;
+    }
+    
+    // Salva il nuovo conteggio
+    localStorage.setItem('fantamacri_visits', visits);
+    
+    // Mostra il valore formattato nel DOM
+    const counterSpan = document.getElementById('visitor-count');
+    if (counterSpan) {
+      counterSpan.textContent = visits.toLocaleString();
     }
   }
 
-  updateCounter();
+  initCounter();
 </script>
 
 <style>
   .visitor-counter {
     font-family: 'Helvetica', 'Arial', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #aaa;
     text-align: center;
     margin-top: 10px;
