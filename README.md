@@ -87,28 +87,21 @@ Questa suite prepara l'analisi della giornata in arrivo per consigliare chi schi
 
 > ⚠️ **Tempistica consigliata:** Esegui questi comandi **tra il venerdì sera e il sabato mattina** (a poche ore dalla consegna delle formazioni). Eseguirli a inizio settimana genererebbe molti campi `null`, poiché i bookmaker quotano i Player Props e aprono le linee dettagliate solo a ridosso dei match.
 
-1. **Quote giocatori di movimento (`scripts/fetch_odds.js`):**
-Interroga *The Odds API v4* per i mercati `player_goal_scorer_anytime`, `player_goals` (doppietta Over 1.5), `player_assists`, `player_to_receive_card` e `player_to_receive_red_card`.
+1. **Quote giocatori di movimento e portieri (`scripts/fetch_all_odds.js`):**
+Interroga *The Odds API v4* per i mercati `player_goal_scorer_anytime`, `player_goals` (doppietta Over 1.5), `player_assists`, `player_to_receive_card` (`player_to_receive_red_card` opzionale ) e `team_totals`.
 ```bash
-node scripts/fetch_odds.js
+node scripts/fetch_all_odds.js
 ```
-*Output:* `src/data/daily_odds.json`.
+*Output:* `src/data/daily_odds.json` e `src/data/daily_gk_odds.json`.
 
-2. **Quote difesa e portieri (`scripts/fetch_gk.js`):**
-Interroga il mercato `team_totals` delle squadre avversarie per calcolare le probabilità di subire 0 (Clean Sheet), 1, 2 o 3+ gol e il malus gol atteso.
-```bash
-node scripts/fetch_gk.js
-```
-*Output:* `src/data/daily_gk_odds.json`.
-
-3. **Scraping % di titolarità (`scripts/get_indeces.js`):**
+2. **Scraping % di titolarità (`scripts/get_indeces.js`):**
 Estrae in tempo reale da [Fantacalcio.it - Probabili Formazioni](https://www.fantacalcio.it/probabili-formazioni-serie-a) le percentuali dei titolari e le quote dei ballottaggi per ogni giocatore in `squads.json`.
 ```bash
 node scripts/get_indeces.js
 ```
 *Output:* `src/data/prob_indeces.json`.
 
-4. **Calcolo Expected Fantavoto ($xFM$) (`scripts/calculate_xFM.js`):**
+3. **Calcolo Expected Fantavoto ($xFM$) (`scripts/calculate_xFM.js`):**
 Incrocia tutti i dati precedenti applicando il modello a base voto 6.0, ponderando i bonus/malus attesi (gol **+3**, doppietta **+3**, assist **+1**, giallo **-0.5**, rosso **-1**, autogol **-2**, clean sheet portiere **+1**) e la probabilità di voto dalla titolarità.
 ```bash
 node scripts/calculate_xFM.js

@@ -1,6 +1,9 @@
 ---
+import VisitorCounter from '../components/VisitorCounter.astro';
+
 const { pageTitle } = Astro.props;
 ---
+
 <html lang="it">
   <head>
     <meta charset="utf-8" />
@@ -198,6 +201,7 @@ const { pageTitle } = Astro.props;
     <!-- BANNER NERO (FOOTER) -->
     <footer class="site-footer">
       <div class="footer-content">
+              <VisitorCounter />
         <h3 class="footer-title">La Fantagazzetta di Macrì</h3>
         <div class="footer-links">
           <p>

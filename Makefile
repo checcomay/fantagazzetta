@@ -72,18 +72,13 @@ calendar:
 # ==========================================
 
 # Esegue in cascata l'estrazione quote, scraping formazioni e calcolo xFM
-pre-match: odds-players odds-gk lineups xfm
+pre-match: odds lineups xfm
 	@echo "🎯 Pipeline pre-partita completata!"
 
-# Quote marcatori, doppiette, assist e cartellini
-odds-players:
-	@echo "⚽ Estrazione quote giocatori di movimento (The Odds API)..."
-	node scripts/fetch_odds.js
-
-# Quote gol subiti per i portieri (team_totals)
-odds-gk:
-	@echo "🧤 Estrazione quote gol subiti portieri (The Odds API)..."
-	node scripts/fetch_gk.js
+# Chiamata unica per quote giocatori + portieri
+odds:
+	@echo "⚽🧤 Estrazione unificata quote giocatori e portieri (The Odds API)..."
+	node scripts/fetch_all_odds.js
 
 # Scraping probabili formazioni e ballottaggi da Fantacalcio.it
 lineups:
