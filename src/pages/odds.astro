@@ -82,25 +82,24 @@ function simulateTeamGoalsDistribution(teamData, iterations = 10000) {
         const u2 = Math.random();
         const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
 
-        // Peso titolarità / subentro
+        // peso titolarità / subentro
         const startProb = (p.starter_probability ?? 80) / 100;
         const playsWeight = startProb + 0.35 * (1 - startProb);
 
-        let playerScore = 6.0 + z * 0.55;
+        const baseVote = 6.0 + z * 0.55;
+        let bonusMalus = 0;
         const m = p.metrics || {};
 
         if ((p.role || '').toUpperCase() === 'P') {
-          // Simulazione Portiere
           const pCs = (m.clean_sheet_probability ?? 25) / 100;
           if (Math.random() < pCs) {
-            playerScore += 1.0 + 0.25; // Bonus imbattibilità (+1) + lieve spinta sul voto
+            bonusMalus += 1.0 + 0.25;
           } else {
             const expConceded = m.expected_goals_conceded ?? 1.35;
             const goalsConceded = Math.max(1, Math.round(expConceded + z * 0.7));
-            playerScore -= goalsConceded * 1.0 + 0.15;
+            bonusMalus -= goalsConceded * 1.0 + 0.15;
           }
         } else {
-          // Simulazione Giocatori di Movimento (4 D, 3 C, 3 A)
           const pGol = (m.goal_probability ?? 5) / 100;
           const pBrace = (m.brace_probability ?? 1) / 100;
           const pAss = (m.assist_probability ?? 6) / 100;
@@ -109,19 +108,16 @@ function simulateTeamGoalsDistribution(teamData, iterations = 10000) {
           const pOwn = (m.own_goal_probability ?? 1) / 100;
 
           const rollGol = Math.random();
-          if (rollGol < pBrace) {
-            playerScore += 6.0 + 0.7; // Doppietta (+6 + voto alto)
-          } else if (rollGol < pGol) {
-            playerScore += 3.0 + 0.35; // Gol singolo (+3 + voto)
-          }
+          if (rollGol < pBrace) bonusMalus += 6.0 + 0.7;
+          else if (rollGol < pGol) bonusMalus += 3.0 + 0.35;
 
-          if (Math.random() < pAss) playerScore += 1.0 + 0.2;
-          if (Math.random() < pRed) playerScore -= 1.0 + 0.5;
-          else if (Math.random() < pYel) playerScore -= 0.5 + 0.25;
-          if (Math.random() < pOwn) playerScore -= 2.0 + 0.4;
+          if (Math.random() < pAss) bonusMalus += 1.0 + 0.2;
+          if (Math.random() < pRed) bonusMalus -= 1.0 + 0.5;
+          else if (Math.random() < pYel) bonusMalus -= 0.5 + 0.25;
+          if (Math.random() < pOwn) bonusMalus -= 2.0 + 0.4;
         }
 
-        totalScore += playerScore * playsWeight;
+        totalScore += baseVote + (bonusMalus * playsWeight);
       }
     } else {
       // Fallback calibrato sulla deviazione standard storica della lega (8.5 pt)
@@ -163,24 +159,47 @@ const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
   const homeGoalProbs = simulateTeamGoalsDistribution(homeTeamData, 10000);
   const awayGoalProbs = simulateTeamGoalsDistribution(awayTeamData, 10000);
 
-  let p1 = 0, pX = 0, p2 = 0, pOver15 = 0, pOver25 = 0, pGoal = 0;
+  // array per tutti i risultati esatti
+  const exactScoresList = [];
 
-for (let h = 0; h < homeGoalProbs.length; h++) {
+  let p1 = 0, pX = 0, p2 = 0, pOver15 = 0, pOver25 = 0, pGoal = 0;
+  for (let h = 0; h < homeGoalProbs.length; h++) {
     for (let a = 0; a < awayGoalProbs.length; a++) {
       const jointProb = homeGoalProbs[h] * awayGoalProbs[a];
-      if (h > a) p1 += jointProb;
-      else if (h === a) pX += jointProb;
-      else p2 += jointProb;
+      if (h > a)
+        p1 += jointProb;
+      else if (h === a)
+        pX += jointProb;
+      else
+        p2 += jointProb;
 
-      if (h + a > 1.5) pOver15 += jointProb;
-      if (h + a > 2.5) pOver25 += jointProb;
-      if (h > 0 && a > 0) pGoal += jointProb;
+      if (h + a > 1.5)
+        pOver15 += jointProb;
+      if (h + a > 2.5)
+        pOver25 += jointProb;
+      if (h > 0 && a > 0)
+        pGoal += jointProb;
+
+      exactScoresList.push({
+        score: `${h}-${a}`,
+        prob: jointProb
+      });
     }
   }
 
   const pUnder15 = 1 - pOver15;
   const pUnder25 = 1 - pOver25;
   const pNoGoal = 1 - pGoal;
+
+  // estrae i 3 risultati esatti più probabili e calcola la relativa quota
+  const top3Scores = exactScoresList
+    .sort((a, b) => b.prob - a.prob)
+    .slice(0, 3)
+    .map((item) => ({
+      score: item.score,
+      odd: probToSnaiOdd(item.prob),
+      probPercent: Math.round(item.prob * 100)
+    }));
 
   return {
     home: match.home,
@@ -194,6 +213,7 @@ for (let h = 0; h < homeGoalProbs.length; h++) {
       pX: Math.round(pX * 100),
       p2: Math.round(p2 * 100)
     },
+    topScores: top3Scores,
     odds: {
       one: probToSnaiOdd(p1),
       draw: probToSnaiOdd(pX),
@@ -378,9 +398,16 @@ function probToSnaiOdd(prob) {
                   <span class="odd-label">NG</span>
                   <span class="odd-val">{m.odds.ng}</span>
                 </div>
+
+                <!-- 5. TOP 3 RISULTATI ESATTI PIÙ PROBABILI -->
+                {m.topScores.map((s) => (
+                  <div class="odd-box" title={`Probabilità stimata: ${s.probPercent}%`}>
+                    <span class="odd-label">{s.score}</span>
+                    <span class="odd-val">{s.odd}</span>
+                  </div>
+                ))}
               </div>
             </div>
-
 
             <!-- TENDINA ESPANDIBILE TOP 11 (MODULO 4-3-3) -->
             <details class="lineups-drawer">
@@ -776,6 +803,22 @@ function probToSnaiOdd(prob) {
     background: #fff;
     border-color: #f39c12;
     border-bottom: 3px solid #f39c12;
+  }
+  .secondary-odds {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 6px;
+    width: 100%;
+  }
+  .secondary-odds .odd-box.exact-score-item {
+    background: #fff8e7;
+    color: #111;
+    border: 1px dashed #f39c12;
+    border-bottom: 3px solid #d35400;
+  }
+  .secondary-odds .odd-box.exact-score-item .odd-label {
+    color: #d35400;
+    font-weight: 900;
   }
 
   @media (max-width: 640px) {
