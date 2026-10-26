@@ -1,4 +1,4 @@
-DOWNLOADS := ~/Downloads
+DOWNLOADS := $(HOME)/Downloads
 
 # File statici da scaricare
 QUOTES_FILE   := $(DOWNLOADS)/Quotazioni_Fantacalcio_Stagione_2026_27.xlsx
@@ -41,7 +41,7 @@ update-all: stats ranking calendar
 stats:
 	@echo "📊 Assegnazione statistiche ai giocatori..."
 	@if [ ! -f "$(STATS_FILE)" ]; then \
-		echo "❌ Errore: File statistiche mancante in $(DOWNLOADS)."; \
+		echo "❌ Errore: File $(STATS_FILE) statistiche mancante."; \
 		echo "👉 Scaricalo da: https://understat.com/league/Serie_A (in fondo alla pagina, CSV)"; \
 		exit 1; \
 	fi
