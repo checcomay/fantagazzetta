@@ -108,3 +108,6 @@
     - `plugins: { tooltip: { displayColors: false, position: 'nearest' } }`
     - Padding e font-size adattivi su breakpoint mobile.
   - [ ] Verificare contenimento dei canvas all'interno dei relativi wrapper con `overflow-x: auto` o `max-width: 100%`.
+
+
+test per il push
