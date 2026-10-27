@@ -1,16 +1,18 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-export async function getStaticPaths() {
-  const articleEntries = await getCollection('articles');
-  return articleEntries.map(entry => ({
-    params: { slug: entry.id }, 
-    props: { entry },
-  }));
+// 1. Legge lo slug direttamente dall'URL in modalità Server
+const { slug } = Astro.params;
+
+// 2. Recupera l'articolo specifico dal database/collection
+const entry = await getEntry('articles', slug);
+
+// 3. Controllo di sicurezza se l'articolo non esiste
+if (!entry) {
+  return new Response('Articolo non trovato', { status: 404 });
 }
 
-const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
@@ -79,7 +81,7 @@ const { Content } = await render(entry);
     </div>
   )}
 
-  <!-- BOX AUTORE (in fondo) -->
+  <!-- BOX AUTORE -->
   {entry.data.author && entry.data.author.trim() !== "" && (
     <div class="author-box">
       <span class="author-badge">Autore</span>
@@ -361,7 +363,6 @@ const { Content } = await render(entry);
     color: #111;
   }
 
-  /* Adattamento articolo per dispositivi mobili */
   @media (max-width: 600px) {
 
     .article-content {

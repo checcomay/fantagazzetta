@@ -902,8 +902,16 @@ function probToSnaiOdd(prob) {
         body: JSON.stringify(payload)
       });
 
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.error || 'Errore nel salvataggio');
+      // Legge il testo grezzo prima di convertirlo in JSON per evitare crash se la risposta è vuota o HTML
+      const responseText = await res.text();
+      let result;
+      try {
+        result = responseText ? JSON.parse(responseText) : {};
+      } catch (e) {
+        throw new Error(`Risposta non valida dal server (${res.status}): ${responseText.slice(0, 100)}`);
+      }
+
+      if (!res.ok) throw new Error(result.error || 'Errore sconosciuto nel salvataggio');
 
       if (feedback) {
         feedback.textContent = `🎉 Schedina registrata! Crediti residui: ${result.newCredits}`;
@@ -914,7 +922,7 @@ function probToSnaiOdd(prob) {
 
       setTimeout(() => {
         selectedBets = [];
-        document.querySelectorAll('.bet-pick').forEach((b) => b.classList.remove('selected-bet'));
+        document.querySelectorAll('.odd-pick').forEach((b) => b.classList.remove('selected-bet'));
         updateSlipUI();
         if (feedback) feedback.textContent = '';
         submitBtn.disabled = false;
@@ -930,7 +938,7 @@ function probToSnaiOdd(prob) {
       submitBtn.disabled = false;
       submitBtn.textContent = 'REGISTRA SCHEDINA';
     }
-  });
+  };
 
   // Caricamento Storico Pronostici
   loadHistoryBtn?.addEventListener('click', () => {
