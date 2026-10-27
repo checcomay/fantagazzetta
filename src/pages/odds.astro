@@ -16,7 +16,7 @@ try {
   lastModifiedDate = stats.mtime;
   const diffMs = Date.now() - lastModifiedDate.getTime();
   daysOld = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  isDataStale = daysOld >= 4;
+  isDataStale = daysOld >= 3;
 } catch (e) {
   isDataStale = true;
 }
@@ -40,52 +40,46 @@ for (const team of xFMsData) {
   teamXfmMap.set(team.fantasy_team.toLowerCase().trim(), team);
 }
 
-// 3. SELEZIONE TITOLARI 4-3-3 E CALCOLO MEDIA + BONUS DIFESA (+1.5)
-const DEFENSE_BONUS = 1.5;
-
-function getBest433Lineup(roster = []) {
-  const pick = (role, count) =>
-    roster
-      .filter((p) => (p.role || '').toUpperCase() === role)
-      .sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating)
-      .slice(0, count);
-
-  return [
-    ...pick('P', 1),
-    ...pick('D', 4),
-    ...pick('C', 3),
-    ...pick('A', 3)
-  ];
-}
-
-function getTeam433ProjectedScore(teamData) {
+// 3. ESTRAZIONE FORMAZIONE E PUNTEGGIO OTTIMIZZATO (Basato sul modulo scelto in xFMs.json)
+function getTeamProjectedScore(teamData) {
   if (!teamData || !teamData.roster) return 68.5;
-  const lineup = getBest433Lineup(teamData.roster);
-  const sum = lineup.reduce((acc, p) => acc + p.expected_fantasy_rating, 0);
-  return sum + DEFENSE_BONUS;
+  // Restituisce direttamente il punteggio top 11 calcolato dall'ottimizzatore moduli
+  return teamData.projected_top11_score ?? 68.5;
 }
 
-// 4. SIMULAZIONE MONTE CARLO (10.000 ITERAZIONI SU MODULO 4-3-3 + 1.5 BONUS DIFESA)
+function getTeamStartingLineup(teamData) {
+  if (!teamData || !teamData.roster) return [];
+  const startingNames = new Set(teamData.starting_eleven || []);
+  const lineup = teamData.roster.filter((p) => startingNames.has(p.name));
+
+  // Ordinamento rigoroso per ruolo: P -> D -> C -> A
+  const roleOrder = { P: 1, D: 2, C: 3, A: 4 };
+  return lineup.sort((a, b) => {
+    const rA = roleOrder[(a.role || '').toUpperCase()] || 5;
+    const rB = roleOrder[(b.role || '').toUpperCase()] || 5;
+    if (rA !== rB) return rA - rB;
+    return b.expected_fantasy_rating - a.expected_fantasy_rating;
+  });
+}
+
+// 4. SIMULAZIONE MONTE CARLO (10.000 ITERAZIONI SUL MODULO OTTIMIZZATO DELLA SQUADRA)
 function simulateTeamGoalsDistribution(teamData, iterations = 10000) {
   const maxGoals = 6;
   const goalCounts = new Array(maxGoals + 1).fill(0);
-  const lineup433 = getBest433Lineup(teamData?.roster || []);
-  const fallbackMean = getTeam433ProjectedScore(teamData);
+  const lineup = getTeamStartingLineup(teamData);
+  const fallbackMean = getTeamProjectedScore(teamData);
+  const defenseBonus = teamData?.defense_modifier_bonus ?? 1.5;
 
   for (let i = 0; i < iterations; i++) {
-    let totalScore = DEFENSE_BONUS; // Parte già con +1.5 di Bonus Difesa
+    let totalScore = defenseBonus; 
 
-    if (lineup433.length === 11) {
-      for (const p of lineup433) {
-        // Estrazione normale standard (Box-Muller) per la variabilità del voto pagella
+    if (lineup.length === 11) {
+      for (const p of lineup) {
         const u1 = Math.random() || 1e-6;
         const u2 = Math.random();
         const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
 
-        // peso titolarità / subentro
         const startProb = (p.starter_probability ?? 80) / 100;
-        const playsWeight = startProb + 0.35 * (1 - startProb);
-
         const baseVote = 6.0 + z * 0.55;
         let bonusMalus = 0;
         const m = p.metrics || {};
@@ -117,17 +111,16 @@ function simulateTeamGoalsDistribution(teamData, iterations = 10000) {
           if (Math.random() < pOwn) bonusMalus -= 2.0 + 0.4;
         }
 
+        const playsWeight = startProb + 0.35 * (1 - startProb);
         totalScore += baseVote + (bonusMalus * playsWeight);
       }
     } else {
-      // Fallback calibrato sulla deviazione standard storica della lega (8.5 pt)
       const u1 = Math.random() || 1e-6;
       const u2 = Math.random();
       const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
       totalScore = fallbackMean + z * 8.5;
     }
 
-    // Conversione FantaPunti -> Gol (Soglia 66 = 1 gol, poi 1 gol ogni 6 punti)
     let goals = 0;
     if (totalScore >= 66) {
       goals = Math.min(maxGoals, Math.floor((totalScore - 60) / 6));
@@ -138,10 +131,23 @@ function simulateTeamGoalsDistribution(teamData, iterations = 10000) {
   return goalCounts.map((count) => count / iterations);
 }
 
-// Converte probabilità (0-1) in quota stile SNAI con allibramento del 5%
+// Helper quote SNAI
 function probToSnaiOdd(prob) {
-  const marginedProb = Math.min(0.92, Math.max(0.03, prob * 1.05));
-  return (1 / marginedProb).toFixed(2);
+  const marginedProb = Math.min(0.99, Math.max(0.005, prob * 1.05));
+  const rawOdd = 1 / marginedProb;
+
+  let step;
+  if (rawOdd < 2.0) step = 0.01;
+  else if (rawOdd < 3.0) step = 0.02;
+  else if (rawOdd < 4.0) step = 0.05;
+  else if (rawOdd < 6.0) step = 0.1;
+  else if (rawOdd < 10.0) step = 0.2;
+  else if (rawOdd < 20.0) step = 0.5;
+  else if (rawOdd <= 50.0) step = 1;
+  else step = 5;
+
+  const rounded = Math.round(rawOdd / step) * step;
+  return String(Number(rounded.toFixed(2)));
 }
 
 // Elaborazione pronostici per ogni partita della giornata
@@ -149,36 +155,39 @@ const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
   const homeTeamData = teamXfmMap.get(match.home.toLowerCase().trim());
   const awayTeamData = teamXfmMap.get(match.away.toLowerCase().trim());
 
-  // 1. Definisci le due variabili qui all'inizio del .map() (con la 'u' minuscola)
-  const homeLineup = getBest433Lineup(homeTeamData?.roster || []);
-  const awayLineup = getBest433Lineup(awayTeamData?.roster || []);
+  const homeLineup = getTeamStartingLineup(homeTeamData);
+  const awayLineup = getTeamStartingLineup(awayTeamData);
 
-  const homeXfm = getTeam433ProjectedScore(homeTeamData);
-  const awayXfm = getTeam433ProjectedScore(awayTeamData);
+  const homeXfm = getTeamProjectedScore(homeTeamData);
+  const awayXfm = getTeamProjectedScore(awayTeamData);
+
+  // Modulo ottimale scelto per le due squadre
+  const homeFormation = homeTeamData?.formation || '4-3-3';
+  const awayFormation = awayTeamData?.formation || '4-3-3';
 
   const homeGoalProbs = simulateTeamGoalsDistribution(homeTeamData, 10000);
   const awayGoalProbs = simulateTeamGoalsDistribution(awayTeamData, 10000);
 
-  // array per tutti i risultati esatti
   const exactScoresList = [];
+  let p1 = 0, pX = 0, p2 = 0, pOver15 = 0, pOver25 = 0, 
+      pOver35 = 0, pOver45 = 0, pOver55 = 0;
+  let pGoal = 0;
 
-  let p1 = 0, pX = 0, p2 = 0, pOver15 = 0, pOver25 = 0, pGoal = 0;
   for (let h = 0; h < homeGoalProbs.length; h++) {
     for (let a = 0; a < awayGoalProbs.length; a++) {
       const jointProb = homeGoalProbs[h] * awayGoalProbs[a];
-      if (h > a)
-        p1 += jointProb;
-      else if (h === a)
-        pX += jointProb;
-      else
-        p2 += jointProb;
 
-      if (h + a > 1.5)
-        pOver15 += jointProb;
-      if (h + a > 2.5)
-        pOver25 += jointProb;
-      if (h > 0 && a > 0)
-        pGoal += jointProb;
+      if (h > a) p1 += jointProb;
+      else if (h === a) pX += jointProb;
+      else p2 += jointProb;
+
+      if (h + a > 1.5) pOver15 += jointProb;
+      if (h + a > 2.5) pOver25 += jointProb;
+      if (h + a > 3.5) pOver35 += jointProb;
+      if (h + a > 4.5) pOver45 += jointProb;
+      if (h + a > 5.5) pOver55 += jointProb;
+
+      if (h > 0 && a > 0) pGoal += jointProb;
 
       exactScoresList.push({
         score: `${h}-${a}`,
@@ -189,12 +198,18 @@ const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
 
   const pUnder15 = 1 - pOver15;
   const pUnder25 = 1 - pOver25;
+  const pUnder35 = 1 - pOver35;
+  const pUnder45 = 1 - pOver45;
+  const pUnder55 = 1 - pOver55;
   const pNoGoal = 1 - pGoal;
 
-  // estrae i 3 risultati esatti più probabili e calcola la relativa quota
+  const p1X = p1 + pX;
+  const pX2 = pX + p2;
+  const p12 = p1 + p2;
+
   const top3Scores = exactScoresList
     .sort((a, b) => b.prob - a.prob)
-    .slice(0, 3)
+    .slice(0, 6)
     .map((item) => ({
       score: item.score,
       odd: probToSnaiOdd(item.prob),
@@ -206,6 +221,8 @@ const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
     away: match.away,
     homeXfm: homeXfm.toFixed(1),
     awayXfm: awayXfm.toFixed(1),
+    homeFormation,
+    awayFormation,
     homeLineup,
     awayLineup,
     probs: {
@@ -218,15 +235,30 @@ const matchPredictions = (nextRoundObj?.matches || []).map((match) => {
       one: probToSnaiOdd(p1),
       draw: probToSnaiOdd(pX),
       two: probToSnaiOdd(p2),
+      oneX: probToSnaiOdd(p1X),
+      xTwo: probToSnaiOdd(pX2),
+      oneTwo: probToSnaiOdd(p12),
       under15: probToSnaiOdd(pUnder15),
       over15: probToSnaiOdd(pOver15),
       under25: probToSnaiOdd(pUnder25),
       over25: probToSnaiOdd(pOver25),
+      under35: probToSnaiOdd(pUnder35),
+      over35: probToSnaiOdd(pOver35),
+      under45: probToSnaiOdd(pUnder45),
+      over45: probToSnaiOdd(pOver45),
+      under55: probToSnaiOdd(pUnder55),
+      over55: probToSnaiOdd(pOver55),
       gg: probToSnaiOdd(pGoal),
       ng: probToSnaiOdd(pNoGoal)
     }
   };
 });
+
+// Helper logo
+function getTeamLogo(teamName) {
+  if (!teamName) return '/logos/default.png';
+  return `/logos/${teamName}.png`;
+}
 
 // 5. ESTRAZIONE TOP 3 GIOCATORI PER RUOLO (A, C, D, P)
 const allPlayers = [];
@@ -241,7 +273,18 @@ for (const team of xFMsData) {
 
 function getTopByRole(roleCode, limit = 3) {
   return allPlayers
-    .filter((p) => (p.role || '').toUpperCase() === roleCode)
+    .filter((p) => {
+      const role = (p.role || '').toUpperCase();
+      if (role !== roleCode) return false;
+      
+      // I portieri con 0% di probabilità di titolarità non devono MAI comparire nei consigliati
+      if (role === 'P' && (p.starter_probability ?? 0) <= 0) {
+        return false;
+      }
+      
+      // Per gli altri ruoli pretendiamo comunque che abbiano almeno un minimo di probabilità (> 0)
+      return (p.starter_probability ?? 0) > 0;
+    })
     .sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating)
     .slice(0, limit);
 }
@@ -302,8 +345,8 @@ function probToSnaiOdd(prob) {
       <div class="stale-banner">
         <div class="stale-icon">⚠️</div>
         <div class="stale-text">
-          <strong>ATTENZIONE: DATI OBSOLETI ({daysOld} giorni fa)!</strong>
-          <p>Le quote e le probabili formazioni risalgono a più di 4 giorni fa. La preghiamo di contattare l'assistenza per aggiornare i pronostici della giornata.</p>
+          <strong>ATTENZIONE: DATI OBSOLETI!</strong>
+          <p>Le quote e le probabili formazioni risalgono a più di {daysOld} giorni fa. La preghiamo di contattare l'assistenza per aggiornare i pronostici della giornata.</p>
         </div>
       </div>
     )}
@@ -317,11 +360,61 @@ function probToSnaiOdd(prob) {
       <p class="update-timestamp">Ultimo aggiornamento dati xFM: <strong>{formattedLastUpdate}</strong></p>
     </div>
 
+    <!-- WIDGET SCHEDINA A TENDINA (STICKY) -->
+    <div class="bet-slip-wrapper" id="bet-slip-wrapper">
+      <button type="button" class="slip-toggle-btn" id="slip-toggle">
+        <div class="slip-toggle-info">
+          <span class="slip-icon">🎟️</span>
+          <strong>LA TUA SCHEDINA:</strong>
+          <span id="slip-count-badge">0 giocate</span>
+        </div>
+        <div class="slip-toggle-right">
+          <span class="user-credits-badge" id="header-user-credits">💰 Crediti: 100</span>
+          <span class="total-multiplier-badge" id="slip-header-odd">Quota: 1.00</span>
+          <span class="arrow-indicator" id="slip-arrow">▼</span>
+        </div>
+      </button>
+
+      <!-- Menu a tendina espandibile -->
+      <div class="slip-dropdown-content" id="slip-dropdown" style="display: none;">
+        <div id="slip-items-list" class="slip-items-list">
+          <p class="empty-slip-text">Nessun pronostico selezionato. Clicca sulle quote della giornata per iniziare!</p>
+        </div>
+
+        <div class="slip-summary" id="slip-summary" style="display: none;">
+          <div class="summary-row">
+            <span>Moltiplicatore Totale:</span>
+            <strong id="summary-multiplier" class="highlight-odd">1.00</strong>
+          </div>
+
+          <div class="bet-stake-row">
+            <label for="bet-stake">Puntata in Crediti:</label>
+            <input type="number" id="bet-stake" value="10" min="1" max="500" />
+          </div>
+
+          <div class="summary-row">
+            <span>Potenziale vincita:</span>
+            <strong id="summary-win" class="highlight-win">10.00 crediti</strong>
+          </div>
+
+          <div class="user-email-section">
+            <label for="bettor-email">Inserisci la tua email per giocare e scalare i crediti:</label>
+            <input type="email" id="bettor-email" placeholder="nome@esempio.it" required />
+          </div>
+
+          <button type="button" class="submit-bet-btn" id="submit-bet-btn">
+            REGISTRA SCHEDINA
+          </button>
+          <div id="bet-feedback" class="bet-feedback"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- SEZIONE 1: TABELLONE QUOTE STILE SNAI (MONTE CARLO) -->
     <section class="betting-section">
       <div class="section-header">
         <h3>📊 LAVAGNA QUOTE E PRONOSTICI DI LEGA</h3>
-        <span class="model-note">Simulazione Monte Carlo (10.000 match • Modulo 4-3-3 • Gol ogni 6 pt da 66)</span>
+          <span class="model-note">Simulazione Monte Carlo (10.000 match • Moduli ottimizzati • Gol ogni 6 pt da 66)</span>
       </div>
 
       <div class="matches-grid">
@@ -358,50 +451,101 @@ function probToSnaiOdd(prob) {
 
               <!-- 3. PULSANTI QUOTE 1 - X - 2 -->
               <div class="odds-row main-odds-row">
-                <div class="odd-box">
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-pick="1" data-odd={m.odds.one}>
                   <span class="odd-label">1</span>
                   <span class="odd-val">{m.odds.one}</span>
                 </div>
-                <div class="odd-box">
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-pick="X" data-odd={m.odds.draw}>
                   <span class="odd-label">X</span>
                   <span class="odd-val">{m.odds.draw}</span>
                 </div>
-                <div class="odd-box">
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-pick="2" data-odd={m.odds.two}>
                   <span class="odd-label">2</span>
                   <span class="odd-val">{m.odds.two}</span>
                 </div>
               </div>
 
-              <!-- 4. PULSANTI QUOTE SECONDARIE (U/O 1.5, U/O 2.5, GG/NG) -->
+              <!-- 3b. PULSANTI DOPPIA CHANCE (1X - X2 - 12) -->
+              <div class="odds-row dc-odds-row">
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="esito" data-pick="1X" data-odd={m.odds.oneX}>
+                  <span class="odd-label">1X</span>
+                  <span class="odd-val">{m.odds.oneX}</span>
+                </div>
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="esito" data-pick="X2" data-odd={m.odds.xTwo}>
+                  <span class="odd-label">X2</span>
+                  <span class="odd-val">{m.odds.xTwo}</span>
+                </div>
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="esito" data-pick="12" data-odd={m.odds.oneTwo}>
+                  <span class="odd-label">12</span>
+                  <span class="odd-val">{m.odds.oneTwo}</span>
+                </div>
+              </div>
+
+              <!-- 4. PULSANTI QUOTE SECONDARIE (U/O 1.5, 2.5, 3.5, 4.5, 5.5, GG/NG, 6 RISULTATI ESATTI) -->
               <div class="odds-row secondary-odds-row">
-                <div class="odd-box">
+                <!-- U/O 1.5 -->
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo15" data-pick="U 1.5" data-odd={m.odds.under15}>
                   <span class="odd-label">U 1.5</span>
                   <span class="odd-val">{m.odds.under15}</span>
                 </div>
-                <div class="odd-box">
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo15" data-pick="O 1.5" data-odd={m.odds.over15}>
                   <span class="odd-label">O 1.5</span>
                   <span class="odd-val">{m.odds.over15}</span>
                 </div>
-                <div class="odd-box">
+
+                <!-- U/O 2.5 -->
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo25" data-pick="U 2.5" data-odd={m.odds.under25}>
                   <span class="odd-label">U 2.5</span>
                   <span class="odd-val">{m.odds.under25}</span>
                 </div>
-                <div class="odd-box">
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo25" data-pick="O 2.5" data-odd={m.odds.over25}>
                   <span class="odd-label">O 2.5</span>
                   <span class="odd-val">{m.odds.over25}</span>
                 </div>
-                <div class="odd-box">
+
+                <!-- U/O 3.5 -->
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo35" data-pick="U 3.5" data-odd={m.odds.under35}>
+                  <span class="odd-label">U 3.5</span>
+                  <span class="odd-val">{m.odds.under35}</span>
+                </div>
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo35" data-pick="O 3.5" data-odd={m.odds.over35}>
+                  <span class="odd-label">O 3.5</span>
+                  <span class="odd-val">{m.odds.over35}</span>
+                </div>
+
+                <!-- U/O 4.5 -->
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo45" data-pick="U 4.5" data-odd={m.odds.under45}>
+                  <span class="odd-label">U 4.5</span>
+                  <span class="odd-val">{m.odds.under45}</span>
+                </div>
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo45" data-pick="O 4.5" data-odd={m.odds.over45}>
+                  <span class="odd-label">O 4.5</span>
+                  <span class="odd-val">{m.odds.over45}</span>
+                </div>
+
+                <!-- U/O 5.5 -->
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo55" data-pick="U 5.5" data-odd={m.odds.under55}>
+                  <span class="odd-label">U 5.5</span>
+                  <span class="odd-val">{m.odds.under55}</span>
+                </div>
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="uo55" data-pick="O 5.5" data-odd={m.odds.over55}>
+                  <span class="odd-label">O 5.5</span>
+                  <span class="odd-val">{m.odds.over55}</span>
+                </div>
+
+                <!-- GOL / NO GOL -->
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="gol" data-pick="GG" data-odd={m.odds.gg}>
                   <span class="odd-label">GG</span>
                   <span class="odd-val">{m.odds.gg}</span>
                 </div>
-                <div class="odd-box">
+                <div class="odd-box bet-pick" data-match={`${m.home} - ${m.away}`} data-market="gol" data-pick="NG" data-odd={m.odds.ng}>
                   <span class="odd-label">NG</span>
                   <span class="odd-val">{m.odds.ng}</span>
                 </div>
 
-                <!-- 5. TOP 3 RISULTATI ESATTI PIÙ PROBABILI -->
+                <!-- TOP 6 RISULTATI ESATTI -->
                 {m.topScores.map((s) => (
-                  <div class="odd-box" title={`Probabilità stimata: ${s.probPercent}%`}>
+                  <div class="odd-box bet-pick exact-score-item" title={`Probabilità stimata: ${s.probPercent}%`} data-match={`${m.home} - ${m.away}`} data-market="esatto" data-pick={`Ris. ${s.score}`} data-odd={s.odd}>
                     <span class="odd-label">{s.score}</span>
                     <span class="odd-val">{s.odd}</span>
                   </div>
@@ -412,7 +556,7 @@ function probToSnaiOdd(prob) {
             <!-- TENDINA ESPANDIBILE TOP 11 (MODULO 4-3-3) -->
             <details class="lineups-drawer">
               <summary class="drawer-toggle">
-                <span>📋 Confronta Top 11 schierati dalla simulazione (Modulo 4-3-3)</span>
+                <span>📋 Confronta i top 11 schierati dalla simulazione</span>
                 <span class="chevron">▼</span>
               </summary>
 
@@ -422,7 +566,7 @@ function probToSnaiOdd(prob) {
                   <div class="lineup-col-header">
                     <img src={getTeamLogo(m.home)} alt={m.home} class="team-logo-xs" onerror="this.style.display='none'" />
                     <strong>{m.home}</strong>
-                    <span class="mod-tag">+1.5 Mod. Difesa</span>
+                    <span class="mod-tag">Modulo {m.homeFormation}</span>
                   </div>
                   <ul class="lineup-list">
                     {m.homeLineup.map((p) => (
@@ -441,7 +585,7 @@ function probToSnaiOdd(prob) {
                   <div class="lineup-col-header">
                     <img src={getTeamLogo(m.away)} alt={m.away} class="team-logo-xs" onerror="this.style.display='none'" />
                     <strong>{m.away}</strong>
-                    <span class="mod-tag">+1.5 Mod. Difesa</span>
+                    <span class="mod-tag">Modulo {m.awayFormation}</span>
                   </div>
                   <ul class="lineup-list">
                     {m.awayLineup.map((p) => (
@@ -566,10 +710,366 @@ function probToSnaiOdd(prob) {
       </div>
     </section>
 
+    <!-- SEZIONE STORICO PRONOSTICI E STATO VINCITE -->
+    <section class="my-bets-section">
+      <div class="section-header">
+        <h3>📜 I MIEI PRONOSTICI & STATO SCHEDINE</h3>
+        <span class="model-note">Betta tutto quello che hai! Per i vincitori a fine anno tantissimi ricchi premi (offerti da Giampiero Macrì)</span>
+      </div>
+
+      <div class="my-bets-auth-bar">
+        <input type="email" id="history-email-input" placeholder="Inserisci la tua email per visualizzare lo storico..." />
+        <button type="button" id="load-history-btn">Carica le mie schedine</button>
+        <a href="/ranking-odds" target="_blank" rel="noopener noreferrer" class="open-leaderboard-btn">
+          🏆 Vai alla classifica ↗
+        </a>
+      </div>
+
+      <div id="history-content-area" class="history-content-area">
+        <p class="empty-history-text">Inserisci la tua email sopra per visualizzare il saldo e l'esito dei tuoi pronostici.</p>
+      </div>
+    </section>
+
   </div>
 </BaseLayout>
 
-<style>
+<script>
+  let selectedBets = [];
+
+  const toggleBtn = document.getElementById('slip-toggle');
+  const dropdown = document.getElementById('slip-dropdown');
+  const arrow = document.getElementById('slip-arrow');
+  const countBadge = document.getElementById('slip-count-badge');
+  const headerOdd = document.getElementById('slip-header-odd');
+  const headerCredits = document.getElementById('header-user-credits');
+  const itemsList = document.getElementById('slip-items-list');
+  const summaryBlock = document.getElementById('slip-summary');
+  const summaryMultiplier = document.getElementById('summary-multiplier');
+  const summaryWin = document.getElementById('summary-win');
+  const stakeInput = document.getElementById('bet-stake');
+  const emailInput = document.getElementById('bettor-email');
+  const submitBtn = document.getElementById('submit-bet-btn');
+  const feedback = document.getElementById('bet-feedback');
+
+  const historyEmailInput = document.getElementById('history-email-input');
+  const loadHistoryBtn = document.getElementById('load-history-btn');
+  const historyContentArea = document.getElementById('history-content-area');
+
+  // Recupera email salvata
+  const savedEmail = localStorage.getItem('fantamacri_user_email') || '';
+  if (savedEmail) {
+    if (emailInput) emailInput.value = savedEmail;
+    if (historyEmailInput) historyEmailInput.value = savedEmail;
+    fetchUserHistory(savedEmail);
+  }
+
+  toggleBtn?.addEventListener('click', () => {
+    const isClosed = dropdown.style.display === 'none';
+    dropdown.style.display = isClosed ? 'block' : 'none';
+    if (arrow) arrow.textContent = isClosed ? '▲' : '▼';
+  });
+
+  // Ricalcola la vincita potenziale quando cambia la puntata
+  stakeInput?.addEventListener('input', updateSlipUI);
+
+  // Selezione Quote con data-market non esclusivo
+  document.querySelectorAll('.bet-pick').forEach((box) => {
+    box.addEventListener('click', () => {
+      const match = box.getAttribute('data-match');
+      const market = box.getAttribute('data-market');
+      const pick = box.getAttribute('data-pick');
+      const odd = parseFloat(box.getAttribute('data-odd'));
+
+      if (isNaN(odd) || odd <= 1.0) return;
+
+      const exactIndex = selectedBets.findIndex(
+        (b) => b.match === match && b.market === market && b.pick === pick
+      );
+
+      if (exactIndex > -1) {
+        selectedBets.splice(exactIndex, 1);
+        box.classList.remove('selected-bet');
+      } else {
+        const conflictIndex = selectedBets.findIndex(
+          (b) => b.match === match && b.market === market
+        );
+
+        if (conflictIndex > -1) {
+          const prevPick = selectedBets[conflictIndex].pick;
+          document.querySelectorAll(
+            `.bet-pick[data-match="${match}"][data-pick="${prevPick}"]`
+          ).forEach((el) => el.classList.remove('selected-bet'));
+          selectedBets.splice(conflictIndex, 1);
+        }
+
+        selectedBets.push({ match, market, pick, odd });
+        box.classList.add('selected-bet');
+
+        if (dropdown && dropdown.style.display === 'none') {
+          dropdown.style.display = 'block';
+          if (arrow) arrow.textContent = '▲';
+        }
+      }
+
+      updateSlipUI();
+    });
+  });
+
+  function updateSlipUI() {
+    if (!countBadge || !headerOdd || !itemsList || !summaryBlock) return;
+
+    countBadge.textContent = `${selectedBets.length} ${selectedBets.length === 1 ? 'giocata' : 'giocate'}`;
+
+    if (selectedBets.length === 0) {
+      itemsList.innerHTML = '<p class="empty-slip-text">Nessun pronostico selezionato. Clicca sulle quote della giornata per iniziare!</p>';
+      summaryBlock.style.display = 'none';
+      headerOdd.textContent = 'Quota: 1.00';
+      return;
+    }
+
+    summaryBlock.style.display = 'block';
+
+    const totalOdd = selectedBets.reduce((acc, curr) => acc * curr.odd, 1);
+    const formattedOdd = totalOdd.toFixed(2);
+    headerOdd.textContent = `Quota: ${formattedOdd}`;
+    if (summaryMultiplier) summaryMultiplier.textContent = formattedOdd;
+
+    const currentStake = Math.max(1, parseFloat(stakeInput?.value || 10));
+    const winAmount = (totalOdd * currentStake).toFixed(2);
+    if (summaryWin) summaryWin.textContent = `${winAmount} crediti`;
+
+    // FIX NOME PARTITA BEN VISIBILE IN BIANCO
+    itemsList.innerHTML = selectedBets.map((item, idx) => `
+      <div class="slip-item-row">
+        <div class="slip-item-left">
+          <strong class="slip-match-title">${item.match}</strong>
+          <div class="slip-item-market">Esito: <span>${item.pick}</span></div>
+        </div>
+        <div class="slip-item-action">
+          <span class="slip-item-odd">${item.odd.toFixed(2)}</span>
+          <button type="button" class="remove-item-btn" data-remove-index="${idx}">✕</button>
+        </div>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.remove-item-btn').forEach((delBtn) => {
+      delBtn.addEventListener('click', () => {
+        const removeIdx = parseInt(delBtn.getAttribute('data-remove-index'), 10);
+        const removed = selectedBets.splice(removeIdx, 1)[0];
+
+        document.querySelectorAll(
+          `.bet-pick[data-match="${removed.match}"][data-pick="${removed.pick}"]`
+        ).forEach((b) => b.classList.remove('selected-bet'));
+
+        updateSlipUI();
+      });
+    });
+  }
+
+  // Invio Schedina
+  submitBtn?.addEventListener('click', async () => {
+    const email = emailInput ? emailInput.value.trim() : '';
+    const stake = parseFloat(stakeInput?.value || 10);
+
+    if (!email || !email.includes('@')) {
+      if (feedback) {
+        feedback.textContent = 'Inserisci un indirizzo email valido.';
+        feedback.className = 'bet-feedback error';
+      }
+      return;
+    }
+
+    localStorage.setItem('fantamacri_user_email', email);
+    if (historyEmailInput) historyEmailInput.value = email;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Salvataggio in corso...';
+    if (feedback) feedback.textContent = '';
+
+    const payload = {
+      email,
+      bet: {
+        puntata: stake,
+        moltiplicatore_totale: parseFloat(summaryMultiplier?.textContent || '1.00'),
+        selections: selectedBets
+      }
+    };
+
+    try {
+      const res = await fetch('/api/save-bet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Errore nel salvataggio');
+
+      if (feedback) {
+        feedback.textContent = `🎉 Schedina registrata! Crediti residui: ${result.newCredits}`;
+        feedback.className = 'bet-feedback success';
+      }
+
+      if (headerCredits) headerCredits.textContent = `💰 Crediti: ${result.newCredits}`;
+
+      setTimeout(() => {
+        selectedBets = [];
+        document.querySelectorAll('.bet-pick').forEach((b) => b.classList.remove('selected-bet'));
+        updateSlipUI();
+        if (feedback) feedback.textContent = '';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'REGISTRA SCHEDINA';
+        fetchUserHistory(email);
+      }, 2000);
+
+    } catch (err) {
+      if (feedback) {
+        feedback.textContent = `Errore: ${err.message}`;
+        feedback.className = 'bet-feedback error';
+      }
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'REGISTRA SCHEDINA';
+    }
+  });
+
+  // Caricamento Storico Pronostici
+  loadHistoryBtn?.addEventListener('click', () => {
+    const email = historyEmailInput?.value.trim();
+    if (email) {
+      localStorage.setItem('fantamacri_user_email', email);
+      fetchUserHistory(email);
+    }
+  });
+
+  async function fetchUserHistory(email) {
+    if (!historyContentArea) return;
+    historyContentArea.innerHTML = '<p class="empty-history-text">Caricamento e verifica pronostici in corso...</p>';
+
+    try {
+      const res = await fetch(`/api/my-bets?email=${encodeURIComponent(email)}`);
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Impossibile recuperare lo storico');
+
+      if (headerCredits) headerCredits.textContent = `💰 Crediti: ${data.credits}`;
+
+      if (!data.bets || data.bets.length === 0) {
+        historyContentArea.innerHTML = `
+          <div class="user-summary-card">
+            <span>Utente: <strong>${email}</strong></span>
+            <span class="user-balance-tag">💰 Crediti disponibili: <strong>${data.credits}</strong></span>
+          </div>
+          <p class="empty-history-text">Non hai ancora giocato nessuna schedina. Crea la tua prima giocata in alto!</p>
+        `;
+        return;
+      }
+
+      historyContentArea.innerHTML = `
+        <div class="user-summary-card">
+          <div class="user-info">
+            <span class="user-label">ACCOUNT:</span>
+            <strong class="user-email">${email}</strong>
+          </div>
+          <div class="user-balance-tag">
+            💰 Crediti disponibili: <strong>${data.credits}</strong>
+          </div>
+        </div>
+
+        <div class="history-bets-list">
+          ${data.bets.map((b) => {
+            const dateStr = new Date(b.data_giocata).toLocaleString('it-IT', { 
+              day: '2-digit', 
+              month: 'short', 
+              hour: '2-digit', 
+              minute: '2-digit' 
+            });
+
+            // Assegnazione stato ed emoji
+            let statusClass = 'status-pending';
+            let statusLabel = 'IN CORSO';
+            let statusEmoji = '⏳';
+
+            if (b.status === 'vinta') {
+              statusClass = 'status-won';
+              statusLabel = 'VINCENTE';
+              statusEmoji = '✅';
+            } else if (b.status === 'persa') {
+              statusClass = 'status-lost';
+              statusLabel = 'PERDENTE';
+              statusEmoji = '❌';
+            }
+
+            return `
+              <div class="history-card ${statusClass}">
+                <div class="history-card-header">
+                  <div class="history-header-left">
+                    <span class="history-date">📅 ${dateStr}</span>
+                    <span class="history-stake">Puntata: <strong>${b.puntata} crediti</strong></span>
+                    <span class="history-odd">Quota: <strong>${Number(b.moltiplicatore_totale).toFixed(2)}</strong></span>
+                  </div>
+                  <div class="history-header-right">
+                    <div class="history-status-badge ${statusClass}">
+                      <span class="status-emoji">${statusEmoji}</span>
+                      <span class="status-text">${statusLabel}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="history-selections">
+                  ${(b.selections || []).map(s => {
+                    let selEmoji = '⏳';
+                    let selText = 'In attesa';
+                    let selClass = 'tag-pending';
+
+                    if (s.status === 'vinta') {
+                      selEmoji = '✅';
+                      selText = 'Preso';
+                      selClass = 'tag-won';
+                    } else if (s.status === 'persa') {
+                      selEmoji = '❌';
+                      selText = 'Sbagliato';
+                      selClass = 'tag-lost';
+                    }
+
+                    return `
+                      <div class="history-sel-item">
+                        <div class="history-sel-info">
+                          <strong class="history-sel-match">${s.match}</strong>
+                          <span class="history-sel-pick">Esito: <b>${s.pick}</b> <small>(Quota: ${Number(s.odd).toFixed(2)})</small></span>
+                        </div>
+                        <div class="history-sel-result">
+                          <span class="history-real-score">Risultato: <b>${s.risultato_reale || 'Da disputare'}</b></span>
+                          <span class="sel-tag ${selClass}">
+                            ${selEmoji} ${selText}
+                          </span>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+
+                <div class="history-card-footer">
+                  <div class="win-box">
+                    <span>Potenziale Vincita:</span>
+                    <strong class="win-val">${Number(b.potenziale_vincita).toFixed(2)} crediti</strong>
+                  </div>
+                  ${b.status === 'vinta' ? '<span class="won-payout-tag">🎉 Vincita accreditata sul conto</span>' : ''}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    } catch (e) {
+      historyContentArea.innerHTML = `<p class="empty-history-text error-msg">Errore: ${e.message}</p>`;
+    }
+  }
+</script>
+
+<style is:global>
+  /* ==========================================================================
+     LAYOUT GENERALE & HEADER
+     ========================================================================== */
   .odds-container {
     max-width: 1050px;
     margin: 0 auto;
@@ -577,7 +1077,6 @@ function probToSnaiOdd(prob) {
     font-family: 'Helvetica', 'Arial', sans-serif;
   }
 
-  /* BANNER ROSSO DATI VECCHI */
   .stale-banner {
     display: flex;
     align-items: center;
@@ -590,28 +1089,15 @@ function probToSnaiOdd(prob) {
     border: 2px solid #962d22;
     box-shadow: 0 4px 12px rgba(192, 57, 43, 0.35);
   }
-  .stale-icon {
-    font-size: 2.2rem;
-  }
+  .stale-icon { font-size: 2.2rem; }
   .stale-text strong {
     font-size: 1.15rem;
     letter-spacing: 0.5px;
     display: block;
     margin-bottom: 4px;
   }
-  .stale-text p {
-    margin: 0;
-    font-size: 0.95rem;
-    opacity: 0.95;
-  }
-  .stale-text code {
-    background: rgba(0, 0, 0, 0.25);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: bold;
-  }
+  .stale-text p { margin: 0; font-size: 0.95rem; opacity: 0.95; }
 
-  /* HEADER */
   .header-section {
     text-align: center;
     border-bottom: 3px solid #111;
@@ -644,13 +1130,8 @@ function probToSnaiOdd(prob) {
     font-size: 1.2rem;
     margin: 0 0 8px 0;
   }
-  .update-timestamp {
-    font-size: 0.82rem;
-    color: #666;
-    margin: 0;
-  }
+  .update-timestamp { font-size: 0.82rem; color: #666; margin: 0; }
 
-  /* SEZIONI */
   .section-header {
     display: flex;
     justify-content: space-between;
@@ -661,25 +1142,222 @@ function probToSnaiOdd(prob) {
     flex-wrap: wrap;
     gap: 8px;
   }
-  .section-header h3 {
-    margin: 0;
-    font-size: 1.35rem;
-    font-weight: 900;
-    color: #111;
+  .section-header h3 { margin: 0; font-size: 1.35rem; font-weight: 900; color: #111; }
+  .model-note { font-size: 0.8rem; color: #777; font-style: italic; }
+
+  /* ==========================================================================
+     BARRA SCHEDINA A TENDINA (STICKY)
+     ========================================================================== */
+  .bet-slip-wrapper {
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+    background: #111;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    border: 1px solid #333;
+    overflow: hidden;
   }
-  .model-note {
+  .slip-toggle-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .slip-toggle-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #slip-count-badge {
+    background: #c0392b;
+    padding: 2px 8px;
+    border-radius: 12px;
     font-size: 0.8rem;
-    color: #777;
-    font-style: italic;
+    font-weight: bold;
+  }
+  .slip-toggle-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .user-credits-badge {
+    background: #2c3e50;
+    border: 1px solid #f39c12;
+    color: #f1c40f;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+  .total-multiplier-badge {
+    background: #27ae60;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 900;
+  }
+  .arrow-indicator {
+    font-size: 0.8rem;
+    color: #aaa;
   }
 
-  .betting-section {
-    margin-bottom: 45px;
+  .slip-dropdown-content {
+    background: #1a1a1a;
+    border-top: 1px solid #333;
+    padding: 16px 20px;
+    max-height: 480px;
+    overflow-y: auto;
   }
-  .matches-grid {
+  .empty-slip-text {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    margin: 8px 0;
+  }
+
+  .slip-item-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: #242424 !important;
+    padding: 10px 14px !important;
+    border-radius: 6px !important;
+    margin-bottom: 8px !important;
+    border: 1px solid #383838 !important;
+  }
+  .slip-match-title {
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    display: block !important;
+    margin-bottom: 2px !important;
+  }
+  .slip-item-market {
+    font-size: 0.82rem !important;
+    color: #bbb !important;
+  }
+  .slip-item-market span {
+    color: #f39c12 !important;
+    font-weight: bold !important;
+  }
+  .slip-item-action {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  .slip-item-odd {
+    font-weight: 900 !important;
+    color: #f39c12 !important;
+    font-size: 1.05rem !important;
+  }
+  .remove-item-btn {
+    background: #333 !important;
+    border: 1px solid #555 !important;
+    color: #e74c3c !important;
+    font-size: 0.85rem !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+  }
+  .remove-item-btn:hover {
+    background: #e74c3c !important;
+    color: #fff !important;
+  }
+
+  .slip-summary {
+    border-top: 1px solid #333;
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    color: #ccc;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+  }
+  .highlight-odd { color: #27ae60; font-size: 1.15rem; }
+  .highlight-win { color: #f39c12; font-size: 1.05rem; }
+
+  .bet-stake-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    color: #ccc;
+    font-size: 0.9rem;
+  }
+  .bet-stake-row input {
+    width: 80px;
+    padding: 6px 8px;
+    background: #111;
+    border: 1px solid #555;
+    color: #f1c40f;
+    border-radius: 4px;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .user-email-section {
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 5px;
+    text-align: left;
+  }
+  .user-email-section label { font-size: 0.8rem; color: #aaa; }
+  .user-email-section input {
+    padding: 8px 10px;
+    background: #111;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  .submit-bet-btn {
+    width: 100%;
+    margin-top: 12px;
+    background: #c0392b;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    font-weight: 900;
+    font-size: 0.95rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .submit-bet-btn:hover { background: #a93226; }
+  .bet-feedback {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+  .bet-feedback.success { color: #2ecc71; }
+  .bet-feedback.error { color: #e74c3c; }
+
+  /* ==========================================================================
+     LAVAGNA QUOTE PARTITE & SIMULAZIONE MONTE CARLO
+     ========================================================================== */
+  .betting-section { margin-bottom: 45px; }
+  .matches-grid { display: flex; flex-direction: column; gap: 14px; }
+  
+  .match-card-wrapper {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
   }
   .match-card {
     display: flex;
@@ -687,9 +1365,6 @@ function probToSnaiOdd(prob) {
     gap: 14px;
     background: #fff;
     padding: 18px 22px;
-  }
-  .match-teams {
-    width: 100%;
   }
   .match-header-versus {
     display: flex;
@@ -703,19 +1378,9 @@ function probToSnaiOdd(prob) {
     gap: 12px;
     flex: 1;
   }
-  .home-side {
-    justify-content: flex-start;
-    text-align: left;
-  }
-  .away-side {
-    justify-content: flex-end;
-    text-align: right;
-  }
-  .team-logo-md {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-  }
+  .home-side { justify-content: flex-start; text-align: left; }
+  .away-side { justify-content: flex-end; text-align: right; }
+  .team-logo-md { width: 36px; height: 36px; object-fit: contain; }
   .team-name {
     font-weight: 900;
     font-size: 1.2rem;
@@ -732,7 +1397,6 @@ function probToSnaiOdd(prob) {
     letter-spacing: 1px;
   }
 
-  /* BARRA PROBABILITÀ ALLARGATA CON PERCENTUALI DENTRO */
   .prob-bar-wrapper {
     display: flex;
     height: 24px;
@@ -756,21 +1420,11 @@ function probToSnaiOdd(prob) {
   .prob-bar.pX { background: #f39c12; color: #111; }
   .prob-bar.p2 { background: #2980b9; }
 
-  /* RIGHE PULSANTI QUOTE */
-  .odds-row {
-    display: grid;
-    gap: 10px;
-    width: 100%;
-  }
-  /* Riga 1X2: 3 colonne uguali */
-  .main-odds-row {
-    grid-template-columns: repeat(3, 1fr);
-    padding-top: 4px;
-  }
-  /* Riga altre quote: 6 colonne uguali */
-  .secondary-odds-row {
-    grid-template-columns: repeat(6, 1fr);
-  }
+  /* GRIGLIE PULSANTI QUOTE */
+  .odds-row { display: grid; gap: 10px; width: 100%; }
+  .main-odds-row { grid-template-columns: repeat(3, 1fr); padding-top: 4px; }
+  .dc-odds-row { grid-template-columns: repeat(3, 1fr); margin-top: 2px; }
+  .secondary-odds-row { grid-template-columns: repeat(6, 1fr); }
 
   .odd-box {
     display: flex;
@@ -788,152 +1442,61 @@ function probToSnaiOdd(prob) {
                 background-color 0.2s ease;
   }
   .odd-box:hover {
-    transform: scale(1.07) translateY(-2px);
+    transform: scale(1.06) translateY(-2px);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
     background: #2f3640;
     z-index: 2;
   }
+
+  .dc-odds-row .odd-box {
+    background: #242c35;
+    border-bottom: 3px solid #3498db;
+  }
+  .dc-odds-row .odd-box .odd-label { color: #3498db; }
+  .dc-odds-row .odd-box:hover { background: #2f3a46; border-color: #3498db; }
+
   .secondary-odds-row .odd-box {
     background: #f8f9fa;
     color: #222;
     border: 1px solid #d1d5db;
     border-bottom: 3px solid #7f8c8d;
   }
+  .secondary-odds-row .odd-box .odd-label { color: #555; }
   .secondary-odds-row .odd-box:hover {
     background: #fff;
     border-color: #f39c12;
     border-bottom: 3px solid #f39c12;
   }
-  .secondary-odds {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 6px;
-    width: 100%;
-  }
-  .secondary-odds .odd-box.exact-score-item {
+
+  .secondary-odds-row .odd-box.exact-score-item {
     background: #fff8e7;
     color: #111;
     border: 1px dashed #f39c12;
     border-bottom: 3px solid #d35400;
   }
-  .secondary-odds .odd-box.exact-score-item .odd-label {
+  .secondary-odds-row .odd-box.exact-score-item .odd-label {
     color: #d35400;
     font-weight: 900;
   }
 
-  @media (max-width: 640px) {
-    .team-name { font-size: 0.6rem; }
-    .secondary-odds-row {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  .odds-board {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding-top: 6px;
-    border-top: 1px dashed #eee;
-  }
-  .odds-group {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .team-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
-  }
-  .team-logo-sm {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-  }
-  .team-xfm {
-    font-weight: 800;
-    color: #2c3e50;
-    background: #f0f3f5;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.88rem;
-  }
-  .team-xfm small {
-    font-weight: normal;
-    color: #666;
-  }
+  .odd-label { font-size: 0.7rem; font-weight: 800; color: #f39c12; text-transform: uppercase; }
+  .odd-val { font-size: 0.98rem; font-weight: 900; margin-top: 2px; }
 
-  .prob-bar.p1 { background: #27ae60; }
-  .prob-bar.pX { background: #f1c40f; }
-  .prob-bar.p2 { background: #2980b9; }
+  /* QUOTA SELEZIONATA */
+  .odd-box.selected-bet {
+    background: #c0392b !important;
+    border-color: #f39c12 !important;
+    border-bottom: 3px solid #f39c12 !important;
+    color: #fff !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(243, 156, 18, 0.4);
+  }
+  .odd-box.selected-bet .odd-label { color: #fff !important; }
 
-  .odd-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #1e272e;
-    color: #fff;
-    min-width: 54px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    border-bottom: 3px solid #f39c12;
-    cursor: pointer;
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.2s ease,
-                background-color 0.2s ease;
-  }
-  .odd-box:hover {
-    transform: scale(1.12) translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
-    background: #2f3640;
-    z-index: 2;
-  }
-  .secondary-odds .odd-box {
-    background: #f8f9fa;
-    color: #222;
-    border: 1px solid #ccc;
-    border-bottom: 3px solid #7f8c8d;
-  }
-  .secondary-odds .odd-box:hover {
-    background: #fff;
-    border-color: #f39c12;
-    border-bottom: 3px solid #f39c12;
-  }
-  .odd-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #f39c12;
-    text-transform: uppercase;
-  }
-  .secondary-odds .odd-label {
-    color: #555;
-  }
-  .odd-val {
-    font-size: 0.98rem;
-    font-weight: 900;
-    margin-top: 2px;
-  }
-
-  /* TENDINA ESPANDIBILE TOP 11 (4-3-3) */
-  .match-card-wrapper {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-    overflow: hidden;
-  }
-  .match-card-wrapper .match-card {
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .lineups-drawer {
-    border-top: 1px solid #eee;
-    background: #fcfcfc;
-  }
+  /* ==========================================================================
+     TENDINA TOP 11 SCHIERATI (4-3-3)
+     ========================================================================== */
+  .lineups-drawer { border-top: 1px solid #eee; background: #fcfcfc; }
   .drawer-toggle {
     list-style: none;
     display: flex;
@@ -947,20 +1510,11 @@ function probToSnaiOdd(prob) {
     user-select: none;
     transition: background-color 0.15s ease, color 0.15s ease;
   }
-  .drawer-toggle::-webkit-details-marker {
-    display: none;
-  }
-  .drawer-toggle:hover {
-    background: #f2f4f6;
-    color: #111;
-  }
-  .chevron {
-    font-size: 0.7rem;
-    transition: transform 0.2s ease;
-  }
-  .lineups-drawer[open] .chevron {
-    transform: rotate(180deg);
-  }
+  .drawer-toggle::-webkit-details-marker { display: none; }
+  .drawer-toggle:hover { background: #f2f4f6; color: #111; }
+  .chevron { font-size: 0.7rem; transition: transform 0.2s ease; }
+  .lineups-drawer[open] .chevron { transform: rotate(180deg); }
+
   .lineups-comparison {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -978,11 +1532,7 @@ function probToSnaiOdd(prob) {
     border-bottom: 2px solid #111;
     font-size: 0.9rem;
   }
-  .team-logo-xs {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-  }
+  .team-logo-xs { width: 20px; height: 20px; object-fit: contain; }
   .mod-tag {
     margin-left: auto;
     font-size: 0.7rem;
@@ -1025,15 +1575,8 @@ function probToSnaiOdd(prob) {
   .role-pill-c { background: #2980b9; }
   .role-pill-a { background: #c0392b; }
 
-  .lineup-player-name {
-    flex: 1;
-    font-weight: 700;
-    color: #222;
-  }
-  .lineup-player-name small {
-    font-weight: normal;
-    color: #777;
-  }
+  .lineup-player-name { flex: 1; font-weight: 700; color: #222; }
+  .lineup-player-name small { font-weight: normal; color: #777; }
   .lineup-tit {
     font-size: 0.72rem;
     color: #666;
@@ -1041,20 +1584,12 @@ function probToSnaiOdd(prob) {
     padding: 1px 5px;
     border-radius: 3px;
   }
-  .lineup-xfm {
-    font-weight: 900;
-    color: #111;
-    min-width: 34px;
-    text-align: right;
-  }
+  .lineup-xfm { font-weight: 900; color: #111; min-width: 34px; text-align: right; }
 
-  @media (max-width: 820px) {
-    .lineups-comparison {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* TOP 3 PER RUOLO */
+  /* ==========================================================================
+     TOP 3 GIOCATORI PER RUOLO
+     ========================================================================== */
+  .top-players-section { margin-bottom: 45px; }
   .roles-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1086,15 +1621,8 @@ function probToSnaiOdd(prob) {
     background: #fff;
     border-bottom: 1px solid #eee;
   }
-  .player-card:last-child {
-    border-bottom: none;
-  }
-  .rank-number {
-    font-weight: 900;
-    font-size: 1.1rem;
-    color: #999;
-    width: 24px;
-  }
+  .player-card:last-child { border-bottom: none; }
+  .rank-number { font-weight: 900; font-size: 1.1rem; color: #999; width: 24px; }
   .fanta-logo {
     width: 38px;
     height: 38px;
@@ -1103,36 +1631,17 @@ function probToSnaiOdd(prob) {
     background: #f4f4f4;
     padding: 2px;
   }
-  .player-info {
-    flex: 1;
-  }
-  .player-name {
-    font-weight: 800;
-    font-size: 1rem;
-    color: #111;
-  }
-  .serie-a-team {
-    font-weight: normal;
-    font-size: 0.82rem;
-    color: #666;
-  }
+  .player-info { flex: 1; }
+  .player-name { font-weight: 800; font-size: 1rem; color: #111; }
+  .serie-a-team { font-weight: normal; font-size: 0.82rem; color: #666; }
   .fanta-owner {
     font-size: 0.78rem;
     color: #c0392b;
     font-weight: 700;
     margin-bottom: 5px;
   }
-  .player-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-  .badge {
-    font-size: 0.72rem;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 700;
-  }
+  .player-badges { display: flex; flex-wrap: wrap; gap: 5px; }
+  .badge { font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
   .badge-gol { background: #fdeaea; color: #c0392b; }
   .badge-assist { background: #eaf2f8; color: #2980b9; }
   .badge-cs { background: #e8f8f5; color: #16a085; }
@@ -1149,29 +1658,316 @@ function probToSnaiOdd(prob) {
     border-radius: 6px;
     min-width: 52px;
   }
-  .xfm-number {
-    font-size: 1.05rem;
-    font-weight: 900;
-    color: #f1c40f;
+  .xfm-number { font-size: 1.05rem; font-weight: 900; color: #f1c40f; }
+  .xfm-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ==========================================================================
+     SEZIONE STORICO SCHEDINE ("I MIEI PRONOSTICI")
+     ========================================================================== */
+  .my-bets-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px dashed #ddd;
   }
-  .xfm-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  .section-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .open-leaderboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #1e272e;
+    color: #f1c40f;
+    border: 1px solid #f39c12;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .open-leaderboard-btn:hover {
+    background: #f39c12;
+    color: #111;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+  }
+  .my-bets-auth-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+  .my-bets-auth-bar input {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  .my-bets-auth-bar button {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .my-bets-auth-bar button:hover {
+    background: #333;
+  }
+  .my-bets-auth-bar .leaderboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1e272e;
+    color: #f1c40f;
+    border: 1px solid #f39c12;
+    padding: 9px 16px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.88rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .my-bets-auth-bar .leaderboard-btn:hover {
+    background: #f39c12;
+    color: #111;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(243, 156, 18, 0.25);
   }
 
+  .user-summary-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .user-balance-tag {
+    background: #111;
+    color: #f1c40f;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .empty-history-text {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+  }
+
+  .history-bets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .history-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+  .history-card.status-won { border-left: 6px solid #27ae60; background: #f9fdfa; }
+  .history-card.status-lost { border-left: 6px solid #e74c3c; background: #fdf9f9; }
+  .history-card.status-pending { border-left: 6px solid #f39c12; }
+
+  .history-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+  }
+  .history-date { font-size: 0.8rem; color: #888; display: block; }
+  .history-stake { font-size: 0.9rem; color: #333; }
+  .history-header-right { display: flex; align-items: center; gap: 10px; }
+  .history-odd { font-weight: bold; color: #555; }
+  .history-status-badge {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+  .history-status-badge.status-won { background: #e8f8f0; color: #27ae60; }
+  .history-status-badge.status-lost { background: #fdeaea; color: #e74c3c; }
+  .history-status-badge.status-pending { background: #fef5e7; color: #f39c12; }
+
+  .history-selections {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .history-sel-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+  }
+  .history-sel-name strong { display: block; }
+  .history-sel-name small { color: #666; }
+  .history-sel-result { display: flex; align-items: center; gap: 12px; }
+  .sel-tag {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+  .tag-won { background: #27ae60; color: #fff; }
+  .tag-lost { background: #e74c3c; color: #fff; }
+  .tag-pending { background: #eee; color: #555; }
+
+  .history-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #eee;
+    padding-top: 10px;
+    font-size: 0.92rem;
+  }
+
+  /* LISTA DELLE SINGOLE PARTITE NELLA SCHEDINA */
+  .history-selections {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .history-sel-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #edf2f7;
+    padding: 10px 14px;
+    border-radius: 6px;
+  }
+
+  .history-sel-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .history-sel-match {
+    color: #111;
+    font-size: 0.95rem;
+  }
+
+  .history-sel-pick {
+    font-size: 0.82rem;
+    color: #666;
+  }
+
+  .history-sel-pick b {
+    color: #c0392b;
+  }
+
+  .history-sel-result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .history-real-score {
+    font-size: 0.82rem;
+    color: #555;
+  }
+
+  .history-real-score b {
+    color: #111;
+  }
+
+  .sel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .sel-tag.tag-won {
+    background: #27ae60;
+    color: #fff;
+  }
+  .sel-tag.tag-lost {
+    background: #e74c3c;
+    color: #fff;
+  }
+  .sel-tag.tag-pending {
+    background: #e2e8f0;
+    color: #4a5568;
+  }
+  .won-payout {
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 0.88rem;
+  }
+  .win-box {
+    font-size: 0.92rem;
+    color: #444;
+  }
+  .history-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+  .win-val {
+    color: #27ae60;
+    font-size: 1.05rem;
+    font-weight: 900;
+    margin-left: 4px;
+  }
+  .won-payout-tag {
+    background: #e8f8f0;
+    color: #27ae60;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #a3e4d7;
+  }
+
+  /* ==========================================================================
+     MEDIA QUERIES RESPONSIVE
+     ========================================================================== */
   @media (max-width: 820px) {
-    .match-card {
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .odds-board {
-      justify-content: space-between;
-    }
-    .roles-grid {
-      grid-template-columns: 1fr;
-    }
     .main-title { font-size: 1.8rem; }
     .subtitle { font-size: 1rem; }
+    .lineups-comparison { grid-template-columns: 1fr; }
+    .roles-grid { grid-template-columns: 1fr; }
+    .secondary-odds-row { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .team-name { font-size: 0.85rem; }
+    .slip-toggle-info strong { display: none; }
+    .my-bets-auth-bar { flex-direction: column; }
+    .history-card-header { flex-direction: column; align-items: flex-start; gap: 6px; }
   }
 </style>

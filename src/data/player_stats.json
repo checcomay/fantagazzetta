@@ -223,13 +223,13 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 21,
         "stats": {
-            "apps": 0,
-            "min": 0,
+            "apps": 8,
+            "min": 696,
             "goals": 0,
             "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
+            "xG": 0.42,
+            "xA": 0.02,
+            "xG90": 0.05,
             "xA90": 0
         }
     },
@@ -799,14 +799,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 0,
-            "min": 0,
+            "apps": 7,
+            "min": 429,
             "goals": 0,
             "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
+            "xG": 0.24,
+            "xA": 0.29,
+            "xG90": 0.05,
+            "xA90": 0.06
         }
     },
     {
@@ -1087,14 +1087,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 21,
         "stats": {
-            "apps": 0,
-            "min": 0,
+            "apps": 6,
+            "min": 455,
             "goals": 0,
             "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
+            "xG": 0.6,
+            "xA": 0.07,
+            "xG90": 0.12,
+            "xA90": 0.01
         }
     },
     {
@@ -1231,13 +1231,13 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 20,
         "stats": {
-            "apps": 0,
-            "min": 0,
+            "apps": 5,
+            "min": 116,
             "goals": 0,
             "assists": 0,
-            "xG": 0,
+            "xG": 0.79,
             "xA": 0,
-            "xG90": 0,
+            "xG90": 0.62,
             "xA90": 0
         }
     },
@@ -1285,14 +1285,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 0,
-            "min": 0,
+            "apps": 8,
+            "min": 720,
             "goals": 0,
             "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
+            "xG": 0.51,
+            "xA": 0.13,
+            "xG90": 0.06,
+            "xA90": 0.02
         }
     },
     {
@@ -1591,14 +1591,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 3,
         "stats": {
-            "apps": 0,
-            "min": 0,
+            "apps": 5,
+            "min": 117,
             "goals": 0,
             "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
+            "xG": 0.64,
+            "xA": 0.55,
+            "xG90": 0.49,
+            "xA90": 0.42
         }
     },
     {
@@ -2851,14 +2851,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 291,
         "stats": {
-            "apps": 0,
-            "min": 0,
-            "goals": 0,
+            "apps": 8,
+            "min": 560,
+            "goals": 2,
             "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
+            "xG": 2.64,
+            "xA": 1.87,
+            "xG90": 0.42,
+            "xA90": 0.3
         }
     },
     {
@@ -3049,14 +3049,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 5,
         "stats": {
-            "apps": 0,
-            "min": 0,
-            "goals": 0,
+            "apps": 5,
+            "min": 332,
+            "goals": 1,
             "assists": 0,
-            "xG": 0,
-            "xA": 0,
-            "xG90": 0,
-            "xA90": 0
+            "xG": 1.35,
+            "xA": 0.08,
+            "xG90": 0.37,
+            "xA90": 0.02
         }
     },
     {

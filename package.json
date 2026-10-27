@@ -12,11 +12,13 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
     "astro": "^7.3.8",
     "axios": "^1.20.0",
     "cheerio": "^1.2.0",
     "dotenv": "^18.0.8",
     "exceljs": "^4.4.0",
+    "resend": "^6.34.1",
     "sharp": "^0.35.5",
     "string-similarity": "^4.0.4"
   }

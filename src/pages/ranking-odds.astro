@@ -1,0 +1,365 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { createClient } from '@supabase/supabase-js';
+
+export const prerender = false;
+
+const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseKey = import.meta.env.SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+let leaderboard = [];
+let errorMsg = null;
+
+try {
+  const { data: users, error } = await supabase
+    .from('iscritti')
+    .select('email, credits, bets');
+
+  if (error) throw error;
+
+  leaderboard = (users || [])
+    .map((u) => {
+      const bets = Array.isArray(u.bets) ? u.bets : [];
+      const wonCount = bets.filter((b) => b.status === 'vinta').length;
+      const lostCount = bets.filter((b) => b.status === 'persa').length;
+      const pendingCount = bets.filter((b) => b.status === 'in_corso' || !b.status).length;
+      const currentCredits = Number(u.credits !== undefined && u.credits !== null ? u.credits : 100);
+      const concluse = wonCount + lostCount;
+
+      return {
+        email: u.email,
+        username: u.email.includes('@') ? u.email.split('@')[0] : u.email,
+        credits: currentCredits,
+        totalBets: bets.length,
+        wonBets: wonCount,
+        lostBets: lostCount,
+        pendingBets: pendingCount,
+        // Win rate calcolato solo sulle schedine concluse per non penalizzare quelle aperte
+        winRate: concluse > 0 ? Math.round((wonCount / concluse) * 100) : 0
+      };
+    })
+    // Mantiene SOLO gli utenti con almeno 1 schedina vinta O 1 schedina persa
+    .filter((u) => u.wonBets > 0 || u.lostBets > 0)
+    .sort((a, b) => b.credits - a.credits);
+
+} catch (err) {
+  console.error('Errore nel recupero della classifica:', err);
+  errorMsg = err.message;
+}
+---
+
+<BaseLayout pageTitle="Classifica Pronostici - Fantamacrì">
+  <div class="leaderboard-container">
+    
+    <header class="leaderboard-header">
+      <div class="badge-title">ALBO D'ORO PRONOSTICI</div>
+      <h2 class="main-title">CLASSIFICA SCOMMETTITORI</h2>
+      <p class="subtitle">I migliori tipster della lega ordinati per crediti accumulati</p>
+    </header>
+
+    {errorMsg && (
+      <div class="error-box">
+        ⚠️ Impossibile caricare i dati della classifica: {errorMsg}
+      </div>
+    )}
+
+    {!errorMsg && leaderboard.length === 0 && (
+      <div class="empty-state">
+        <p>Nessun utente ha ancora giocato una schedina. Sii il primo a pronosticare le gare della settimana!</p>
+        <a href="/odds" class="cta-btn">Vai alle quote</a>
+      </div>
+    )}
+
+    {!errorMsg && leaderboard.length > 0 && (
+      <div>
+        <div class="podium-grid">
+          {leaderboard.slice(0, 3).map((player, index) => {
+            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉';
+            const rankClass = index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze';
+            return (
+              <div class={`podium-card ${rankClass}`}>
+                <div class="podium-medal">{medal}</div>
+                <h3 class="podium-user">{player.username}</h3>
+                <div class="podium-credits">{player.credits.toFixed(2)} <small>crediti</small></div>
+                <div class="podium-stats">
+                  <span>Schedine vinte: <strong>{player.wonBets}</strong> / {player.totalBets}</span>
+                  <span>Win Rate: <strong>{player.winRate}%</strong></span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div class="table-wrapper">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th class="col-rank">Pos.</th>
+                <th class="col-user">Scommettitore</th>
+                <th class="col-stat text-center">Giocate</th>
+                <th class="col-stat text-center">Vinte</th>
+                <th class="col-stat text-center">In Corso</th>
+                <th class="col-credits text-right">Crediti Totali</th>
+              </tr>
+            </thead>
+            <tbody>
+              {leaderboard.map((u, idx) => (
+                <tr class={idx < 3 ? `top-row rank-${idx + 1}` : ''}>
+                  <td class="col-rank">
+                    {idx === 0 ? '🥇 1°' : idx === 1 ? '🥈 2°' : idx === 2 ? '🥉 3°' : `${idx + 1}°`}
+                  </td>
+                  <td class="col-user">
+                    <strong>{u.username}</strong>
+                    <span class="user-subtext">{u.email}</span>
+                  </td>
+                  <td class="col-stat text-center font-bold">{u.totalBets}</td>
+                  <td class="col-stat text-center">
+                    <span class="won-pill">✅ {u.wonBets}</span>
+                  </td>
+                  <td class="col-stat text-center text-muted">{u.pendingBets}</td>
+                  <td class="col-credits text-right">
+                    <span class="credits-val">{u.credits.toFixed(2)}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )}
+
+    <div class="bottom-actions">
+      <a href="/odds" class="back-link">← Torna alla lavagna quote</a>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .leaderboard-container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 20px 15px 50px 15px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+  }
+
+  .leaderboard-header {
+    text-align: center;
+    border-bottom: 3px solid #111;
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+  }
+
+  .badge-title {
+    display: inline-block;
+    background: #111;
+    color: #f1c40f;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .main-title {
+    font-size: 2.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0 0 8px 0;
+  }
+
+  .subtitle {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: #c0392b;
+    font-size: 1.15rem;
+    margin: 0;
+  }
+
+  .error-box {
+    background: #fdeaea;
+    color: #c0392b;
+    border: 1px solid #f5b7b1;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+  }
+
+  .podium-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 35px;
+  }
+
+  .podium-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .podium-card.gold {
+    border-top: 5px solid #f1c40f;
+    background: linear-gradient(to bottom, #fffdf2, #ffffff);
+  }
+  .podium-card.silver {
+    border-top: 5px solid #bdc3c7;
+    background: linear-gradient(to bottom, #f9fafb, #ffffff);
+  }
+  .podium-card.bronze {
+    border-top: 5px solid #cd7f32;
+    background: linear-gradient(to bottom, #fdf9f5, #ffffff);
+  }
+
+  .podium-medal {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+
+  .podium-user {
+    margin: 0 0 6px 0;
+    font-size: 1.25rem;
+    color: #111;
+  }
+
+  .podium-credits {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #27ae60;
+    margin-bottom: 12px;
+  }
+  .podium-credits small {
+    font-size: 0.85rem;
+    font-weight: normal;
+    color: #666;
+  }
+
+  .podium-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.82rem;
+    color: #666;
+    border-top: 1px dashed #eee;
+    padding-top: 10px;
+  }
+
+  .table-wrapper {
+    background: #fff;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  }
+
+  .leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .leaderboard-table th {
+    background: #111;
+    color: #fff;
+    padding: 14px 16px;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+  }
+
+  .leaderboard-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+  }
+
+  .leaderboard-table tbody tr:hover {
+    background: #f8fafc;
+  }
+
+  .top-row.rank-1 { background: #fffef2; }
+  .top-row.rank-2 { background: #fafbfc; }
+  .top-row.rank-3 { background: #fffbf7; }
+
+  .col-rank {
+    font-weight: 900;
+    color: #555;
+    width: 70px;
+  }
+
+  .col-user strong {
+    display: block;
+    color: #111;
+    font-size: 1rem;
+  }
+  .user-subtext {
+    font-size: 0.78rem;
+    color: #888;
+  }
+
+  .text-center { text-align: center; }
+  .text-right { text-align: right; }
+  .font-bold { font-weight: bold; }
+  .text-muted { color: #888; }
+
+  .won-pill {
+    background: #e8f8f0;
+    color: #27ae60;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+
+  .credits-val {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #27ae60;
+  }
+
+  .bottom-actions {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .back-link {
+    color: #111;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid #c0392b;
+    padding-bottom: 2px;
+  }
+  .back-link:hover { color: #c0392b; }
+
+  .empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px dashed #ccc;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #c0392b;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .podium-grid { grid-template-columns: 1fr; }
+    .main-title { font-size: 1.8rem; }
+    .col-stat:nth-child(5) { display: none; }
+    .my-bets-auth-bar { flex-direction: column; align-items: stretch; }
+  }
+</style>

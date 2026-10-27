@@ -5,7 +5,9 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import stringSimilarity from 'string-similarity';
 
-// Configurazione variabili d'ambiente e percorsi ES6
+import { PlayerMatcher, normalizeTeamName } from './utils/player_matcher.js';
+
+// Configurazione variabili d'ambiente (.env) e risoluzione percorsi
 dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,100 +17,42 @@ const API_KEY = process.env.ODDS_API_KEY;
 const SPORT_KEY = 'soccer_italy_serie_a';
 const BASE_URL = 'https://api.the-odds-api.com/v4';
 
-// Usiamo una sola regione ('us') per evitare di moltiplicare x2 il costo di tutti i mercati
+// Usiamo una sola regione ('us') per evitare di moltiplicare il costo dei crediti per ogni mercato richiesto
 const REGIONS = 'us';
 const ODDS_FORMAT = 'decimal';
 
-// Mercati giocatori + mercato portieri (team_totals) in un'unica lista
+// Lista dei mercati per i giocatori di movimento (Player Props)
 const PLAYER_MARKETS = [
-  'player_goal_scorer_anytime', // Gol (almeno 1)
-  'player_goals',               // Usato per estrarre Over 1.5 (Doppietta / 2+ gol) e Over 0.5
-  'player_assists',             // Assist (almeno 1 / Over 0.5)
-  'player_to_receive_card'      // Cartellino (Ammonizione / Giallo)
-  // 'player_to_receive_red_card' // Decommenta se vuoi spendere 1 credito/match in più per i rossi
+  'player_goal_scorer_anytime', // Gol nei 90 minuti (almeno 1 gol)
+  'player_goals',               // Linee Over/Under gol giocatore (usato per Over 1.5 = Doppietta e Over 0.5 = Gol)
+  'player_assists',             // Assist giocatore (Yes oppure Over 0.5)
+  'player_to_receive_card'      // Cartellino giocatore (Ammonizione / Giallo)
+  // 'player_to_receive_red_card' // Opzionale: decommenta per estrarre anche i cartellini rossi (+1 credito/match)
 ];
+
+// Mercato per i gol totali segnati dalla singola squadra (usato per calcolare i gol subiti dai portieri)
 const GK_MARKET = 'team_totals';
+
+// Uniamo tutti i mercati per effettuare un'UNICA chiamata HTTP per ciascuna partita
 const ALL_MARKETS = [...PLAYER_MARKETS, GK_MARKET];
 
+// Soglia di confidenza per il matching dei nomi delle squadre di Serie A (Portieri)
 const SIMILARITY_THRESHOLD = 0.6;
+
+// Finestra temporale: scarica solo le partite dei prossimi 4 giorni (evita di sprecare crediti sul turno successivo)
 const DAYS_AHEAD = 4;
 
-// Percorsi file relativi alla root del progetto Astro
+// Percorsi di input (squads.json) e di output (daily_odds.json e daily_gk_odds.json)
 const SQUADS_PATH = path.resolve(__dirname, '../src/data/squads.json');
 const OUTPUT_PLAYERS_PATH = path.resolve(__dirname, '../src/data/daily_odds.json');
 const OUTPUT_GK_PATH = path.resolve(__dirname, '../src/data/daily_gk_odds.json');
 
-// Mappa sinonimi per allineare i nomi delle squadre di The Odds API con 'squadraSerieA'
-const TEAM_ALIASES = {
-  'internazionale': 'inter',
-  'inter milan': 'inter',
-  'ac milan': 'milan',
-  'hellas verona': 'verona',
-  'as roma': 'roma',
-  'ss lazio': 'lazio',
-  'atalanta bc': 'atalanta',
-  'juventus fc': 'juventus'
-};
+// ==================== FUNZIONI DI UTILITÀ ====================
 
-// ==================== UTILITY DI NORMALIZZAZIONE & MATCHING ====================
-
-function normalizePlayerName(name) {
-  if (!name) return '';
-  return name
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/\b[a-z]\./g, '')
-    .replace(/[^a-z\s-]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function normalizeTeamName(name) {
-  if (!name) return '';
-  const clean = name
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, '')
-    .trim();
-
-  return TEAM_ALIASES[clean] || clean;
-}
-
-function findMatchingLocalPlayer(apiPlayerName, localPlayersMap) {
-  const normApiName = normalizePlayerName(apiPlayerName);
-  const localNormNames = Array.from(localPlayersMap.keys());
-
-  if (!normApiName || localNormNames.length === 0) return null;
-
-  // 1. Confronto sul nome completo normalizzato
-  const matchResult = stringSimilarity.findBestMatch(normApiName, localNormNames);
-  let bestScore = matchResult.bestMatch.rating;
-  let bestTargetKey = matchResult.bestMatch.target;
-
-  // 2. Fallback sul solo cognome (ultima parola del nome API)
-  const apiNameParts = normApiName.split(' ');
-  if (apiNameParts.length > 1) {
-    const apiLastName = apiNameParts[apiNameParts.length - 1];
-    const lastNameMatch = stringSimilarity.findBestMatch(apiLastName, localNormNames);
-
-    if (lastNameMatch.bestMatch.rating > bestScore && lastNameMatch.bestMatch.rating >= 0.85) {
-      bestScore = lastNameMatch.bestMatch.rating;
-      bestTargetKey = lastNameMatch.bestMatch.target;
-    }
-  }
-
-  if (bestScore >= SIMILARITY_THRESHOLD) {
-    return {
-      player: localPlayersMap.get(bestTargetKey),
-      score: bestScore
-    };
-  }
-
-  return null;
-}
-
+/**
+ * Incrocia il nome della squadra di Serie A presente in squads.json (es. "Inter")
+ * con i nomi delle squadre restituiti da The Odds API (es. "Internazionale" o "Inter Milan").
+ */
 function matchTeam(localTeamName, apiTeamNames) {
   if (!localTeamName || apiTeamNames.length === 0) return null;
   const normLocal = normalizeTeamName(localTeamName);
@@ -123,6 +67,10 @@ function matchTeam(localTeamName, apiTeamNames) {
   return null;
 }
 
+/**
+ * Dato un array di quote (raccolte da più bookmaker per lo stesso giocatore e mercato),
+ * calcola la quota media arrotondata a 2 decimali e la relativa probabilità implicita in percentuale.
+ */
 function calculateMarketStats(quotesArray) {
   if (!quotesArray || quotesArray.length === 0) {
     return { quota: null, probabilita: null };
@@ -134,14 +82,22 @@ function calculateMarketStats(quotesArray) {
   return { quota: avgQuote, probabilita: probability };
 }
 
+/**
+ * Pausa asincrona (in ms) per rispettare il rate-limit di The Odds API (max 30 richieste/secondo)
+ */
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // ==================== LOGICA DI PARSING MERCATI GIOCATORI & PORTIERI ====================
 
+/**
+ * Analizza un singolo esito (outcome) di un bookmaker e lo classifica nella categoria corretta:
+ * 'gol' | 'doppietta' | 'assist' | 'giallo' | 'rosso' | null
+ */
 function classifyOutcome(marketKey, outcome) {
-  const name = outcome.name;
-  const point = outcome.point;
+  const name = outcome.name;   // Es. "Yes", "No", "Over", "Under"
+  const point = outcome.point; // Es. 0.5, 1.5
 
+  // Ignoriamo sempre le quote relative agli esiti negativi ("No" o "Under")
   if (name === 'No' || name === 'Under') return null;
 
   switch (marketKey) {
@@ -149,23 +105,28 @@ function classifyOutcome(marketKey, outcome) {
       return 'gol';
 
     case 'player_goals':
+      // Over 0.5 corrisponde a segnare almeno 1 gol
       if (name === 'Over' && point === 0.5) return 'gol';
+      // Over 1.5 corrisponde a segnare almeno 2 gol (Doppietta o più)
       if (name === 'Over' && point === 1.5) return 'doppietta';
       return null;
 
     case 'player_assists':
+      // Accettiamo sia il formato "Yes" sia il formato "Over 0.5"
       if (name === 'Yes' || (name === 'Over' && (point === 0.5 || point === undefined))) {
         return 'assist';
       }
       return null;
 
     case 'player_to_receive_card':
+      // Ammonizione / Cartellino giallo
       if (name === 'Yes' || (name === 'Over' && (point === 0.5 || point === undefined)) || !point) {
         return 'giallo';
       }
       return null;
 
     case 'player_to_receive_red_card':
+      // Espulsione / Cartellino rosso
       if (name === 'Yes' || (name === 'Over' && (point === 0.5 || point === undefined)) || !point) {
         return 'rosso';
       }
@@ -176,6 +137,11 @@ function classifyOutcome(marketKey, outcome) {
   }
 }
 
+/**
+ * Calcola le probabilità che una squadra subisca 0, 1, 2 o 3+ gol.
+ * Poiché i gol subiti dalla Squadra A equivalgono ai gol segnati dalla Squadra B (avversaria),
+ * analizza le linee Over/Under (0.5, 1.5, 2.5) del mercato 'team_totals' dell'avversaria.
+ */
 function computeConcededProbabilities(opponentTeamName, bookmakers) {
   const lines = {
     '0.5': { over: [], under: [] },
@@ -185,6 +151,7 @@ function computeConcededProbabilities(opponentTeamName, bookmakers) {
 
   const normTarget = normalizeTeamName(opponentTeamName);
 
+  // Raccoglie tutte le quote Over/Under per le soglie 0.5, 1.5 e 2.5 della squadra avversaria
   for (const bookie of bookmakers) {
     for (const market of bookie.markets || []) {
       if (market.key !== GK_MARKET) continue;
@@ -207,6 +174,7 @@ function computeConcededProbabilities(opponentTeamName, bookmakers) {
     }
   }
 
+  // Funzione interna per normalizzare le probabilità Over/Under rimuovendo il margine (overround) del bookmaker
   const getLineProb = (point) => {
     const overs = lines[point].over;
     const unders = lines[point].under;
@@ -216,6 +184,7 @@ function computeConcededProbabilities(opponentTeamName, bookmakers) {
     const pOverRaw = overs.length > 0 ? 1 / (overs.reduce((a, b) => a + b, 0) / overs.length) : null;
     const pUnderRaw = unders.length > 0 ? 1 / (unders.reduce((a, b) => a + b, 0) / unders.length) : null;
 
+    // Se abbiamo sia Over che Under, normalizziamo la somma al 100%
     if (pOverRaw !== null && pUnderRaw !== null) {
       const total = pOverRaw + pUnderRaw;
       return {
@@ -224,6 +193,7 @@ function computeConcededProbabilities(opponentTeamName, bookmakers) {
       };
     }
 
+    // Fallback se il bookmaker espone solo uno dei due lati
     if (pOverRaw !== null) {
       const overNorm = Math.min(95, pOverRaw * 95);
       return { over: overNorm, under: 100 - overNorm };
@@ -236,26 +206,34 @@ function computeConcededProbabilities(opponentTeamName, bookmakers) {
   const p15 = getLineProb('1.5');
   const p25 = getLineProb('2.5');
 
+  // Se non esistono né la linea 0.5 né la 1.5, i dati sono insufficienti
   if (!p05 && !p15) return null;
 
+  // Stime di continuità qualora una delle tre linee non sia quotata
   const probOver05 = p05 ? p05.over : p15 ? Math.min(95, p15.over + 25) : 75;
   const probOver15 = p15 ? p15.over : p05 ? Math.max(5, p05.over - 25) : 40;
   const probOver25 = p25 ? p25.over : Math.max(3, probOver15 - 20);
 
+  // Calcolo delle probabilità discrete per singolo scaglione di gol subiti
   return {
-    prob_0_gol_subiti: Math.round(100 - probOver05),
-    prob_1_gol_subito: Math.round(Math.max(0, probOver05 - probOver15)),
-    prob_2_gol_subiti: Math.round(Math.max(0, probOver15 - probOver25)),
-    prob_3_piu_gol_subiti: Math.round(probOver25)
+    prob_0_gol_subiti: Math.round(100 - probOver05),                      // Clean Sheet (Under 0.5 avversario)
+    prob_1_gol_subito: Math.round(Math.max(0, probOver05 - probOver15)),  // Esattamente 1 gol subito
+    prob_2_gol_subiti: Math.round(Math.max(0, probOver15 - probOver25)),  // Esattamente 2 gol subiti
+    prob_3_piu_gol_subiti: Math.round(probOver25)                         // 3 o più gol subiti (Over 2.5 avversario)
   };
 }
 
 // ==================== CHIAMATE HTTP (AXIOS) ====================
 
+/**
+ * Recupera la lista delle partite di Serie A in programma nei prossimi DAYS_AHEAD giorni.
+ * NOTA: Questo endpoint è gratuito e consuma 0 crediti API.
+ */
 async function fetchUpcomingEvents() {
   const now = new Date();
   const futureDate = new Date(now.getTime() + DAYS_AHEAD * 24 * 60 * 60 * 1000);
 
+  // Formato ISO 8601 richiesto da The Odds API (senza millisecondi)
   const commenceTimeFrom = now.toISOString().split('.')[0] + 'Z';
   const commenceTimeTo = futureDate.toISOString().split('.')[0] + 'Z';
 
@@ -271,7 +249,8 @@ async function fetchUpcomingEvents() {
 }
 
 /**
- * Unica chiamata HTTP per partita: estrae contemporaneamente Player Props e Team Totals
+ * Esegue una singola chiamata HTTP per partita chiedendo sia i Player Props sia i Team Totals.
+ * Restituisce i dati e gli header con il conteggio dei crediti API spesi e residui.
  */
 async function fetchUnifiedEventOdds(eventId) {
   const url = `${BASE_URL}/sports/${SPORT_KEY}/events/${eventId}/odds`;
@@ -294,6 +273,9 @@ async function fetchUnifiedEventOdds(eventId) {
   };
 }
 
+/**
+ * Gestisce e formatta in console gli errori restituiti da Axios o da The Odds API.
+ */
 function handleApiError(error, contextMessage) {
   if (error.response) {
     const status = error.response.status;
@@ -331,27 +313,31 @@ async function main() {
     process.exit(1);
   }
 
-  // 1. CARICAMENTO UNICO DI squads.json (Separa Portieri e Giocatori di movimento)
+  // 1. INIZIALIZZAZIONE PLAYER MATCHER E CARICAMENTO PORTIERI DA SQUADS.JSON
+  // Inizializza PlayerMatcher per i giocatori di movimento (includeGoalkeepers: false)
+  // caricando internamente sia squads.json che alias_map.json
+  const matcher = new PlayerMatcher({ includeGoalkeepers: false });
   let squads = [];
+
   try {
-    const fileContent = await fs.readFile(SQUADS_PATH, 'utf-8');
-    squads = JSON.parse(fileContent);
+    await matcher.init(SQUADS_PATH);
+    const squadsRaw = await fs.readFile(SQUADS_PATH, 'utf-8');
+    squads = JSON.parse(squadsRaw);
   } catch (err) {
-    console.error(`❌ Impossibile leggere ${SQUADS_PATH}: ${err.message}`);
+    console.error(`❌ Errore durante il caricamento dei file locali: ${err.message}`);
     process.exit(1);
   }
 
-  const localPlayersMap = new Map();
-  const goalkeepers = [];
+  const allRawApiNames = new Set();
 
+  // Estraiamo la lista dei portieri (ruolo === 'P') da squads.json
+  const goalkeepers = [];
   for (const fantaTeam of squads) {
     const teamName = fantaTeam.squadra;
     const players = Array.isArray(fantaTeam.giocatori) ? fantaTeam.giocatori : [];
 
     for (const player of players) {
-      const role = (player.ruolo || '').toUpperCase();
-
-      if (role === 'P') {
+      if ((player.ruolo || '').toUpperCase() === 'P') {
         goalkeepers.push({
           id: player.id,
           nome: player.nome,
@@ -359,20 +345,13 @@ async function main() {
           squadra_reale: player.squadraSerieA,
           prezzo_acquisto: player.prezzoAcquisto
         });
-      } else if (player.nome) {
-        localPlayersMap.set(normalizePlayerName(player.nome), {
-          id: player.id,
-          nome: player.nome,
-          fantaSquadra: teamName,
-          squadra: player.squadraSerieA,
-          ruolo: player.ruolo,
-          prezzoAcquisto: player.prezzoAcquisto
-        });
       }
     }
   }
 
-  console.log(`📂 Caricati ${localPlayersMap.size} giocatori di movimento e ${goalkeepers.length} portieri.`);
+  console.log(
+    `📂 Caricati ${matcher.playersByNormName.size} giocatori di movimento (in PlayerMatcher) e ${goalkeepers.length} portieri.`
+  );
 
   // 2. RECUPERO PARTITE SERIE A (0 crediti consumati)
   let events = [];
@@ -385,14 +364,15 @@ async function main() {
   }
 
   if (events.length === 0) {
-    console.log('ℹ️ Nessuna partita in programma. Uscita.');
+    console.log('ℹ️ Nessuna partita in programma nella finestra temporale. Uscita.');
     return;
   }
 
+  // Mappe di accumulo per le quote dei giocatori e le statistiche difensive delle squadre
   const matchedPlayersQuotes = new Map();
   const teamDefenseStats = new Map();
 
-  // 3. CHIAMATA UNICA PER EVENTO (Estrae sia Player Props sia Team Totals)
+  // 3. CICLO SULLE PARTITE: CHIAMATA UNICA PER EVENTO (Player Props + Team Totals)
   for (const event of events) {
     const homeTeam = event.home_team;
     const awayTeam = event.away_team;
@@ -401,7 +381,9 @@ async function main() {
 
     try {
       const { data: eventOdds, quotaInfo } = await fetchUnifiedEventOdds(event.id);
-      console.log(`   📊 Costo chiamata unificata: ${quotaInfo.lastCost} crediti | Crediti residui: ${quotaInfo.remaining}`);
+      console.log(
+        `   📊 Costo chiamata unificata: ${quotaInfo.lastCost} crediti | Crediti residui: ${quotaInfo.remaining}`
+      );
 
       const bookmakers = eventOdds.bookmakers || [];
       if (bookmakers.length === 0) {
@@ -409,7 +391,8 @@ async function main() {
         continue;
       }
 
-      // A) Calcolo probabilità gol subiti per i Portieri (da team_totals)
+      // A) Calcolo probabilità gol subiti per i Portieri (tramite mercato team_totals)
+      // I gol subiti dalla squadra di casa dipendono dai gol segnati dalla squadra ospite (awayTeam)
       const homeDefense = computeConcededProbabilities(awayTeam, bookmakers);
       if (homeDefense) {
         teamDefenseStats.set(normalizeTeamName(homeTeam), {
@@ -420,6 +403,7 @@ async function main() {
         });
       }
 
+      // I gol subiti dalla squadra ospite dipendono dai gol segnati dalla squadra di casa (homeTeam)
       const awayDefense = computeConcededProbabilities(homeTeam, bookmakers);
       if (awayDefense) {
         teamDefenseStats.set(normalizeTeamName(awayTeam), {
@@ -434,23 +418,35 @@ async function main() {
       for (const bookie of bookmakers) {
         for (const marketObj of bookie.markets || []) {
           const marketKey = marketObj.key;
-          if (marketKey === GK_MARKET) continue; // Già elaborato sopra
+          if (marketKey === GK_MARKET) continue; // Il mercato team_totals è già stato elaborato al punto A
 
           for (const outcome of marketObj.outcomes || []) {
             const category = classifyOutcome(marketKey, outcome);
             if (!category) continue;
 
+            // Su The Odds API il nome del giocatore è in 'description' (o in 'name' per alcuni bookmaker)
             const apiPlayerName = outcome.description || outcome.name;
             const oddPrice = parseFloat(outcome.price);
 
+            // Salva sul set in locale per log
+            allRawApiNames.add(`${apiPlayerName} [${matchTitle}]`);
+
             if (!apiPlayerName || isNaN(oddPrice) || oddPrice <= 1.0) continue;
 
-            const match = findMatchingLocalPlayer(apiPlayerName, localPlayersMap);
+            // Eseguiamo il matching con la pipeline a cascata (alias_map -> exact -> fuzzy)
+            // passando le due squadre del match per evitare falsi positivi con giocatori di altre partite
+            const match = matcher.match(apiPlayerName, {
+              allowedTeams: [homeTeam, awayTeam],
+              context: matchTitle
+            });
+
             if (match) {
               const localPlayer = match.player;
               if (!matchedPlayersQuotes.has(localPlayer.nome)) {
                 matchedPlayersQuotes.set(localPlayer.nome, {
+                  id: localPlayer.id,
                   nome: localPlayer.nome,
+                  ruolo: localPlayer.ruolo,
                   squadra_fanta: localPlayer.fantaSquadra,
                   squadra_reale: localPlayer.squadra || null,
                   quotes: {
@@ -462,15 +458,18 @@ async function main() {
                   }
                 });
               }
+              // Aggiunge la quota alla categoria corrispondente per poi fare la media tra bookmaker
               matchedPlayersQuotes.get(localPlayer.nome).quotes[category].push(oddPrice);
             }
           }
         }
       }
 
+      // Pausa di 250ms tra un match e l'altro per non saturare il rate limit
       await sleep(250);
     } catch (error) {
       handleApiError(error, `Recupero quote per ${matchTitle}`);
+      // Se i crediti API sono terminati (HTTP 401), interrompiamo il ciclo ma salviamo i dati già raccolti
       if (error.response?.status === 401) {
         console.warn('🛑 Crediti esauriti, salvo i dati parziali raccolti finora...');
         break;
@@ -480,6 +479,7 @@ async function main() {
 
   // 4. COSTRUZIONE OUTPUT GIOCATORI DI MOVIMENTO (daily_odds.json)
   const finalPlayersOutput = [];
+
   for (const [, playerData] of matchedPlayersQuotes.entries()) {
     const golStats = calculateMarketStats(playerData.quotes.gol);
     const doppiettaStats = calculateMarketStats(playerData.quotes.doppietta);
@@ -488,8 +488,11 @@ async function main() {
     const rossoStats = calculateMarketStats(playerData.quotes.rosso);
 
     finalPlayersOutput.push({
+      id: playerData.id,
       nome: playerData.nome,
+      ruolo: playerData.ruolo,
       squadra_fanta: playerData.squadra_fanta,
+      squadra_reale: playerData.squadra_reale,
       quota_gol: golStats.quota,
       probabilita_gol: golStats.probabilita,
       quota_doppietta: doppiettaStats.quota,
@@ -503,6 +506,7 @@ async function main() {
     });
   }
 
+  // Ordiniamo i giocatori di movimento per probabilità di gol decrescente (e a parità, per assist)
   finalPlayersOutput.sort((a, b) => {
     const golDiff = (b.probabilita_gol || 0) - (a.probabilita_gol || 0);
     if (golDiff !== 0) return golDiff;
@@ -529,6 +533,7 @@ async function main() {
       prob_1_gol_subito: defense ? defense.prob_1_gol_subito : null,
       prob_2_gol_subiti: defense ? defense.prob_2_gol_subiti : null,
       prob_3_piu_gol_subiti: defense ? defense.prob_3_piu_gol_subiti : null,
+      // Media pesata dei gol subiti attesi (equivale al malus atteso di -1 per gol subito)
       malus_gol_atteso: defense
         ? Number(
             (
@@ -542,9 +547,10 @@ async function main() {
     });
   }
 
+  // Ordiniamo i portieri per probabilità di imbattibilità (Clean Sheet) decrescente
   finalGkOutput.sort((a, b) => (b.prob_0_gol_subiti || 0) - (a.prob_0_gol_subiti || 0));
 
-  // 6. SALVATAGGIO DI ENTRAMBI I FILE JSON
+  // 6. SALVATAGGIO DI ENTRAMBI I FILE JSON SU DISCO
   try {
     await fs.mkdir(path.dirname(OUTPUT_PLAYERS_PATH), { recursive: true });
     await Promise.all([
@@ -559,6 +565,14 @@ async function main() {
     console.error(`❌ Errore nel salvataggio dei file JSON: ${err.message}`);
     process.exit(1);
   }
+
+  // 7. STAMPA DEL REPORT DI TELEMETRIA (Matched, Unmatched, Flagged a bassa confidenza)
+  matcher.printTelemetryReport('The Odds API - Serie A Unificato');
+
+  // Salva il dump completo di tutti i nomi unici restituiti dall'API per la giornata
+  const dumpPath = path.resolve(__dirname, '../src/data/raw_api_players_dump.json');
+  await fs.writeFile(dumpPath, JSON.stringify(Array.from(allRawApiNames).sort(), null, 2), 'utf-8');
+  console.log(`📋 Dump grezzo di ${allRawApiNames.size} nomi API salvato in: ${dumpPath}`);
 }
 
 main();

@@ -8,35 +8,28 @@ L'interfaccia si ispira all'eleganza delle storiche testate sportive, offrendo a
 
 Il sito è costruito per separare completamente il codice dal contenuto editoriale e dai dati statistici:
 - **Articoli:** Vengono scritti in formato Markdown (`.md`) all'interno della cartella `src/content/articles/`. Ogni file genera in automatico la sua pagina web dedicata e compare nella Home Page in ordine cronologico.
-- **Classifiche e Rose:** I dati della lega sono tracciati in `src/data/standings.json` e `src/data/squads.json`. Modificando o ricreando questi file, la Home Page e le schede squadra si aggiornano in automatico.
-- **Statistiche & Proiezioni (xFM):** Gli script in `scripts/` incrociano i dati di Understat, The Odds API e Fantacalcio.it per generare le metriche storiche e le proiezioni probabilistiche della giornata.
+- **Classifiche e rose:** I dati della lega sono tracciati in `src/data/standings.json` e `src/data/squads.json`. Modificando o ricreando questi file, la Home Page e le schede squadra si aggiornano in automatico.
+- **Statistiche & proiezioni (xFM):** Gli script in `scripts/` incrociano i dati di Understat, The Odds API e Fantacalcio.it per generare le metriche storiche e le proiezioni probabilistiche della giornata.
 - **Immagini e loghi:** Sono contenuti nella cartella `public/`. I loghi delle squadre vengono associati automaticamente al nome presente nel JSON della classifica e i colori sociali sono sincronizzati da `team_colors.json`.
 
 ## 🤖 Automazione con Makefile (metodo consigliato)
 
-Per semplificare l'aggiornamento dei dati senza dover incollare lunghi percorsi nel terminale, il progetto sfrutta un `Makefile`. Assicurati di aver scaricato i file necessari nella cartella `~/Downloads` e configurato il file `.env` per le API.
+Per semplificare l'aggiornamento dei dati senza dover incollare lunghi percorsi nel terminale, il progetto sfrutta un `Makefile`.
+Assicurati di aver scaricato i file necessari nella cartella `~/Downloads` e configurato il file `.env` per le API.
 
 Usa questi comandi dalla root del progetto:
 
-### Aggiornamento Dati Post-Giornata e Roster
-- **`make`** (o **`make update-all`**): Esegue in sequenza la creazione delle squadre, l'assegnazione delle statistiche di rendimento e l'aggiornamento della classifica generale.
+### Aggiornamento dati Post-Giornata e Roster
+- **`make`** (o **`make update-all`**): Esegue in sequenza l'assegnazione delle statistiche di rendimento e l'aggiornamento della classifica generale.
 - **`make squads`**: Genera le rose aggiornate incrociando listone e CSV (da eseguire post-mercato o scambi).
-- **`make stats`**: Assegna le statistiche stagionali individuali ai giocatori scaricate da Understat.
-- **`make ranking`**: Aggiorna la classifica ufficiale della lega da file Excel.
 
-### Pipeline Previsionale Giornata (Quote & Titolarità)
-- **`make pre-match`**: Esegue in sequenza l'intera pipeline predittiva (quote giocatori, quote portieri, probabili formazioni e calcolo dell'Expected Fantavoto $xFM$).
-- **`make odds-players`**: Scarica le quote dei giocatori di movimento (gol, doppiette, assist, cartellini) da The Odds API v4.
-- **`make odds-gk`**: Calcola le probabilità di gol subiti (0, 1, 2, 3+) per i portieri tramite il mercato `team_totals`.
-- **`make lineups`**: Effettua lo scraping delle percentuali di titolarità e ballottaggi da Fantacalcio.it.
-- **`make xfm`**: Raccoglie tutti i dati precedenti e calcola l'Expected Fantavoto ($xFM$) per ogni giocatore raggruppato per fantasquadra.
+### Pipeline previsionale giornata (Quote & Titolarità)
+- **`make pre-match`**: Esegue in sequenza l'intera pipeline predittiva (quote giocatori, quote portieri, probabili formazioni e calcolo dell'Expected Fantavoto).
 
 ### Utility e Configurazione
 - **`make logos`**: Estrae la palette cromatica dai loghi delle squadre e salva `team_colors.json`.
-- **`make calendar`**: Inserisce il calendario stagionale della lega in `calendar.json`.
 - **`make clean-downloads`**: Rimuove i file XLSX/CSV temporanei scaricati in `~/Downloads`.
 - **`make dev`**: Avvia il server locale di Astro.
-- **`make build`**: Compila il sito statico per la produzione.
 
 ---
 
