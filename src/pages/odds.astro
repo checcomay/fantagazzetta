@@ -866,7 +866,7 @@ function probToSnaiOdd(prob) {
     });
   }
 
-  // Invio Schedina
+  // Invio schedina
   submitBtn?.addEventListener('click', async () => {
     const email = emailInput ? emailInput.value.trim() : '';
     const stake = parseFloat(stakeInput?.value || 10);
@@ -938,7 +938,7 @@ function probToSnaiOdd(prob) {
       submitBtn.disabled = false;
       submitBtn.textContent = 'REGISTRA SCHEDINA';
     }
-  };
+  });
 
   // Caricamento Storico Pronostici
   loadHistoryBtn?.addEventListener('click', () => {
