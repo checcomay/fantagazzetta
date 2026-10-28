@@ -8,6 +8,24 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export const prerender = false;
 
 export async function POST({ request }) {
+  
+  const now = new Date();
+
+  // 1. Verifica tramite finestra automatica di The Odds API
+  if (bettingWindow?.lock_start && bettingWindow?.lock_end) {
+    const start = new Date(bettingWindow.lock_start);
+    const end = new Date(bettingWindow.lock_end);
+
+    if (now >= start && now <= end) {
+      return new Response(
+        JSON.stringify({
+          error: `Mercato chiuso dalle ${start.toLocaleString('it-IT')} alle ${end.toLocaleString('it-IT')}. Impossibile registrare la schedina.`
+        }),
+        { status: 403 }
+      );
+    }
+  }
+
   try {
     const { email, bet } = await request.json();
 

@@ -1,5 +1,77 @@
 [
   {
+    "id": "6060",
+    "nome": "Laurientè",
+    "ruolo": "A",
+    "squadra_fanta": "Real Pisellini Cf",
+    "squadra_serie_a": "Sassuolo",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
+    "id": "531",
+    "nome": "Berardi",
+    "ruolo": "A",
+    "squadra_fanta": "Ac Picchia",
+    "squadra_serie_a": "Sassuolo",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
+    "id": "632",
+    "nome": "Zaccagni",
+    "ruolo": "C",
+    "squadra_fanta": "SACARA TEAM",
+    "squadra_serie_a": "Lazio",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
+    "id": "7314",
+    "nome": "Taylor K.",
+    "ruolo": "C",
+    "squadra_fanta": "Joga Benito",
+    "squadra_serie_a": "Lazio",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
+    "id": "6482",
+    "nome": "Mandas",
+    "ruolo": "P",
+    "squadra_fanta": "Joga Benito",
+    "squadra_serie_a": "Lazio",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
+    "id": "5620",
+    "nome": "Tavares N.",
+    "ruolo": "D",
+    "squadra_fanta": "TETTENHAM",
+    "squadra_serie_a": "Lazio",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
+    "id": "4463",
+    "nome": "Esposito Se.",
+    "ruolo": "A",
+    "squadra_fanta": "sup",
+    "squadra_serie_a": "Sassuolo",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
+    "id": "2848",
+    "nome": "Frattesi",
+    "ruolo": "C",
+    "squadra_fanta": "sup",
+    "squadra_serie_a": "Lazio",
+    "probabilita_titolare": 100,
+    "status": "titolare"
+  },
+  {
     "id": "7301",
     "nome": "Tornqvist",
     "ruolo": "P",
@@ -14,15 +86,6 @@
     "ruolo": "D",
     "squadra_fanta": "Real Pisellini Cf",
     "squadra_serie_a": "Lecce",
-    "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
-    "id": "6060",
-    "nome": "Laurientè",
-    "ruolo": "A",
-    "squadra_fanta": "Real Pisellini Cf",
-    "squadra_serie_a": "Sassuolo",
     "probabilita_titolare": 90,
     "status": "titolare"
   },
@@ -135,20 +198,20 @@
     "status": "titolare"
   },
   {
-    "id": "4436",
-    "nome": "Cambiaghi",
-    "ruolo": "C",
-    "squadra_fanta": "AS CaccuRese",
-    "squadra_serie_a": "Bologna",
-    "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
     "id": "6664",
     "nome": "Delprato",
     "ruolo": "D",
     "squadra_fanta": "SACARA TEAM",
     "squadra_serie_a": "Parma",
+    "probabilita_titolare": 90,
+    "status": "titolare"
+  },
+  {
+    "id": "6435",
+    "nome": "Krstovic",
+    "ruolo": "A",
+    "squadra_fanta": "SACARA TEAM",
+    "squadra_serie_a": "Atalanta",
     "probabilita_titolare": 90,
     "status": "titolare"
   },
@@ -185,15 +248,6 @@
     "ruolo": "D",
     "squadra_fanta": "SACARA TEAM",
     "squadra_serie_a": "Cagliari",
-    "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
-    "id": "632",
-    "nome": "Zaccagni",
-    "ruolo": "C",
-    "squadra_fanta": "SACARA TEAM",
-    "squadra_serie_a": "Lazio",
     "probabilita_titolare": 90,
     "status": "titolare"
   },
@@ -243,29 +297,11 @@
     "status": "titolare"
   },
   {
-    "id": "6482",
-    "nome": "Mandas",
-    "ruolo": "P",
-    "squadra_fanta": "Joga Benito",
-    "squadra_serie_a": "Lazio",
-    "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
     "id": "4998",
     "nome": "Molina N.",
     "ruolo": "D",
     "squadra_fanta": "Joga Benito",
     "squadra_serie_a": "Roma",
-    "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
-    "id": "4409",
-    "nome": "Rrahmani",
-    "ruolo": "D",
-    "squadra_fanta": "Joga Benito",
-    "squadra_serie_a": "Napoli",
     "probabilita_titolare": 90,
     "status": "titolare"
   },
@@ -405,39 +441,12 @@
     "status": "titolare"
   },
   {
-    "id": "4463",
-    "nome": "Esposito Se.",
-    "ruolo": "A",
-    "squadra_fanta": "sup",
-    "squadra_serie_a": "Sassuolo",
-    "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
     "id": "4312",
     "nome": "Maignan",
     "ruolo": "P",
     "squadra_fanta": "sup",
     "squadra_serie_a": "Milan",
     "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
-    "id": "2848",
-    "nome": "Frattesi",
-    "ruolo": "C",
-    "squadra_fanta": "sup",
-    "squadra_serie_a": "Lazio",
-    "probabilita_titolare": 90,
-    "status": "titolare"
-  },
-  {
-    "id": "4236",
-    "nome": "Muric",
-    "ruolo": "P",
-    "squadra_fanta": "Ac Picchia",
-    "squadra_serie_a": "Sassuolo",
-    "probabilita_titolare": 85,
     "status": "titolare"
   },
   {
@@ -455,6 +464,15 @@
     "ruolo": "C",
     "squadra_fanta": "AS CaccuRese",
     "squadra_serie_a": "Atalanta",
+    "probabilita_titolare": 85,
+    "status": "titolare"
+  },
+  {
+    "id": "536",
+    "nome": "Politano",
+    "ruolo": "C",
+    "squadra_fanta": "AS CaccuRese",
+    "squadra_serie_a": "Napoli",
     "probabilita_titolare": 85,
     "status": "titolare"
   },
@@ -482,6 +500,24 @@
     "ruolo": "D",
     "squadra_fanta": "Joga Benito",
     "squadra_serie_a": "Como",
+    "probabilita_titolare": 85,
+    "status": "titolare"
+  },
+  {
+    "id": "4777",
+    "nome": "McTominay",
+    "ruolo": "C",
+    "squadra_fanta": "Fc Tattulu",
+    "squadra_serie_a": "Napoli",
+    "probabilita_titolare": 85,
+    "status": "titolare"
+  },
+  {
+    "id": "2765",
+    "nome": "Odgaard",
+    "ruolo": "C",
+    "squadra_fanta": "sup",
+    "squadra_serie_a": "Bologna",
     "probabilita_titolare": 85,
     "status": "titolare"
   },
@@ -540,24 +576,6 @@
     "status": "titolare"
   },
   {
-    "id": "531",
-    "nome": "Berardi",
-    "ruolo": "A",
-    "squadra_fanta": "Ac Picchia",
-    "squadra_serie_a": "Sassuolo",
-    "probabilita_titolare": 80,
-    "status": "titolare"
-  },
-  {
-    "id": "536",
-    "nome": "Politano",
-    "ruolo": "C",
-    "squadra_fanta": "AS CaccuRese",
-    "squadra_serie_a": "Napoli",
-    "probabilita_titolare": 80,
-    "status": "titolare"
-  },
-  {
     "id": "7070",
     "nome": "Sucic P.",
     "ruolo": "C",
@@ -603,15 +621,6 @@
     "status": "titolare"
   },
   {
-    "id": "5951",
-    "nome": "Kolo Muani",
-    "ruolo": "A",
-    "squadra_fanta": "TETTENHAM",
-    "squadra_serie_a": "Juventus",
-    "probabilita_titolare": 80,
-    "status": "titolare"
-  },
-  {
     "id": "7203",
     "nome": "Jashari",
     "ruolo": "C",
@@ -644,15 +653,6 @@
     "ruolo": "D",
     "squadra_fanta": "Fc Tattulu",
     "squadra_serie_a": "Milan",
-    "probabilita_titolare": 80,
-    "status": "titolare"
-  },
-  {
-    "id": "4777",
-    "nome": "McTominay",
-    "ruolo": "C",
-    "squadra_fanta": "Fc Tattulu",
-    "squadra_serie_a": "Napoli",
     "probabilita_titolare": 80,
     "status": "titolare"
   },
@@ -693,6 +693,15 @@
     "status": "titolare"
   },
   {
+    "id": "4436",
+    "nome": "Cambiaghi",
+    "ruolo": "C",
+    "squadra_fanta": "AS CaccuRese",
+    "squadra_serie_a": "Bologna",
+    "probabilita_titolare": 75,
+    "status": "titolare"
+  },
+  {
     "id": "7556",
     "nome": "Mora",
     "ruolo": "C",
@@ -720,11 +729,29 @@
     "status": "titolare"
   },
   {
+    "id": "6052",
+    "nome": "Hojlund",
+    "ruolo": "A",
+    "squadra_fanta": "sup",
+    "squadra_serie_a": "Napoli",
+    "probabilita_titolare": 75,
+    "status": "titolare"
+  },
+  {
     "id": "6966",
     "nome": "Butez",
     "ruolo": "P",
     "squadra_fanta": "Real Pisellini Cf",
     "squadra_serie_a": "Como",
+    "probabilita_titolare": 70,
+    "status": "titolare"
+  },
+  {
+    "id": "5520",
+    "nome": "Cambiaso",
+    "ruolo": "D",
+    "squadra_fanta": "Ac Picchia",
+    "squadra_serie_a": "Juventus",
     "probabilita_titolare": 70,
     "status": "titolare"
   },
@@ -738,20 +765,20 @@
     "status": "titolare"
   },
   {
-    "id": "2170",
-    "nome": "Milinkovic-Savic V.",
-    "ruolo": "P",
-    "squadra_fanta": "AS CaccuRese",
-    "squadra_serie_a": "Napoli",
-    "probabilita_titolare": 70,
-    "status": "titolare"
-  },
-  {
     "id": "7554",
     "nome": "Romero D.",
     "ruolo": "A",
     "squadra_fanta": "SACARA TEAM",
     "squadra_serie_a": "Parma",
+    "probabilita_titolare": 70,
+    "status": "titolare"
+  },
+  {
+    "id": "4409",
+    "nome": "Rrahmani",
+    "ruolo": "D",
+    "squadra_fanta": "Joga Benito",
+    "squadra_serie_a": "Napoli",
     "probabilita_titolare": 70,
     "status": "titolare"
   },
@@ -765,11 +792,11 @@
     "status": "titolare"
   },
   {
-    "id": "2765",
-    "nome": "Odgaard",
+    "id": "6151",
+    "nome": "Perrone",
     "ruolo": "C",
     "squadra_fanta": "sup",
-    "squadra_serie_a": "Bologna",
+    "squadra_serie_a": "Como",
     "probabilita_titolare": 70,
     "status": "titolare"
   },
@@ -864,29 +891,11 @@
     "status": "ballottaggio"
   },
   {
-    "id": "5520",
-    "nome": "Cambiaso",
-    "ruolo": "D",
-    "squadra_fanta": "Ac Picchia",
-    "squadra_serie_a": "Juventus",
-    "probabilita_titolare": 60,
-    "status": "ballottaggio"
-  },
-  {
     "id": "2194",
     "nome": "Calhanoglu",
     "ruolo": "C",
     "squadra_fanta": "Ac Picchia",
     "squadra_serie_a": "Inter",
-    "probabilita_titolare": 60,
-    "status": "panchina"
-  },
-  {
-    "id": "2766",
-    "nome": "Zaniolo",
-    "ruolo": "C",
-    "squadra_fanta": "AS CaccuRese",
-    "squadra_serie_a": "Udinese",
     "probabilita_titolare": 60,
     "status": "panchina"
   },
@@ -916,15 +925,6 @@
     "squadra_serie_a": "Frosinone",
     "probabilita_titolare": 60,
     "status": "panchina"
-  },
-  {
-    "id": "6435",
-    "nome": "Krstovic",
-    "ruolo": "A",
-    "squadra_fanta": "SACARA TEAM",
-    "squadra_serie_a": "Atalanta",
-    "probabilita_titolare": 60,
-    "status": "ballottaggio"
   },
   {
     "id": "6274",
@@ -963,15 +963,6 @@
     "status": "panchina"
   },
   {
-    "id": "7314",
-    "nome": "Taylor K.",
-    "ruolo": "C",
-    "squadra_fanta": "Joga Benito",
-    "squadra_serie_a": "Lazio",
-    "probabilita_titolare": 60,
-    "status": "ballottaggio"
-  },
-  {
     "id": "7223",
     "nome": "Vergara",
     "ruolo": "C",
@@ -1008,22 +999,13 @@
     "status": "ballottaggio"
   },
   {
-    "id": "5620",
-    "nome": "Tavares N.",
-    "ruolo": "D",
-    "squadra_fanta": "TETTENHAM",
-    "squadra_serie_a": "Lazio",
-    "probabilita_titolare": 60,
-    "status": "ballottaggio"
-  },
-  {
-    "id": "2832",
-    "nome": "Boga",
+    "id": "5951",
+    "nome": "Kolo Muani",
     "ruolo": "A",
     "squadra_fanta": "TETTENHAM",
     "squadra_serie_a": "Juventus",
     "probabilita_titolare": 60,
-    "status": "panchina"
+    "status": "ballottaggio"
   },
   {
     "id": "7060",
@@ -1053,6 +1035,15 @@
     "status": "ballottaggio"
   },
   {
+    "id": "6572",
+    "nome": "Castro S.",
+    "ruolo": "A",
+    "squadra_fanta": "Fc Tattulu",
+    "squadra_serie_a": "Roma",
+    "probabilita_titolare": 60,
+    "status": "panchina"
+  },
+  {
     "id": "4896",
     "nome": "Maldini",
     "ruolo": "A",
@@ -1078,15 +1069,6 @@
     "squadra_serie_a": "Bologna",
     "probabilita_titolare": 60,
     "status": "panchina"
-  },
-  {
-    "id": "6052",
-    "nome": "Hojlund",
-    "ruolo": "A",
-    "squadra_fanta": "sup",
-    "squadra_serie_a": "Napoli",
-    "probabilita_titolare": 60,
-    "status": "ballottaggio"
   },
   {
     "id": "4220",
@@ -1161,11 +1143,20 @@
     "status": "ballottaggio"
   },
   {
-    "id": "5858",
-    "nome": "Ferguson",
+    "id": "2766",
+    "nome": "Zaniolo",
     "ruolo": "C",
-    "squadra_fanta": "SACARA TEAM",
-    "squadra_serie_a": "Bologna",
+    "squadra_fanta": "AS CaccuRese",
+    "squadra_serie_a": "Udinese",
+    "probabilita_titolare": 55,
+    "status": "ballottaggio"
+  },
+  {
+    "id": "2170",
+    "nome": "Milinkovic-Savic V.",
+    "ruolo": "P",
+    "squadra_fanta": "AS CaccuRese",
+    "squadra_serie_a": "Napoli",
     "probabilita_titolare": 55,
     "status": "ballottaggio"
   },
@@ -1215,15 +1206,6 @@
     "status": "ballottaggio"
   },
   {
-    "id": "309",
-    "nome": "Dybala",
-    "ruolo": "A",
-    "squadra_fanta": "TETTENHAM",
-    "squadra_serie_a": "Roma",
-    "probabilita_titolare": 55,
-    "status": "panchina"
-  },
-  {
     "id": "4923",
     "nome": "Colombo",
     "ruolo": "A",
@@ -1269,20 +1251,20 @@
     "status": "panchina"
   },
   {
+    "id": "6320",
+    "nome": "Doekhi",
+    "ruolo": "D",
+    "squadra_fanta": "Joga Benito",
+    "squadra_serie_a": "Lazio",
+    "probabilita_titolare": 50,
+    "status": "panchina"
+  },
+  {
     "id": "7252",
     "nome": "Stulic",
     "ruolo": "A",
     "squadra_fanta": "Fc Tattulu",
     "squadra_serie_a": "Lecce",
-    "probabilita_titolare": 50,
-    "status": "panchina"
-  },
-  {
-    "id": "6572",
-    "nome": "Castro S.",
-    "ruolo": "A",
-    "squadra_fanta": "Fc Tattulu",
-    "squadra_serie_a": "Roma",
     "probabilita_titolare": 50,
     "status": "panchina"
   },
@@ -1314,6 +1296,24 @@
     "status": "ballottaggio"
   },
   {
+    "id": "572",
+    "nome": "Meret",
+    "ruolo": "P",
+    "squadra_fanta": "AS CaccuRese",
+    "squadra_serie_a": "Napoli",
+    "probabilita_titolare": 45,
+    "status": "ballottaggio"
+  },
+  {
+    "id": "5858",
+    "nome": "Ferguson",
+    "ruolo": "C",
+    "squadra_fanta": "SACARA TEAM",
+    "squadra_serie_a": "Bologna",
+    "probabilita_titolare": 45,
+    "status": "ballottaggio"
+  },
+  {
     "id": "1870",
     "nome": "Barella",
     "ruolo": "C",
@@ -1328,15 +1328,6 @@
     "ruolo": "C",
     "squadra_fanta": "Fc Tattulu",
     "squadra_serie_a": "Milan",
-    "probabilita_titolare": 45,
-    "status": "ballottaggio"
-  },
-  {
-    "id": "6151",
-    "nome": "Perrone",
-    "ruolo": "C",
-    "squadra_fanta": "sup",
-    "squadra_serie_a": "Como",
     "probabilita_titolare": 45,
     "status": "ballottaggio"
   },
@@ -1356,7 +1347,7 @@
     "squadra_fanta": "Real Pisellini Cf",
     "squadra_serie_a": "Sassuolo",
     "probabilita_titolare": 40,
-    "status": "ballottaggio"
+    "status": "panchina"
   },
   {
     "id": "5735",
@@ -1368,15 +1359,6 @@
     "status": "panchina"
   },
   {
-    "id": "6320",
-    "nome": "Doekhi",
-    "ruolo": "D",
-    "squadra_fanta": "Joga Benito",
-    "squadra_serie_a": "Lazio",
-    "probabilita_titolare": 40,
-    "status": "ballottaggio"
-  },
-  {
     "id": "4871",
     "nome": "Thuram",
     "ruolo": "A",
@@ -1386,11 +1368,11 @@
     "status": "ballottaggio"
   },
   {
-    "id": "2137",
-    "nome": "Scamacca",
+    "id": "2832",
+    "nome": "Boga",
     "ruolo": "A",
     "squadra_fanta": "TETTENHAM",
-    "squadra_serie_a": "Atalanta",
+    "squadra_serie_a": "Juventus",
     "probabilita_titolare": 40,
     "status": "ballottaggio"
   },
@@ -1422,21 +1404,21 @@
     "status": "ballottaggio"
   },
   {
-    "id": "572",
-    "nome": "Meret",
-    "ruolo": "P",
-    "squadra_fanta": "AS CaccuRese",
-    "squadra_serie_a": "Napoli",
-    "probabilita_titolare": 30,
-    "status": "panchina"
-  },
-  {
     "id": "5116",
     "nome": "Martinez Jo.",
     "ruolo": "P",
     "squadra_fanta": "SACARA TEAM",
     "squadra_serie_a": "Inter",
     "probabilita_titolare": 30,
+    "status": "panchina"
+  },
+  {
+    "id": "4236",
+    "nome": "Muric",
+    "ruolo": "P",
+    "squadra_fanta": "Ac Picchia",
+    "squadra_serie_a": "Sassuolo",
+    "probabilita_titolare": 5,
     "status": "panchina"
   },
   {
@@ -1456,15 +1438,6 @@
     "squadra_serie_a": "Monza",
     "probabilita_titolare": 5,
     "status": "panchina"
-  },
-  {
-    "id": "6989",
-    "nome": "Tiago Gabriel",
-    "ruolo": "D",
-    "squadra_fanta": "Joga Benito",
-    "squadra_serie_a": "Lecce",
-    "probabilita_titolare": 5,
-    "status": "in_dubbio"
   },
   {
     "id": "5526",
@@ -1665,6 +1638,15 @@
     "status": "indisponibile"
   },
   {
+    "id": "6989",
+    "nome": "Tiago Gabriel",
+    "ruolo": "D",
+    "squadra_fanta": "Joga Benito",
+    "squadra_serie_a": "Lecce",
+    "probabilita_titolare": 0,
+    "status": "indisponibile"
+  },
+  {
     "id": "2167",
     "nome": "Orsolini",
     "ruolo": "C",
@@ -1733,6 +1715,24 @@
     "ruolo": "D",
     "squadra_fanta": "TETTENHAM",
     "squadra_serie_a": "Inter",
+    "probabilita_titolare": 0,
+    "status": "indisponibile"
+  },
+  {
+    "id": "2137",
+    "nome": "Scamacca",
+    "ruolo": "A",
+    "squadra_fanta": "TETTENHAM",
+    "squadra_serie_a": "Atalanta",
+    "probabilita_titolare": 0,
+    "status": "indisponibile"
+  },
+  {
+    "id": "309",
+    "nome": "Dybala",
+    "ruolo": "A",
+    "squadra_fanta": "TETTENHAM",
+    "squadra_serie_a": "Roma",
     "probabilita_titolare": 0,
     "status": "indisponibile"
   },

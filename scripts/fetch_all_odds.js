@@ -46,6 +46,7 @@ const DAYS_AHEAD = 4;
 const SQUADS_PATH = path.resolve(__dirname, '../src/data/squads.json');
 const OUTPUT_PLAYERS_PATH = path.resolve(__dirname, '../src/data/daily_odds.json');
 const OUTPUT_GK_PATH = path.resolve(__dirname, '../src/data/daily_gk_odds.json');
+const BETTING_WINDOW = path.resolve(__dirname, '../src/data/betting_window.json');
 
 // ==================== FUNZIONI DI UTILITÀ ====================
 
@@ -86,6 +87,53 @@ function calculateMarketStats(quotesArray) {
  * Pausa asincrona (in ms) per rispettare il rate-limit di The Odds API (max 30 richieste/secondo)
  */
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Calcola la finestra di blocco a partire dall'array di match restituito da The Odds API
+ * @param {Array} apiMatches - Array di eventi restituito da The Odds API
+ */
+function saveBettingWindow(apiMatches) {
+  if (!apiMatches || apiMatches.length === 0) return;
+
+  // 1. Estrai tutti i timestamp (in ms) e ordinali dal più vicino al più lontano
+  const allTimes = apiMatches
+    .map((m) => new Date(m.commence_time).getTime())
+    .filter((t) => !isNaN(t) && t > nowMs)
+    .sort((a, b) => a - b);
+
+  if (allTimes.length === 0) return;
+
+  // 2. Filtra solo le partite della GIORNATA CORRENTE.
+  // The Odds API spesso mostra in anticipo anche le partite della settimana successiva:
+  // teniamo solo i match che iniziano entro 5 giorni dal primo anticipo della giornata.
+  const firstKickoffMs = allTimes[0];
+  const MAX_ROUND_SPAN_MS = 5 * 24 * 60 * 60 * 1000; // 5 giorni
+  const currentRoundTimes = allTimes.filter(
+    (t) => t - firstKickoffMs <= MAX_ROUND_SPAN_MS
+  );
+
+  const lastKickoffMs = currentRoundTimes[currentRoundTimes.length - 1];
+
+  // 3. Definisci i margini di sicurezza:
+  // - LOCK START: 15 minuti prima del fischio d'inizio della prima partita
+  // - LOCK END: 36 ore dopo il fischio d'inizio dell'ultima partita
+  const lockStartMs = firstKickoffMs - 15 * 60 * 1000;
+  const lockEndMs = lastKickoffMs + 36 * 60 * 60 * 1000;
+
+  const windowData = {
+    updated_at: new Date().toISOString(),
+    matches_count: currentRoundTimes.length,
+    first_kickoff: new Date(firstKickoffMs).toISOString(),
+    last_kickoff: new Date(lastKickoffMs).toISOString(),
+    lock_start: new Date(lockStartMs).toISOString(),
+    lock_end: new Date(lockEndMs).toISOString()
+  };
+
+  fs.writeFile(BETTING_WINDOW, JSON.stringify(windowData, null, 2), 'utf-8');
+  console.log(`🔒 Finestra quote salvata in ${BETTING_WINDOW}`);
+  console.log(`   Chiusura: ${windowData.lock_start}`);
+  console.log(`   Riapertura: ${windowData.lock_end}`);
+}
 
 // ==================== LOGICA DI PARSING MERCATI GIOCATORI & PORTIERI ====================
 
@@ -367,6 +415,9 @@ async function main() {
     console.log('ℹ️ Nessuna partita in programma nella finestra temporale. Uscita.');
     return;
   }
+
+  // Salva in locale la finestra temporale in cui verranno giocate le partite
+  saveBettingWindow(events);
 
   // Mappe di accumulo per le quote dei giocatori e le statistiche difensive delle squadre
   const matchedPlayersQuotes = new Map();

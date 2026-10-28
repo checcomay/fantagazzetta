@@ -3,14 +3,14 @@
     "fantasy_team": "Joga Benito",
     "formation": "4-3-3",
     "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 74.21,
+    "projected_top11_score": 74.24,
     "total_players": 25,
     "starting_eleven": [
       "Mandas",
       "Molina N.",
       "Kaiki",
       "Mangas",
-      "Rrahmani",
+      "Bastoni",
       "Paz N.",
       "Calò",
       "Zielinski",
@@ -21,14 +21,14 @@
     "formations_comparison": [
       {
         "formation": "4-3-3",
-        "projected_score": 74.21,
+        "projected_score": 74.24,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Mandas",
           "Molina N.",
           "Kaiki",
           "Mangas",
-          "Rrahmani",
+          "Bastoni",
           "Paz N.",
           "Calò",
           "Zielinski",
@@ -39,61 +39,43 @@
       },
       {
         "formation": "4-4-2",
-        "projected_score": 73.86,
+        "projected_score": 74.01,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Mandas",
           "Molina N.",
           "Kaiki",
           "Mangas",
-          "Rrahmani",
+          "Bastoni",
           "Paz N.",
           "Calò",
           "Zielinski",
-          "Vergara",
+          "Taylor K.",
           "Thuram",
           "Varela G."
         ]
       },
       {
         "formation": "4-5-1",
-        "projected_score": 73.4,
+        "projected_score": 73.63,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Mandas",
           "Molina N.",
           "Kaiki",
           "Mangas",
-          "Rrahmani",
-          "Paz N.",
-          "Calò",
-          "Zielinski",
-          "Vergara",
-          "Goncalves P.",
-          "Thuram"
-        ]
-      },
-      {
-        "formation": "5-3-2",
-        "projected_score": 73.31,
-        "defense_modifier_bonus": 1.5,
-        "starting_eleven": [
-          "Mandas",
-          "Molina N.",
-          "Kaiki",
-          "Mangas",
-          "Rrahmani",
           "Bastoni",
           "Paz N.",
           "Calò",
           "Zielinski",
-          "Thuram",
-          "Varela G."
+          "Taylor K.",
+          "Vergara",
+          "Thuram"
         ]
       },
       {
         "formation": "3-4-3",
-        "projected_score": 73.26,
+        "projected_score": 73.41,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Mandas",
@@ -103,33 +85,33 @@
           "Paz N.",
           "Calò",
           "Zielinski",
-          "Vergara",
+          "Taylor K.",
           "Thuram",
           "Varela G.",
           "Simeone"
         ]
       },
       {
-        "formation": "5-4-1",
-        "projected_score": 72.93,
+        "formation": "5-3-2",
+        "projected_score": 73.29,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Mandas",
           "Molina N.",
           "Kaiki",
           "Mangas",
-          "Rrahmani",
           "Bastoni",
+          "Doekhi",
           "Paz N.",
           "Calò",
           "Zielinski",
-          "Vergara",
-          "Thuram"
+          "Thuram",
+          "Varela G."
         ]
       },
       {
         "formation": "3-5-2",
-        "projected_score": 72.83,
+        "projected_score": 73.06,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Mandas",
@@ -139,10 +121,28 @@
           "Paz N.",
           "Calò",
           "Zielinski",
+          "Taylor K.",
           "Vergara",
-          "Goncalves P.",
           "Thuram",
           "Varela G."
+        ]
+      },
+      {
+        "formation": "5-4-1",
+        "projected_score": 73.03,
+        "defense_modifier_bonus": 1.5,
+        "starting_eleven": [
+          "Mandas",
+          "Molina N.",
+          "Kaiki",
+          "Mangas",
+          "Bastoni",
+          "Doekhi",
+          "Paz N.",
+          "Calò",
+          "Zielinski",
+          "Taylor K.",
+          "Thuram"
         ]
       }
     ],
@@ -295,6 +295,27 @@
         }
       },
       {
+        "id": "7314",
+        "name": "Taylor K.",
+        "role": "C",
+        "real_team": "Lazio",
+        "starter_probability": 100,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.06,
+        "expected_bonus": 0.79,
+        "expected_penalty": 0.12,
+        "expected_fantasy_rating": 6.72,
+        "metrics": {
+          "goal_probability": 19,
+          "brace_probability": 1,
+          "assist_probability": 20,
+          "yellow_card_probability": 18,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.8,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
         "id": "7223",
         "name": "Vergara",
         "role": "C",
@@ -333,27 +354,6 @@
           "yellow_card_probability": 12,
           "red_card_probability": 1,
           "own_goal_probability": 0.5,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "7314",
-        "name": "Taylor K.",
-        "role": "C",
-        "real_team": "Lazio",
-        "starter_probability": 60,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6.05,
-        "expected_bonus": 0.61,
-        "expected_penalty": 0.08,
-        "expected_fantasy_rating": 6.46,
-        "metrics": {
-          "goal_probability": 15,
-          "brace_probability": 0,
-          "assist_probability": 16,
-          "yellow_card_probability": 12,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.6,
           "has_bookmaker_odds": true
         }
       },
@@ -463,27 +463,6 @@
         }
       },
       {
-        "id": "4409",
-        "name": "Rrahmani",
-        "role": "D",
-        "real_team": "Napoli",
-        "starter_probability": 90,
-        "lineup_status": "titolare",
-        "expected_base_rating": 5.97,
-        "expected_bonus": 0.27,
-        "expected_penalty": 0.16,
-        "expected_fantasy_rating": 6.05,
-        "metrics": {
-          "goal_probability": 7,
-          "brace_probability": 0,
-          "assist_probability": 5,
-          "yellow_card_probability": 21,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.9,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
         "id": "2120",
         "name": "Bastoni",
         "role": "D",
@@ -530,19 +509,40 @@
         "name": "Doekhi",
         "role": "D",
         "real_team": "Lazio",
-        "starter_probability": 40,
-        "lineup_status": "ballottaggio",
+        "starter_probability": 50,
+        "lineup_status": "panchina",
         "expected_base_rating": 6,
+        "expected_bonus": 0.26,
+        "expected_penalty": 0.1,
+        "expected_fantasy_rating": 6,
+        "metrics": {
+          "goal_probability": 7,
+          "brace_probability": 0,
+          "assist_probability": 5,
+          "yellow_card_probability": 12,
+          "red_card_probability": 1,
+          "own_goal_probability": 1.3,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "4409",
+        "name": "Rrahmani",
+        "role": "D",
+        "real_team": "Napoli",
+        "starter_probability": 70,
+        "lineup_status": "titolare",
+        "expected_base_rating": 5.98,
         "expected_bonus": 0.23,
-        "expected_penalty": 0.09,
-        "expected_fantasy_rating": 5.96,
+        "expected_penalty": 0.14,
+        "expected_fantasy_rating": 5.98,
         "metrics": {
           "goal_probability": 6,
           "brace_probability": 0,
           "assist_probability": 4,
-          "yellow_card_probability": 11,
-          "red_card_probability": 1,
-          "own_goal_probability": 1.1,
+          "yellow_card_probability": 18,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.5,
           "has_bookmaker_odds": true
         }
       },
@@ -593,19 +593,19 @@
         "name": "Tiago Gabriel",
         "role": "D",
         "real_team": "Lecce",
-        "starter_probability": 5,
-        "lineup_status": "in_dubbio",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
         "expected_base_rating": 5.99,
-        "expected_bonus": 0.07,
-        "expected_penalty": 0.05,
-        "expected_fantasy_rating": 5.73,
+        "expected_bonus": 0.06,
+        "expected_penalty": 0.04,
+        "expected_fantasy_rating": 5.71,
         "metrics": {
           "goal_probability": 2,
           "brace_probability": 0,
           "assist_probability": 2,
-          "yellow_card_probability": 7,
+          "yellow_card_probability": 6,
           "red_card_probability": 1,
-          "own_goal_probability": 0.6,
+          "own_goal_probability": 0.5,
           "has_bookmaker_odds": true
         }
       },
@@ -614,12 +614,12 @@
         "name": "Mandas",
         "role": "P",
         "real_team": "Lazio",
-        "starter_probability": 90,
+        "starter_probability": 100,
         "lineup_status": "titolare",
         "expected_base_rating": 5.94,
         "expected_bonus": 0.53,
         "expected_penalty": 1.23,
-        "expected_fantasy_rating": 5.21,
+        "expected_fantasy_rating": 5.24,
         "metrics": {
           "clean_sheet_probability": 38,
           "expected_goals_conceded": 1.19,
@@ -678,7 +678,7 @@
     "fantasy_team": "AS CaccuRese",
     "formation": "4-3-3",
     "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 73.95,
+    "projected_top11_score": 73.91,
     "total_players": 25,
     "starting_eleven": [
       "Milinkovic-Savic V.",
@@ -696,7 +696,7 @@
     "formations_comparison": [
       {
         "formation": "4-3-3",
-        "projected_score": 73.95,
+        "projected_score": 73.91,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Milinkovic-Savic V.",
@@ -714,7 +714,7 @@
       },
       {
         "formation": "4-4-2",
-        "projected_score": 73.03,
+        "projected_score": 72.91,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Milinkovic-Savic V.",
@@ -732,7 +732,7 @@
       },
       {
         "formation": "3-4-3",
-        "projected_score": 72.85,
+        "projected_score": 72.73,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Milinkovic-Savic V.",
@@ -750,7 +750,7 @@
       },
       {
         "formation": "5-3-2",
-        "projected_score": 72.61,
+        "projected_score": 72.57,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Milinkovic-Savic V.",
@@ -768,7 +768,7 @@
       },
       {
         "formation": "4-5-1",
-        "projected_score": 71.92,
+        "projected_score": 71.8,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Milinkovic-Savic V.",
@@ -786,7 +786,7 @@
       },
       {
         "formation": "3-5-2",
-        "projected_score": 71.74,
+        "projected_score": 71.62,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Milinkovic-Savic V.",
@@ -804,7 +804,7 @@
       },
       {
         "formation": "5-4-1",
-        "projected_score": 71.69,
+        "projected_score": 71.57,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Milinkovic-Savic V.",
@@ -886,6 +886,27 @@
         }
       },
       {
+        "id": "536",
+        "name": "Politano",
+        "role": "C",
+        "real_team": "Napoli",
+        "starter_probability": 85,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.08,
+        "expected_bonus": 1,
+        "expected_penalty": 0.12,
+        "expected_fantasy_rating": 6.91,
+        "metrics": {
+          "goal_probability": 24,
+          "brace_probability": 0,
+          "assist_probability": 27,
+          "yellow_card_probability": 20,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.7,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
         "id": "7023",
         "name": "Pellegrino M.",
         "role": "A",
@@ -907,48 +928,6 @@
         }
       },
       {
-        "id": "536",
-        "name": "Politano",
-        "role": "C",
-        "real_team": "Napoli",
-        "starter_probability": 80,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.08,
-        "expected_bonus": 0.97,
-        "expected_penalty": 0.12,
-        "expected_fantasy_rating": 6.87,
-        "metrics": {
-          "goal_probability": 23,
-          "brace_probability": 0,
-          "assist_probability": 26,
-          "yellow_card_probability": 19,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.7,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "2766",
-        "name": "Zaniolo",
-        "role": "C",
-        "real_team": "Udinese",
-        "starter_probability": 60,
-        "lineup_status": "panchina",
-        "expected_base_rating": 6.05,
-        "expected_bonus": 0.85,
-        "expected_penalty": 0.14,
-        "expected_fantasy_rating": 6.64,
-        "metrics": {
-          "goal_probability": 22,
-          "brace_probability": 0,
-          "assist_probability": 19,
-          "yellow_card_probability": 25,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.6,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
         "id": "2155",
         "name": "Cutrone",
         "role": "A",
@@ -966,6 +945,27 @@
           "yellow_card_probability": 10,
           "red_card_probability": 0,
           "own_goal_probability": 0.1,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "2766",
+        "name": "Zaniolo",
+        "role": "C",
+        "real_team": "Udinese",
+        "starter_probability": 55,
+        "lineup_status": "ballottaggio",
+        "expected_base_rating": 6.05,
+        "expected_bonus": 0.82,
+        "expected_penalty": 0.14,
+        "expected_fantasy_rating": 6.6,
+        "metrics": {
+          "goal_probability": 21,
+          "brace_probability": 0,
+          "assist_probability": 18,
+          "yellow_card_probability": 24,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.5,
           "has_bookmaker_odds": true
         }
       },
@@ -995,17 +995,17 @@
         "name": "Cambiaghi",
         "role": "C",
         "real_team": "Bologna",
-        "starter_probability": 90,
+        "starter_probability": 75,
         "lineup_status": "titolare",
         "expected_base_rating": 6.02,
-        "expected_bonus": 0.59,
-        "expected_penalty": 0.13,
-        "expected_fantasy_rating": 6.45,
+        "expected_bonus": 0.54,
+        "expected_penalty": 0.11,
+        "expected_fantasy_rating": 6.37,
         "metrics": {
-          "goal_probability": 15,
+          "goal_probability": 14,
           "brace_probability": 0,
-          "assist_probability": 12,
-          "yellow_card_probability": 20,
+          "assist_probability": 11,
+          "yellow_card_probability": 18,
           "red_card_probability": 1,
           "own_goal_probability": 0.7,
           "has_bookmaker_odds": true
@@ -1289,12 +1289,12 @@
         "name": "Milinkovic-Savic V.",
         "role": "P",
         "real_team": "Napoli",
-        "starter_probability": 70,
-        "lineup_status": "titolare",
+        "starter_probability": 55,
+        "lineup_status": "ballottaggio",
         "expected_base_rating": 5.93,
         "expected_bonus": 0.51,
         "expected_penalty": 1.3,
-        "expected_fantasy_rating": 5.04,
+        "expected_fantasy_rating": 5,
         "metrics": {
           "clean_sheet_probability": 36,
           "expected_goals_conceded": 1.26,
@@ -1310,12 +1310,12 @@
         "name": "Meret",
         "role": "P",
         "real_team": "Napoli",
-        "starter_probability": 30,
-        "lineup_status": "panchina",
+        "starter_probability": 45,
+        "lineup_status": "ballottaggio",
         "expected_base_rating": 5.93,
         "expected_bonus": 0.51,
         "expected_penalty": 1.3,
-        "expected_fantasy_rating": 4.92,
+        "expected_fantasy_rating": 4.97,
         "metrics": {
           "clean_sheet_probability": 36,
           "expected_goals_conceded": 1.26,
@@ -1350,649 +1350,10 @@
     ]
   },
   {
-    "fantasy_team": "TETTENHAM",
-    "formation": "4-3-3",
-    "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 73.56,
-    "total_players": 25,
-    "starting_eleven": [
-      "Carnesecchi",
-      "Vojvoda",
-      "Bisseck",
-      "Bartesaghi",
-      "Tavares N.",
-      "Mora",
-      "Mastantuono",
-      "Hutchinson",
-      "Raimondo",
-      "Dybala",
-      "Kolo Muani"
-    ],
-    "formations_comparison": [
-      {
-        "formation": "4-3-3",
-        "projected_score": 73.56,
-        "defense_modifier_bonus": 1.5,
-        "starting_eleven": [
-          "Carnesecchi",
-          "Vojvoda",
-          "Bisseck",
-          "Bartesaghi",
-          "Tavares N.",
-          "Mora",
-          "Mastantuono",
-          "Hutchinson",
-          "Raimondo",
-          "Dybala",
-          "Kolo Muani"
-        ]
-      },
-      {
-        "formation": "4-4-2",
-        "projected_score": 72.88,
-        "defense_modifier_bonus": 1.5,
-        "starting_eleven": [
-          "Carnesecchi",
-          "Vojvoda",
-          "Bisseck",
-          "Bartesaghi",
-          "Tavares N.",
-          "Mora",
-          "Mastantuono",
-          "Hutchinson",
-          "Monteiro J.",
-          "Raimondo",
-          "Dybala"
-        ]
-      },
-      {
-        "formation": "3-4-3",
-        "projected_score": 72.54,
-        "defense_modifier_bonus": 0,
-        "starting_eleven": [
-          "Carnesecchi",
-          "Vojvoda",
-          "Bisseck",
-          "Bartesaghi",
-          "Mora",
-          "Mastantuono",
-          "Hutchinson",
-          "Monteiro J.",
-          "Raimondo",
-          "Dybala",
-          "Kolo Muani"
-        ]
-      },
-      {
-        "formation": "5-3-2",
-        "projected_score": 72.39,
-        "defense_modifier_bonus": 1.5,
-        "starting_eleven": [
-          "Carnesecchi",
-          "Vojvoda",
-          "Bisseck",
-          "Bartesaghi",
-          "Tavares N.",
-          "Jimenez A.",
-          "Mora",
-          "Mastantuono",
-          "Hutchinson",
-          "Raimondo",
-          "Dybala"
-        ]
-      },
-      {
-        "formation": "5-4-1",
-        "projected_score": 71.53,
-        "defense_modifier_bonus": 1.5,
-        "starting_eleven": [
-          "Carnesecchi",
-          "Vojvoda",
-          "Bisseck",
-          "Bartesaghi",
-          "Tavares N.",
-          "Jimenez A.",
-          "Mora",
-          "Mastantuono",
-          "Hutchinson",
-          "Monteiro J.",
-          "Raimondo"
-        ]
-      }
-    ],
-    "roster": [
-      {
-        "id": "5436",
-        "name": "Raimondo",
-        "role": "A",
-        "real_team": "Frosinone",
-        "starter_probability": 90,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.14,
-        "expected_bonus": 1.49,
-        "expected_penalty": 0.07,
-        "expected_fantasy_rating": 7.53,
-        "metrics": {
-          "goal_probability": 43,
-          "brace_probability": 2,
-          "assist_probability": 13,
-          "yellow_card_probability": 13,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.2,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "309",
-        "name": "Dybala",
-        "role": "A",
-        "real_team": "Roma",
-        "starter_probability": 55,
-        "lineup_status": "panchina",
-        "expected_base_rating": 6.17,
-        "expected_bonus": 1.39,
-        "expected_penalty": 0.04,
-        "expected_fantasy_rating": 7.39,
-        "metrics": {
-          "goal_probability": 33,
-          "brace_probability": 2,
-          "assist_probability": 36,
-          "yellow_card_probability": 6,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.1,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "5951",
-        "name": "Kolo Muani",
-        "role": "A",
-        "real_team": "Juventus",
-        "starter_probability": 80,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.12,
-        "expected_bonus": 1.22,
-        "expected_penalty": 0.07,
-        "expected_fantasy_rating": 7.21,
-        "metrics": {
-          "goal_probability": 33,
-          "brace_probability": 2,
-          "assist_probability": 17,
-          "yellow_card_probability": 12,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.2,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "7556",
-        "name": "Mora",
-        "role": "C",
-        "real_team": "Roma",
-        "starter_probability": 75,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.11,
-        "expected_bonus": 1.06,
-        "expected_penalty": 0.08,
-        "expected_fantasy_rating": 7.01,
-        "metrics": {
-          "goal_probability": 27,
-          "brace_probability": 0,
-          "assist_probability": 24,
-          "yellow_card_probability": 11,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.7,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "7078",
-        "name": "Mastantuono",
-        "role": "C",
-        "real_team": "Fiorentina",
-        "starter_probability": 80,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.08,
-        "expected_bonus": 0.97,
-        "expected_penalty": 0.1,
-        "expected_fantasy_rating": 6.89,
-        "metrics": {
-          "goal_probability": 26,
-          "brace_probability": 0,
-          "assist_probability": 18,
-          "yellow_card_probability": 15,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.7,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "2832",
-        "name": "Boga",
-        "role": "A",
-        "real_team": "Juventus",
-        "starter_probability": 60,
-        "lineup_status": "panchina",
-        "expected_base_rating": 6.1,
-        "expected_bonus": 0.96,
-        "expected_penalty": 0.04,
-        "expected_fantasy_rating": 6.89,
-        "metrics": {
-          "goal_probability": 24,
-          "brace_probability": 2,
-          "assist_probability": 18,
-          "yellow_card_probability": 8,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.1,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "7618",
-        "name": "Hutchinson",
-        "role": "C",
-        "real_team": "Milan",
-        "starter_probability": 80,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.08,
-        "expected_bonus": 0.89,
-        "expected_penalty": 0.08,
-        "expected_fantasy_rating": 6.83,
-        "metrics": {
-          "goal_probability": 22,
-          "brace_probability": 0,
-          "assist_probability": 20,
-          "yellow_card_probability": 12,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.7,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "2137",
-        "name": "Scamacca",
-        "role": "A",
-        "real_team": "Atalanta",
-        "starter_probability": 40,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6.08,
-        "expected_bonus": 0.9,
-        "expected_penalty": 0.06,
-        "expected_fantasy_rating": 6.74,
-        "metrics": {
-          "goal_probability": 25,
-          "brace_probability": 2,
-          "assist_probability": 10,
-          "yellow_card_probability": 11,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.1,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "6229",
-        "name": "Tourè E.",
-        "role": "A",
-        "real_team": "Parma",
-        "starter_probability": 55,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6.07,
-        "expected_bonus": 0.75,
-        "expected_penalty": 0.06,
-        "expected_fantasy_rating": 6.63,
-        "metrics": {
-          "goal_probability": 20,
-          "brace_probability": 2,
-          "assist_probability": 11,
-          "yellow_card_probability": 10,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.1,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "7619",
-        "name": "Monteiro J.",
-        "role": "C",
-        "real_team": "Lecce",
-        "starter_probability": 60,
-        "lineup_status": "panchina",
-        "expected_base_rating": 6.05,
-        "expected_bonus": 0.7,
-        "expected_penalty": 0.09,
-        "expected_fantasy_rating": 6.53,
-        "metrics": {
-          "goal_probability": 18,
-          "brace_probability": 0,
-          "assist_probability": 15,
-          "yellow_card_probability": 15,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.6,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "4994",
-        "name": "Vojvoda",
-        "role": "D",
-        "real_team": "Udinese",
-        "starter_probability": 90,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.01,
-        "expected_bonus": 0.47,
-        "expected_penalty": 0.16,
-        "expected_fantasy_rating": 6.28,
-        "metrics": {
-          "goal_probability": 10,
-          "brace_probability": 0,
-          "assist_probability": 17,
-          "yellow_card_probability": 21,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.9,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "6217",
-        "name": "Bisseck",
-        "role": "D",
-        "real_team": "Inter",
-        "starter_probability": 80,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.01,
-        "expected_bonus": 0.37,
-        "expected_penalty": 0.13,
-        "expected_fantasy_rating": 6.19,
-        "metrics": {
-          "goal_probability": 9,
-          "brace_probability": 0,
-          "assist_probability": 11,
-          "yellow_card_probability": 15,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.7,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "6496",
-        "name": "Bartesaghi",
-        "role": "D",
-        "real_team": "Milan",
-        "starter_probability": 60,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6.01,
-        "expected_bonus": 0.4,
-        "expected_penalty": 0.12,
-        "expected_fantasy_rating": 6.17,
-        "metrics": {
-          "goal_probability": 8,
-          "brace_probability": 0,
-          "assist_probability": 15,
-          "yellow_card_probability": 15,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.4,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "6372",
-        "name": "Moreira",
-        "role": "C",
-        "real_team": "Milan",
-        "starter_probability": 0,
-        "lineup_status": "indisponibile",
-        "expected_base_rating": 6.04,
-        "expected_bonus": 0.44,
-        "expected_penalty": 0.04,
-        "expected_fantasy_rating": 6.14,
-        "metrics": {
-          "goal_probability": 10,
-          "brace_probability": 0,
-          "assist_probability": 14,
-          "yellow_card_probability": 6,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.2,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "5620",
-        "name": "Tavares N.",
-        "role": "D",
-        "real_team": "Lazio",
-        "starter_probability": 60,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 5.99,
-        "expected_bonus": 0.31,
-        "expected_penalty": 0.14,
-        "expected_fantasy_rating": 6.05,
-        "metrics": {
-          "goal_probability": 6,
-          "brace_probability": 0,
-          "assist_probability": 12,
-          "yellow_card_probability": 19,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.4,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "6531",
-        "name": "Jimenez A.",
-        "role": "D",
-        "real_team": "Fiorentina",
-        "starter_probability": 60,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 5.99,
-        "expected_bonus": 0.3,
-        "expected_penalty": 0.13,
-        "expected_fantasy_rating": 6.04,
-        "metrics": {
-          "goal_probability": 9,
-          "brace_probability": 0,
-          "assist_probability": 3,
-          "yellow_card_probability": 18,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.4,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "6990",
-        "name": "Veiga D.",
-        "role": "D",
-        "real_team": "Lecce",
-        "starter_probability": 75,
-        "lineup_status": "titolare",
-        "expected_base_rating": 5.96,
-        "expected_bonus": 0.25,
-        "expected_penalty": 0.19,
-        "expected_fantasy_rating": 5.95,
-        "metrics": {
-          "goal_probability": 5,
-          "brace_probability": 0,
-          "assist_probability": 11,
-          "yellow_card_probability": 28,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.6,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "7268",
-        "name": "Rodriguez Ju.",
-        "role": "D",
-        "real_team": "Cagliari",
-        "starter_probability": 55,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 5.97,
-        "expected_bonus": 0.09,
-        "expected_penalty": 0.11,
-        "expected_fantasy_rating": 5.81,
-        "metrics": {
-          "goal_probability": 2,
-          "brace_probability": 0,
-          "assist_probability": 3,
-          "yellow_card_probability": 14,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.3,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "5800",
-        "name": "Gudmundsson A.",
-        "role": "C",
-        "real_team": "Lazio",
-        "starter_probability": 0,
-        "lineup_status": "indisponibile",
-        "expected_base_rating": 6,
-        "expected_bonus": 0.11,
-        "expected_penalty": 0.03,
-        "expected_fantasy_rating": 5.78,
-        "metrics": {
-          "goal_probability": 2,
-          "brace_probability": 0,
-          "assist_probability": 4,
-          "yellow_card_probability": 5,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.2,
-          "has_bookmaker_odds": false
-        }
-      },
-      {
-        "id": "4892",
-        "name": "Saelemaekers",
-        "role": "C",
-        "real_team": "Milan",
-        "starter_probability": 0,
-        "lineup_status": "indisponibile",
-        "expected_base_rating": 6,
-        "expected_bonus": 0.11,
-        "expected_penalty": 0.03,
-        "expected_fantasy_rating": 5.78,
-        "metrics": {
-          "goal_probability": 2,
-          "brace_probability": 0,
-          "assist_probability": 4,
-          "yellow_card_probability": 5,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.2,
-          "has_bookmaker_odds": false
-        }
-      },
-      {
-        "id": "4856",
-        "name": "Chukwueze",
-        "role": "C",
-        "real_team": "Milan",
-        "starter_probability": 0,
-        "lineup_status": "indisponibile",
-        "expected_base_rating": 6,
-        "expected_bonus": 0.11,
-        "expected_penalty": 0.03,
-        "expected_fantasy_rating": 5.78,
-        "metrics": {
-          "goal_probability": 2,
-          "brace_probability": 0,
-          "assist_probability": 4,
-          "yellow_card_probability": 5,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.2,
-          "has_bookmaker_odds": false
-        }
-      },
-      {
-        "id": "5841",
-        "name": "Svilar",
-        "role": "P",
-        "real_team": "Roma",
-        "starter_probability": 0,
-        "lineup_status": "indisponibile",
-        "expected_base_rating": 6.01,
-        "expected_bonus": 0,
-        "expected_penalty": 0,
-        "expected_fantasy_rating": 5.71,
-        "metrics": {
-          "clean_sheet_probability": 48,
-          "expected_goals_conceded": 0.87,
-          "penalty_saved_probability": 5,
-          "own_goal_probability": 1,
-          "opponent": "Cagliari",
-          "is_home": true,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "7603",
-        "name": "Grabara",
-        "role": "P",
-        "real_team": "Juventus",
-        "starter_probability": 0,
-        "lineup_status": "indisponibile",
-        "expected_base_rating": 5.98,
-        "expected_bonus": 0,
-        "expected_penalty": 0,
-        "expected_fantasy_rating": 5.68,
-        "metrics": {
-          "clean_sheet_probability": 43,
-          "expected_goals_conceded": 1.03,
-          "penalty_saved_probability": 5,
-          "own_goal_probability": 1,
-          "opponent": "Genoa",
-          "is_home": false,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "2514",
-        "name": "Stones",
-        "role": "D",
-        "real_team": "Inter",
-        "starter_probability": 0,
-        "lineup_status": "indisponibile",
-        "expected_base_rating": 5.99,
-        "expected_bonus": 0.03,
-        "expected_penalty": 0.05,
-        "expected_fantasy_rating": 5.66,
-        "metrics": {
-          "goal_probability": 1,
-          "brace_probability": 0,
-          "assist_probability": 1,
-          "yellow_card_probability": 6,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.5,
-          "has_bookmaker_odds": false
-        }
-      },
-      {
-        "id": "4431",
-        "name": "Carnesecchi",
-        "role": "P",
-        "real_team": "Atalanta",
-        "starter_probability": 90,
-        "lineup_status": "titolare",
-        "expected_base_rating": 5.84,
-        "expected_bonus": 0.39,
-        "expected_penalty": 1.68,
-        "expected_fantasy_rating": 4.51,
-        "metrics": {
-          "clean_sheet_probability": 24,
-          "expected_goals_conceded": 1.64,
-          "penalty_saved_probability": 5,
-          "own_goal_probability": 1,
-          "opponent": "Fiorentina",
-          "is_home": false,
-          "has_bookmaker_odds": true
-        }
-      }
-    ]
-  },
-  {
     "fantasy_team": "SACARA TEAM",
     "formation": "4-3-3",
     "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 73.06,
+    "projected_top11_score": 73.37,
     "total_players": 25,
     "starting_eleven": [
       "Martinez Jo.",
@@ -2003,14 +1364,14 @@
       "Zaccagni",
       "Sucic P.",
       "Samardzic",
-      "Bobcek",
       "Krstovic",
+      "Bobcek",
       "Romero D."
     ],
     "formations_comparison": [
       {
         "formation": "4-3-3",
-        "projected_score": 73.06,
+        "projected_score": 73.37,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Martinez Jo.",
@@ -2021,14 +1382,14 @@
           "Zaccagni",
           "Sucic P.",
           "Samardzic",
-          "Bobcek",
           "Krstovic",
+          "Bobcek",
           "Romero D."
         ]
       },
       {
         "formation": "4-4-2",
-        "projected_score": 72.64,
+        "projected_score": 72.95,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Martinez Jo.",
@@ -2040,13 +1401,13 @@
           "Sucic P.",
           "Samardzic",
           "Diouf",
-          "Bobcek",
-          "Krstovic"
+          "Krstovic",
+          "Bobcek"
         ]
       },
       {
         "formation": "5-3-2",
-        "projected_score": 72.25,
+        "projected_score": 72.56,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Martinez Jo.",
@@ -2058,31 +1419,13 @@
           "Zaccagni",
           "Sucic P.",
           "Samardzic",
-          "Bobcek",
-          "Krstovic"
-        ]
-      },
-      {
-        "formation": "4-5-1",
-        "projected_score": 71.96,
-        "defense_modifier_bonus": 1.5,
-        "starting_eleven": [
-          "Martinez Jo.",
-          "Dimarco",
-          "Spence",
-          "Zortea",
-          "Delprato",
-          "Zaccagni",
-          "Sucic P.",
-          "Samardzic",
-          "Diouf",
-          "Modric",
+          "Krstovic",
           "Bobcek"
         ]
       },
       {
         "formation": "3-4-3",
-        "projected_score": 71.9,
+        "projected_score": 72.21,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Martinez Jo.",
@@ -2093,14 +1436,32 @@
           "Sucic P.",
           "Samardzic",
           "Diouf",
-          "Bobcek",
           "Krstovic",
+          "Bobcek",
           "Romero D."
         ]
       },
       {
+        "formation": "4-5-1",
+        "projected_score": 72.06,
+        "defense_modifier_bonus": 1.5,
+        "starting_eleven": [
+          "Martinez Jo.",
+          "Dimarco",
+          "Spence",
+          "Zortea",
+          "Delprato",
+          "Zaccagni",
+          "Sucic P.",
+          "Samardzic",
+          "Diouf",
+          "Modric",
+          "Krstovic"
+        ]
+      },
+      {
         "formation": "5-4-1",
-        "projected_score": 71.65,
+        "projected_score": 71.75,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Martinez Jo.",
@@ -2113,12 +1474,12 @@
           "Sucic P.",
           "Samardzic",
           "Diouf",
-          "Bobcek"
+          "Krstovic"
         ]
       },
       {
         "formation": "3-5-2",
-        "projected_score": 71.4,
+        "projected_score": 71.71,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Martinez Jo.",
@@ -2130,12 +1491,33 @@
           "Samardzic",
           "Diouf",
           "Modric",
-          "Bobcek",
-          "Krstovic"
+          "Krstovic",
+          "Bobcek"
         ]
       }
     ],
     "roster": [
+      {
+        "id": "6435",
+        "name": "Krstovic",
+        "role": "A",
+        "real_team": "Atalanta",
+        "starter_probability": 90,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.11,
+        "expected_bonus": 1.29,
+        "expected_penalty": 0.1,
+        "expected_fantasy_rating": 7.26,
+        "metrics": {
+          "goal_probability": 35,
+          "brace_probability": 2,
+          "assist_probability": 19,
+          "yellow_card_probability": 19,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.2,
+          "has_bookmaker_odds": true
+        }
+      },
       {
         "id": "7612",
         "name": "Bobcek",
@@ -2158,44 +1540,23 @@
         }
       },
       {
-        "id": "6435",
-        "name": "Krstovic",
-        "role": "A",
-        "real_team": "Atalanta",
-        "starter_probability": 60,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6.1,
-        "expected_bonus": 1.13,
-        "expected_penalty": 0.08,
-        "expected_fantasy_rating": 7.03,
-        "metrics": {
-          "goal_probability": 30,
-          "brace_probability": 2,
-          "assist_probability": 17,
-          "yellow_card_probability": 14,
-          "red_card_probability": 0,
-          "own_goal_probability": 0.1,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
         "id": "632",
         "name": "Zaccagni",
         "role": "C",
         "real_team": "Lazio",
-        "starter_probability": 90,
+        "starter_probability": 100,
         "lineup_status": "titolare",
-        "expected_base_rating": 6.06,
-        "expected_bonus": 1.03,
-        "expected_penalty": 0.16,
-        "expected_fantasy_rating": 6.91,
+        "expected_base_rating": 6.07,
+        "expected_bonus": 1.1,
+        "expected_penalty": 0.18,
+        "expected_fantasy_rating": 6.99,
         "metrics": {
-          "goal_probability": 26,
-          "brace_probability": 0,
-          "assist_probability": 23,
-          "yellow_card_probability": 27,
+          "goal_probability": 28,
+          "brace_probability": 1,
+          "assist_probability": 24,
+          "yellow_card_probability": 29,
           "red_card_probability": 1,
-          "own_goal_probability": 0.7,
+          "own_goal_probability": 0.8,
           "has_bookmaker_odds": true
         }
       },
@@ -2498,17 +1859,17 @@
         "name": "Ferguson",
         "role": "C",
         "real_team": "Bologna",
-        "starter_probability": 55,
+        "starter_probability": 45,
         "lineup_status": "ballottaggio",
-        "expected_base_rating": 5.98,
-        "expected_bonus": 0.27,
-        "expected_penalty": 0.12,
-        "expected_fantasy_rating": 6,
+        "expected_base_rating": 5.99,
+        "expected_bonus": 0.25,
+        "expected_penalty": 0.1,
+        "expected_fantasy_rating": 5.97,
         "metrics": {
           "goal_probability": 6,
           "brace_probability": 0,
-          "assist_probability": 8,
-          "yellow_card_probability": 19,
+          "assist_probability": 7,
+          "yellow_card_probability": 17,
           "red_card_probability": 1,
           "own_goal_probability": 0.5,
           "has_bookmaker_odds": true
@@ -2667,7 +2028,7 @@
     "fantasy_team": "sup",
     "formation": "4-3-3",
     "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 72.86,
+    "projected_top11_score": 73.14,
     "total_players": 25,
     "starting_eleven": [
       "Maignan",
@@ -2685,7 +2046,7 @@
     "formations_comparison": [
       {
         "formation": "4-3-3",
-        "projected_score": 72.86,
+        "projected_score": 73.14,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Maignan",
@@ -2703,7 +2064,7 @@
       },
       {
         "formation": "4-4-2",
-        "projected_score": 72.41,
+        "projected_score": 72.71,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Maignan",
@@ -2714,14 +2075,14 @@
           "Pulisic",
           "Frattesi",
           "Vlasic",
-          "Cristante",
+          "Odgaard",
           "Hojlund",
           "Esposito Se."
         ]
       },
       {
         "formation": "3-4-3",
-        "projected_score": 71.88,
+        "projected_score": 72.18,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Maignan",
@@ -2731,7 +2092,7 @@
           "Pulisic",
           "Frattesi",
           "Vlasic",
-          "Cristante",
+          "Odgaard",
           "Hojlund",
           "Esposito Se.",
           "De Ketelaere"
@@ -2739,7 +2100,7 @@
       },
       {
         "formation": "5-3-2",
-        "projected_score": 71.79,
+        "projected_score": 72.07,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Maignan",
@@ -2757,7 +2118,7 @@
       },
       {
         "formation": "4-5-1",
-        "projected_score": 71.72,
+        "projected_score": 72.02,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Maignan",
@@ -2768,14 +2129,14 @@
           "Pulisic",
           "Frattesi",
           "Vlasic",
-          "Cristante",
           "Odgaard",
+          "Cristante",
           "Hojlund"
         ]
       },
       {
         "formation": "3-5-2",
-        "projected_score": 71.36,
+        "projected_score": 71.73,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Maignan",
@@ -2785,15 +2146,15 @@
           "Pulisic",
           "Frattesi",
           "Vlasic",
-          "Cristante",
           "Odgaard",
+          "Cristante",
           "Hojlund",
           "Esposito Se."
         ]
       },
       {
         "formation": "5-4-1",
-        "projected_score": 71.17,
+        "projected_score": 71.4,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Maignan",
@@ -2805,7 +2166,7 @@
           "Pulisic",
           "Frattesi",
           "Vlasic",
-          "Cristante",
+          "Odgaard",
           "Hojlund"
         ]
       }
@@ -2816,19 +2177,19 @@
         "name": "Hojlund",
         "role": "A",
         "real_team": "Napoli",
-        "starter_probability": 60,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6.13,
-        "expected_bonus": 1.22,
-        "expected_penalty": 0.05,
-        "expected_fantasy_rating": 7.18,
+        "starter_probability": 75,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.14,
+        "expected_bonus": 1.31,
+        "expected_penalty": 0.06,
+        "expected_fantasy_rating": 7.31,
         "metrics": {
-          "goal_probability": 33,
+          "goal_probability": 35,
           "brace_probability": 2,
-          "assist_probability": 18,
-          "yellow_card_probability": 8,
+          "assist_probability": 20,
+          "yellow_card_probability": 10,
           "red_card_probability": 0,
-          "own_goal_probability": 0.1,
+          "own_goal_probability": 0.2,
           "has_bookmaker_odds": true
         }
       },
@@ -2837,17 +2198,17 @@
         "name": "Esposito Se.",
         "role": "A",
         "real_team": "Sassuolo",
-        "starter_probability": 90,
+        "starter_probability": 100,
         "lineup_status": "titolare",
-        "expected_base_rating": 6.1,
-        "expected_bonus": 1.11,
+        "expected_base_rating": 6.11,
+        "expected_bonus": 1.16,
         "expected_penalty": 0.08,
-        "expected_fantasy_rating": 7.11,
+        "expected_fantasy_rating": 7.18,
         "metrics": {
-          "goal_probability": 28,
+          "goal_probability": 29,
           "brace_probability": 2,
-          "assist_probability": 22,
-          "yellow_card_probability": 14,
+          "assist_probability": 23,
+          "yellow_card_probability": 15,
           "red_card_probability": 0,
           "own_goal_probability": 0.2,
           "has_bookmaker_odds": true
@@ -2896,6 +2257,27 @@
         }
       },
       {
+        "id": "2848",
+        "name": "Frattesi",
+        "role": "C",
+        "real_team": "Lazio",
+        "starter_probability": 100,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.07,
+        "expected_bonus": 0.91,
+        "expected_penalty": 0.12,
+        "expected_fantasy_rating": 6.86,
+        "metrics": {
+          "goal_probability": 23,
+          "brace_probability": 1,
+          "assist_probability": 20,
+          "yellow_card_probability": 18,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.8,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
         "id": "7347",
         "name": "Bowie",
         "role": "A",
@@ -2913,27 +2295,6 @@
           "yellow_card_probability": 10,
           "red_card_probability": 0,
           "own_goal_probability": 0.1,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "2848",
-        "name": "Frattesi",
-        "role": "C",
-        "real_team": "Lazio",
-        "starter_probability": 90,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.07,
-        "expected_bonus": 0.86,
-        "expected_penalty": 0.11,
-        "expected_fantasy_rating": 6.78,
-        "metrics": {
-          "goal_probability": 22,
-          "brace_probability": 0,
-          "assist_probability": 19,
-          "yellow_card_probability": 17,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.7,
           "has_bookmaker_odds": true
         }
       },
@@ -2980,6 +2341,27 @@
         }
       },
       {
+        "id": "2765",
+        "name": "Odgaard",
+        "role": "C",
+        "real_team": "Bologna",
+        "starter_probability": 85,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.04,
+        "expected_bonus": 0.61,
+        "expected_penalty": 0.1,
+        "expected_fantasy_rating": 6.51,
+        "metrics": {
+          "goal_probability": 17,
+          "brace_probability": 0,
+          "assist_probability": 10,
+          "yellow_card_probability": 14,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.7,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
         "id": "779",
         "name": "Cristante",
         "role": "C",
@@ -2997,27 +2379,6 @@
           "yellow_card_probability": 10,
           "red_card_probability": 1,
           "own_goal_probability": 0.5,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "2765",
-        "name": "Odgaard",
-        "role": "C",
-        "real_team": "Bologna",
-        "starter_probability": 70,
-        "lineup_status": "titolare",
-        "expected_base_rating": 6.04,
-        "expected_bonus": 0.56,
-        "expected_penalty": 0.08,
-        "expected_fantasy_rating": 6.42,
-        "metrics": {
-          "goal_probability": 15,
-          "brace_probability": 0,
-          "assist_probability": 9,
-          "yellow_card_probability": 12,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.6,
           "has_bookmaker_odds": true
         }
       },
@@ -3085,6 +2446,27 @@
         }
       },
       {
+        "id": "6151",
+        "name": "Perrone",
+        "role": "C",
+        "real_team": "Como",
+        "starter_probability": 70,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6,
+        "expected_bonus": 0.43,
+        "expected_penalty": 0.14,
+        "expected_fantasy_rating": 6.2,
+        "metrics": {
+          "goal_probability": 8,
+          "brace_probability": 0,
+          "assist_probability": 17,
+          "yellow_card_probability": 23,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.6,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
         "id": "4976",
         "name": "Kalulu",
         "role": "D",
@@ -3102,27 +2484,6 @@
           "yellow_card_probability": 18,
           "red_card_probability": 2,
           "own_goal_probability": 1.9,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "6151",
-        "name": "Perrone",
-        "role": "C",
-        "real_team": "Como",
-        "starter_probability": 45,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6.01,
-        "expected_bonus": 0.36,
-        "expected_penalty": 0.1,
-        "expected_fantasy_rating": 6.1,
-        "metrics": {
-          "goal_probability": 7,
-          "brace_probability": 0,
-          "assist_probability": 14,
-          "yellow_card_probability": 17,
-          "red_card_probability": 1,
-          "own_goal_probability": 0.5,
           "has_bookmaker_odds": true
         }
       },
@@ -3342,7 +2703,7 @@
     "fantasy_team": "Fc Tattulu",
     "formation": "4-3-3",
     "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 72.84,
+    "projected_top11_score": 72.98,
     "total_players": 25,
     "starting_eleven": [
       "Okoye",
@@ -3360,7 +2721,7 @@
     "formations_comparison": [
       {
         "formation": "4-3-3",
-        "projected_score": 72.84,
+        "projected_score": 72.98,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Okoye",
@@ -3378,7 +2739,7 @@
       },
       {
         "formation": "4-4-2",
-        "projected_score": 72.33,
+        "projected_score": 72.47,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Okoye",
@@ -3396,7 +2757,7 @@
       },
       {
         "formation": "3-4-3",
-        "projected_score": 72.07,
+        "projected_score": 72.21,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Okoye",
@@ -3414,7 +2775,7 @@
       },
       {
         "formation": "4-5-1",
-        "projected_score": 71.59,
+        "projected_score": 71.73,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Okoye",
@@ -3432,7 +2793,7 @@
       },
       {
         "formation": "5-3-2",
-        "projected_score": 71.52,
+        "projected_score": 71.66,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Okoye",
@@ -3450,7 +2811,7 @@
       },
       {
         "formation": "3-5-2",
-        "projected_score": 71.36,
+        "projected_score": 71.5,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Okoye",
@@ -3468,7 +2829,7 @@
       },
       {
         "formation": "5-4-1",
-        "projected_score": 70.98,
+        "projected_score": 71.12,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Okoye",
@@ -3491,17 +2852,17 @@
         "name": "Castro S.",
         "role": "A",
         "real_team": "Roma",
-        "starter_probability": 50,
+        "starter_probability": 60,
         "lineup_status": "panchina",
-        "expected_base_rating": 6.16,
-        "expected_bonus": 1.42,
-        "expected_penalty": 0.05,
-        "expected_fantasy_rating": 7.37,
+        "expected_base_rating": 6.17,
+        "expected_bonus": 1.49,
+        "expected_penalty": 0.06,
+        "expected_fantasy_rating": 7.47,
         "metrics": {
-          "goal_probability": 36,
+          "goal_probability": 38,
           "brace_probability": 2,
-          "assist_probability": 29,
-          "yellow_card_probability": 9,
+          "assist_probability": 30,
+          "yellow_card_probability": 10,
           "red_card_probability": 0,
           "own_goal_probability": 0.1,
           "has_bookmaker_odds": true
@@ -3575,17 +2936,17 @@
         "name": "McTominay",
         "role": "C",
         "real_team": "Napoli",
-        "starter_probability": 80,
+        "starter_probability": 85,
         "lineup_status": "titolare",
         "expected_base_rating": 6.06,
-        "expected_bonus": 0.97,
+        "expected_bonus": 1,
         "expected_penalty": 0.14,
-        "expected_fantasy_rating": 6.83,
+        "expected_fantasy_rating": 6.87,
         "metrics": {
-          "goal_probability": 27,
+          "goal_probability": 28,
           "brace_probability": 0,
-          "assist_probability": 15,
-          "yellow_card_probability": 22,
+          "assist_probability": 16,
+          "yellow_card_probability": 23,
           "red_card_probability": 1,
           "own_goal_probability": 0.7,
           "has_bookmaker_odds": true
@@ -4014,17 +3375,656 @@
     ]
   },
   {
+    "fantasy_team": "TETTENHAM",
+    "formation": "4-3-3",
+    "defense_modifier_bonus": 1.5,
+    "projected_top11_score": 72.94,
+    "total_players": 25,
+    "starting_eleven": [
+      "Carnesecchi",
+      "Vojvoda",
+      "Tavares N.",
+      "Bisseck",
+      "Bartesaghi",
+      "Mora",
+      "Mastantuono",
+      "Hutchinson",
+      "Raimondo",
+      "Kolo Muani",
+      "Boga"
+    ],
+    "formations_comparison": [
+      {
+        "formation": "4-3-3",
+        "projected_score": 72.94,
+        "defense_modifier_bonus": 1.5,
+        "starting_eleven": [
+          "Carnesecchi",
+          "Vojvoda",
+          "Tavares N.",
+          "Bisseck",
+          "Bartesaghi",
+          "Mora",
+          "Mastantuono",
+          "Hutchinson",
+          "Raimondo",
+          "Kolo Muani",
+          "Boga"
+        ]
+      },
+      {
+        "formation": "4-4-2",
+        "projected_score": 72.73,
+        "defense_modifier_bonus": 1.5,
+        "starting_eleven": [
+          "Carnesecchi",
+          "Vojvoda",
+          "Tavares N.",
+          "Bisseck",
+          "Bartesaghi",
+          "Mora",
+          "Mastantuono",
+          "Hutchinson",
+          "Monteiro J.",
+          "Raimondo",
+          "Kolo Muani"
+        ]
+      },
+      {
+        "formation": "5-3-2",
+        "projected_score": 72.24,
+        "defense_modifier_bonus": 1.5,
+        "starting_eleven": [
+          "Carnesecchi",
+          "Vojvoda",
+          "Tavares N.",
+          "Bisseck",
+          "Bartesaghi",
+          "Jimenez A.",
+          "Mora",
+          "Mastantuono",
+          "Hutchinson",
+          "Raimondo",
+          "Kolo Muani"
+        ]
+      },
+      {
+        "formation": "3-4-3",
+        "projected_score": 71.8,
+        "defense_modifier_bonus": 0,
+        "starting_eleven": [
+          "Carnesecchi",
+          "Vojvoda",
+          "Tavares N.",
+          "Bisseck",
+          "Mora",
+          "Mastantuono",
+          "Hutchinson",
+          "Monteiro J.",
+          "Raimondo",
+          "Kolo Muani",
+          "Boga"
+        ]
+      },
+      {
+        "formation": "5-4-1",
+        "projected_score": 71.72,
+        "defense_modifier_bonus": 1.5,
+        "starting_eleven": [
+          "Carnesecchi",
+          "Vojvoda",
+          "Tavares N.",
+          "Bisseck",
+          "Bartesaghi",
+          "Jimenez A.",
+          "Mora",
+          "Mastantuono",
+          "Hutchinson",
+          "Monteiro J.",
+          "Raimondo"
+        ]
+      }
+    ],
+    "roster": [
+      {
+        "id": "5436",
+        "name": "Raimondo",
+        "role": "A",
+        "real_team": "Frosinone",
+        "starter_probability": 90,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.14,
+        "expected_bonus": 1.49,
+        "expected_penalty": 0.07,
+        "expected_fantasy_rating": 7.53,
+        "metrics": {
+          "goal_probability": 43,
+          "brace_probability": 2,
+          "assist_probability": 13,
+          "yellow_card_probability": 13,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.2,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "5951",
+        "name": "Kolo Muani",
+        "role": "A",
+        "real_team": "Juventus",
+        "starter_probability": 60,
+        "lineup_status": "ballottaggio",
+        "expected_base_rating": 6.11,
+        "expected_bonus": 1.12,
+        "expected_penalty": 0.06,
+        "expected_fantasy_rating": 7.05,
+        "metrics": {
+          "goal_probability": 30,
+          "brace_probability": 2,
+          "assist_probability": 16,
+          "yellow_card_probability": 10,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.1,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "7556",
+        "name": "Mora",
+        "role": "C",
+        "real_team": "Roma",
+        "starter_probability": 75,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.11,
+        "expected_bonus": 1.06,
+        "expected_penalty": 0.08,
+        "expected_fantasy_rating": 7.01,
+        "metrics": {
+          "goal_probability": 27,
+          "brace_probability": 0,
+          "assist_probability": 24,
+          "yellow_card_probability": 11,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.7,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "7078",
+        "name": "Mastantuono",
+        "role": "C",
+        "real_team": "Fiorentina",
+        "starter_probability": 80,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.08,
+        "expected_bonus": 0.97,
+        "expected_penalty": 0.1,
+        "expected_fantasy_rating": 6.89,
+        "metrics": {
+          "goal_probability": 26,
+          "brace_probability": 0,
+          "assist_probability": 18,
+          "yellow_card_probability": 15,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.7,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "7618",
+        "name": "Hutchinson",
+        "role": "C",
+        "real_team": "Milan",
+        "starter_probability": 80,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.08,
+        "expected_bonus": 0.89,
+        "expected_penalty": 0.08,
+        "expected_fantasy_rating": 6.83,
+        "metrics": {
+          "goal_probability": 22,
+          "brace_probability": 0,
+          "assist_probability": 20,
+          "yellow_card_probability": 12,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.7,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "309",
+        "name": "Dybala",
+        "role": "A",
+        "real_team": "Roma",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 6.13,
+        "expected_bonus": 1.02,
+        "expected_penalty": 0.01,
+        "expected_fantasy_rating": 6.83,
+        "metrics": {
+          "goal_probability": 24,
+          "brace_probability": 1,
+          "assist_probability": 26,
+          "yellow_card_probability": 2,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.1,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "2832",
+        "name": "Boga",
+        "role": "A",
+        "real_team": "Juventus",
+        "starter_probability": 40,
+        "lineup_status": "ballottaggio",
+        "expected_base_rating": 6.09,
+        "expected_bonus": 0.87,
+        "expected_penalty": 0.03,
+        "expected_fantasy_rating": 6.74,
+        "metrics": {
+          "goal_probability": 22,
+          "brace_probability": 2,
+          "assist_probability": 16,
+          "yellow_card_probability": 6,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.1,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "6229",
+        "name": "Tourè E.",
+        "role": "A",
+        "real_team": "Parma",
+        "starter_probability": 55,
+        "lineup_status": "ballottaggio",
+        "expected_base_rating": 6.07,
+        "expected_bonus": 0.75,
+        "expected_penalty": 0.06,
+        "expected_fantasy_rating": 6.63,
+        "metrics": {
+          "goal_probability": 20,
+          "brace_probability": 2,
+          "assist_probability": 11,
+          "yellow_card_probability": 10,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.1,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "7619",
+        "name": "Monteiro J.",
+        "role": "C",
+        "real_team": "Lecce",
+        "starter_probability": 60,
+        "lineup_status": "panchina",
+        "expected_base_rating": 6.05,
+        "expected_bonus": 0.7,
+        "expected_penalty": 0.09,
+        "expected_fantasy_rating": 6.53,
+        "metrics": {
+          "goal_probability": 18,
+          "brace_probability": 0,
+          "assist_probability": 15,
+          "yellow_card_probability": 15,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.6,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "2137",
+        "name": "Scamacca",
+        "role": "A",
+        "real_team": "Atalanta",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 6.07,
+        "expected_bonus": 0.71,
+        "expected_penalty": 0.03,
+        "expected_fantasy_rating": 6.45,
+        "metrics": {
+          "goal_probability": 20,
+          "brace_probability": 1,
+          "assist_probability": 8,
+          "yellow_card_probability": 5,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.1,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "4994",
+        "name": "Vojvoda",
+        "role": "D",
+        "real_team": "Udinese",
+        "starter_probability": 90,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.01,
+        "expected_bonus": 0.47,
+        "expected_penalty": 0.16,
+        "expected_fantasy_rating": 6.28,
+        "metrics": {
+          "goal_probability": 10,
+          "brace_probability": 0,
+          "assist_probability": 17,
+          "yellow_card_probability": 21,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.9,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "5620",
+        "name": "Tavares N.",
+        "role": "D",
+        "real_team": "Lazio",
+        "starter_probability": 100,
+        "lineup_status": "titolare",
+        "expected_base_rating": 5.99,
+        "expected_bonus": 0.44,
+        "expected_penalty": 0.2,
+        "expected_fantasy_rating": 6.24,
+        "metrics": {
+          "goal_probability": 9,
+          "brace_probability": 0,
+          "assist_probability": 17,
+          "yellow_card_probability": 26,
+          "red_card_probability": 2,
+          "own_goal_probability": 2,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "6217",
+        "name": "Bisseck",
+        "role": "D",
+        "real_team": "Inter",
+        "starter_probability": 80,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.01,
+        "expected_bonus": 0.37,
+        "expected_penalty": 0.13,
+        "expected_fantasy_rating": 6.19,
+        "metrics": {
+          "goal_probability": 9,
+          "brace_probability": 0,
+          "assist_probability": 11,
+          "yellow_card_probability": 15,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.7,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "6496",
+        "name": "Bartesaghi",
+        "role": "D",
+        "real_team": "Milan",
+        "starter_probability": 60,
+        "lineup_status": "ballottaggio",
+        "expected_base_rating": 6.01,
+        "expected_bonus": 0.4,
+        "expected_penalty": 0.12,
+        "expected_fantasy_rating": 6.17,
+        "metrics": {
+          "goal_probability": 8,
+          "brace_probability": 0,
+          "assist_probability": 15,
+          "yellow_card_probability": 15,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.4,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "6372",
+        "name": "Moreira",
+        "role": "C",
+        "real_team": "Milan",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 6.04,
+        "expected_bonus": 0.44,
+        "expected_penalty": 0.04,
+        "expected_fantasy_rating": 6.14,
+        "metrics": {
+          "goal_probability": 10,
+          "brace_probability": 0,
+          "assist_probability": 14,
+          "yellow_card_probability": 6,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.2,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "6531",
+        "name": "Jimenez A.",
+        "role": "D",
+        "real_team": "Fiorentina",
+        "starter_probability": 60,
+        "lineup_status": "ballottaggio",
+        "expected_base_rating": 5.99,
+        "expected_bonus": 0.3,
+        "expected_penalty": 0.13,
+        "expected_fantasy_rating": 6.04,
+        "metrics": {
+          "goal_probability": 9,
+          "brace_probability": 0,
+          "assist_probability": 3,
+          "yellow_card_probability": 18,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.4,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "6990",
+        "name": "Veiga D.",
+        "role": "D",
+        "real_team": "Lecce",
+        "starter_probability": 75,
+        "lineup_status": "titolare",
+        "expected_base_rating": 5.96,
+        "expected_bonus": 0.25,
+        "expected_penalty": 0.19,
+        "expected_fantasy_rating": 5.95,
+        "metrics": {
+          "goal_probability": 5,
+          "brace_probability": 0,
+          "assist_probability": 11,
+          "yellow_card_probability": 28,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.6,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "7268",
+        "name": "Rodriguez Ju.",
+        "role": "D",
+        "real_team": "Cagliari",
+        "starter_probability": 55,
+        "lineup_status": "ballottaggio",
+        "expected_base_rating": 5.97,
+        "expected_bonus": 0.09,
+        "expected_penalty": 0.11,
+        "expected_fantasy_rating": 5.81,
+        "metrics": {
+          "goal_probability": 2,
+          "brace_probability": 0,
+          "assist_probability": 3,
+          "yellow_card_probability": 14,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.3,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "5800",
+        "name": "Gudmundsson A.",
+        "role": "C",
+        "real_team": "Lazio",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 6,
+        "expected_bonus": 0.11,
+        "expected_penalty": 0.03,
+        "expected_fantasy_rating": 5.78,
+        "metrics": {
+          "goal_probability": 2,
+          "brace_probability": 0,
+          "assist_probability": 4,
+          "yellow_card_probability": 5,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.2,
+          "has_bookmaker_odds": false
+        }
+      },
+      {
+        "id": "4892",
+        "name": "Saelemaekers",
+        "role": "C",
+        "real_team": "Milan",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 6,
+        "expected_bonus": 0.11,
+        "expected_penalty": 0.03,
+        "expected_fantasy_rating": 5.78,
+        "metrics": {
+          "goal_probability": 2,
+          "brace_probability": 0,
+          "assist_probability": 4,
+          "yellow_card_probability": 5,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.2,
+          "has_bookmaker_odds": false
+        }
+      },
+      {
+        "id": "4856",
+        "name": "Chukwueze",
+        "role": "C",
+        "real_team": "Milan",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 6,
+        "expected_bonus": 0.11,
+        "expected_penalty": 0.03,
+        "expected_fantasy_rating": 5.78,
+        "metrics": {
+          "goal_probability": 2,
+          "brace_probability": 0,
+          "assist_probability": 4,
+          "yellow_card_probability": 5,
+          "red_card_probability": 0,
+          "own_goal_probability": 0.2,
+          "has_bookmaker_odds": false
+        }
+      },
+      {
+        "id": "5841",
+        "name": "Svilar",
+        "role": "P",
+        "real_team": "Roma",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 6.01,
+        "expected_bonus": 0,
+        "expected_penalty": 0,
+        "expected_fantasy_rating": 5.71,
+        "metrics": {
+          "clean_sheet_probability": 48,
+          "expected_goals_conceded": 0.87,
+          "penalty_saved_probability": 5,
+          "own_goal_probability": 1,
+          "opponent": "Cagliari",
+          "is_home": true,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "7603",
+        "name": "Grabara",
+        "role": "P",
+        "real_team": "Juventus",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 5.98,
+        "expected_bonus": 0,
+        "expected_penalty": 0,
+        "expected_fantasy_rating": 5.68,
+        "metrics": {
+          "clean_sheet_probability": 43,
+          "expected_goals_conceded": 1.03,
+          "penalty_saved_probability": 5,
+          "own_goal_probability": 1,
+          "opponent": "Genoa",
+          "is_home": false,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
+        "id": "2514",
+        "name": "Stones",
+        "role": "D",
+        "real_team": "Inter",
+        "starter_probability": 0,
+        "lineup_status": "indisponibile",
+        "expected_base_rating": 5.99,
+        "expected_bonus": 0.03,
+        "expected_penalty": 0.05,
+        "expected_fantasy_rating": 5.66,
+        "metrics": {
+          "goal_probability": 1,
+          "brace_probability": 0,
+          "assist_probability": 1,
+          "yellow_card_probability": 6,
+          "red_card_probability": 1,
+          "own_goal_probability": 0.5,
+          "has_bookmaker_odds": false
+        }
+      },
+      {
+        "id": "4431",
+        "name": "Carnesecchi",
+        "role": "P",
+        "real_team": "Atalanta",
+        "starter_probability": 90,
+        "lineup_status": "titolare",
+        "expected_base_rating": 5.84,
+        "expected_bonus": 0.39,
+        "expected_penalty": 1.68,
+        "expected_fantasy_rating": 4.51,
+        "metrics": {
+          "clean_sheet_probability": 24,
+          "expected_goals_conceded": 1.64,
+          "penalty_saved_probability": 5,
+          "own_goal_probability": 1,
+          "opponent": "Fiorentina",
+          "is_home": false,
+          "has_bookmaker_odds": true
+        }
+      }
+    ]
+  },
+  {
     "fantasy_team": "Ac Picchia",
     "formation": "4-3-3",
     "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 72.43,
+    "projected_top11_score": 72.61,
     "total_players": 25,
     "starting_eleven": [
       "De Gea",
       "Zappacosta",
+      "Cambiaso",
       "Valle",
       "Kamara H.",
-      "Cambiaso",
       "De Bruyne",
       "Calhanoglu",
       "Da Cunha",
@@ -4035,14 +4035,14 @@
     "formations_comparison": [
       {
         "formation": "4-3-3",
-        "projected_score": 72.43,
+        "projected_score": 72.61,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "De Gea",
           "Zappacosta",
+          "Cambiaso",
           "Valle",
           "Kamara H.",
-          "Cambiaso",
           "De Bruyne",
           "Calhanoglu",
           "Da Cunha",
@@ -4053,14 +4053,14 @@
       },
       {
         "formation": "4-4-2",
-        "projected_score": 71.71,
+        "projected_score": 71.76,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "De Gea",
           "Zappacosta",
+          "Cambiaso",
           "Valle",
           "Kamara H.",
-          "Cambiaso",
           "De Bruyne",
           "Calhanoglu",
           "Da Cunha",
@@ -4071,14 +4071,14 @@
       },
       {
         "formation": "5-3-2",
-        "projected_score": 71.63,
+        "projected_score": 71.68,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "De Gea",
           "Zappacosta",
+          "Cambiaso",
           "Valle",
           "Kamara H.",
-          "Cambiaso",
           "Couto",
           "De Bruyne",
           "Calhanoglu",
@@ -4089,13 +4089,13 @@
       },
       {
         "formation": "3-4-3",
-        "projected_score": 71,
+        "projected_score": 71.18,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "De Gea",
           "Zappacosta",
+          "Cambiaso",
           "Valle",
-          "Kamara H.",
           "De Bruyne",
           "Calhanoglu",
           "Da Cunha",
@@ -4107,14 +4107,14 @@
       },
       {
         "formation": "4-5-1",
-        "projected_score": 70.64,
+        "projected_score": 70.69,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "De Gea",
           "Zappacosta",
+          "Cambiaso",
           "Valle",
           "Kamara H.",
-          "Cambiaso",
           "De Bruyne",
           "Calhanoglu",
           "Da Cunha",
@@ -4125,14 +4125,14 @@
       },
       {
         "formation": "5-4-1",
-        "projected_score": 70.62,
+        "projected_score": 70.67,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "De Gea",
           "Zappacosta",
+          "Cambiaso",
           "Valle",
           "Kamara H.",
-          "Cambiaso",
           "Couto",
           "De Bruyne",
           "Calhanoglu",
@@ -4143,13 +4143,13 @@
       },
       {
         "formation": "3-5-2",
-        "projected_score": 70.22,
+        "projected_score": 70.27,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "De Gea",
           "Zappacosta",
+          "Cambiaso",
           "Valle",
-          "Kamara H.",
           "De Bruyne",
           "Calhanoglu",
           "Da Cunha",
@@ -4208,17 +4208,17 @@
         "name": "Berardi",
         "role": "A",
         "real_team": "Sassuolo",
-        "starter_probability": 80,
+        "starter_probability": 100,
         "lineup_status": "titolare",
-        "expected_base_rating": 6.07,
-        "expected_bonus": 0.98,
-        "expected_penalty": 0.1,
-        "expected_fantasy_rating": 6.88,
+        "expected_base_rating": 6.08,
+        "expected_bonus": 1.06,
+        "expected_penalty": 0.12,
+        "expected_fantasy_rating": 7.01,
         "metrics": {
-          "goal_probability": 24,
+          "goal_probability": 26,
           "brace_probability": 2,
-          "assist_probability": 20,
-          "yellow_card_probability": 20,
+          "assist_probability": 22,
+          "yellow_card_probability": 23,
           "red_card_probability": 0,
           "own_goal_probability": 0.2,
           "has_bookmaker_odds": true
@@ -4372,6 +4372,27 @@
         }
       },
       {
+        "id": "5520",
+        "name": "Cambiaso",
+        "role": "D",
+        "real_team": "Juventus",
+        "starter_probability": 70,
+        "lineup_status": "titolare",
+        "expected_base_rating": 6.01,
+        "expected_bonus": 0.35,
+        "expected_penalty": 0.13,
+        "expected_fantasy_rating": 6.14,
+        "metrics": {
+          "goal_probability": 6,
+          "brace_probability": 0,
+          "assist_probability": 16,
+          "yellow_card_probability": 16,
+          "red_card_probability": 2,
+          "own_goal_probability": 1.5,
+          "has_bookmaker_odds": true
+        }
+      },
+      {
         "id": "6867",
         "name": "Valle",
         "role": "D",
@@ -4429,27 +4450,6 @@
           "brace_probability": 0,
           "assist_probability": 13,
           "yellow_card_probability": 15,
-          "red_card_probability": 2,
-          "own_goal_probability": 1.4,
-          "has_bookmaker_odds": true
-        }
-      },
-      {
-        "id": "5520",
-        "name": "Cambiaso",
-        "role": "D",
-        "real_team": "Juventus",
-        "starter_probability": 60,
-        "lineup_status": "ballottaggio",
-        "expected_base_rating": 6,
-        "expected_bonus": 0.32,
-        "expected_penalty": 0.12,
-        "expected_fantasy_rating": 6.09,
-        "metrics": {
-          "goal_probability": 6,
-          "brace_probability": 0,
-          "assist_probability": 15,
-          "yellow_card_probability": 14,
           "red_card_probability": 2,
           "own_goal_probability": 1.4,
           "has_bookmaker_odds": true
@@ -4670,12 +4670,12 @@
         "name": "Muric",
         "role": "P",
         "real_team": "Sassuolo",
-        "starter_probability": 85,
-        "lineup_status": "titolare",
+        "starter_probability": 5,
+        "lineup_status": "panchina",
         "expected_base_rating": 5.85,
         "expected_bonus": 0.4,
         "expected_penalty": 1.66,
-        "expected_fantasy_rating": 4.55,
+        "expected_fantasy_rating": 4.31,
         "metrics": {
           "clean_sheet_probability": 25,
           "expected_goals_conceded": 1.61,
@@ -4692,7 +4692,7 @@
     "fantasy_team": "Real Pisellini Cf",
     "formation": "4-3-3",
     "defense_modifier_bonus": 1.5,
-    "projected_top11_score": 71.96,
+    "projected_top11_score": 72.03,
     "total_players": 25,
     "starting_eleven": [
       "Vicario",
@@ -4710,7 +4710,7 @@
     "formations_comparison": [
       {
         "formation": "4-3-3",
-        "projected_score": 71.96,
+        "projected_score": 72.03,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Vicario",
@@ -4728,7 +4728,7 @@
       },
       {
         "formation": "4-4-2",
-        "projected_score": 71.23,
+        "projected_score": 71.3,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Vicario",
@@ -4746,7 +4746,7 @@
       },
       {
         "formation": "3-4-3",
-        "projected_score": 70.87,
+        "projected_score": 70.94,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Vicario",
@@ -4764,7 +4764,7 @@
       },
       {
         "formation": "5-3-2",
-        "projected_score": 70.81,
+        "projected_score": 70.88,
         "defense_modifier_bonus": 1.5,
         "starting_eleven": [
           "Vicario",
@@ -4800,7 +4800,7 @@
       },
       {
         "formation": "3-5-2",
-        "projected_score": 70.11,
+        "projected_score": 70.18,
         "defense_modifier_bonus": 0,
         "starting_eleven": [
           "Vicario",
@@ -4862,17 +4862,17 @@
         "name": "Laurientè",
         "role": "A",
         "real_team": "Sassuolo",
-        "starter_probability": 90,
+        "starter_probability": 100,
         "lineup_status": "titolare",
         "expected_base_rating": 6.1,
-        "expected_bonus": 1.08,
+        "expected_bonus": 1.12,
         "expected_penalty": 0.09,
-        "expected_fantasy_rating": 7.06,
+        "expected_fantasy_rating": 7.13,
         "metrics": {
-          "goal_probability": 25,
+          "goal_probability": 26,
           "brace_probability": 2,
-          "assist_probability": 27,
-          "yellow_card_probability": 16,
+          "assist_probability": 28,
+          "yellow_card_probability": 17,
           "red_card_probability": 0,
           "own_goal_probability": 0.2,
           "has_bookmaker_odds": true
@@ -5199,7 +5199,7 @@
         "role": "D",
         "real_team": "Sassuolo",
         "starter_probability": 40,
-        "lineup_status": "ballottaggio",
+        "lineup_status": "panchina",
         "expected_base_rating": 6,
         "expected_bonus": 0.19,
         "expected_penalty": 0.09,
