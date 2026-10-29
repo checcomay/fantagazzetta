@@ -9,7 +9,7 @@ CALENDAR_FILE := $(DOWNLOADS)/Calendario_Campionato-2026-27.xlsx
 # Risolve dinamicamente il file più recente delle rose esportate
 ROSTERS_FILE := $(shell ls -t $(DOWNLOADS)/\'fantamacri-26-27_rosters_*.csv 2>/dev/null | head -n 1)
 
-.PHONY: all update-all squads stats ranking pre-match odds-players odds-gk lineups xfm logos calendar dev build git clean-downloads
+.PHONY: all update-all squads stats ranking pre-match odds lineups xfm logos calendar dev build git clean-downloads
 
 # Imposta update-all come target di default se digiti solo "make"
 .DEFAULT_GOAL := update-all
