@@ -7,14 +7,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 6,
-            "min": 460,
+            "apps": 7,
+            "min": 518,
             "goals": 1,
-            "assists": 0,
+            "assists": 1,
             "xG": 0.46,
-            "xA": 1.08,
-            "xG90": 0.09,
-            "xA90": 0.21
+            "xA": 1.56,
+            "xG90": 0.08,
+            "xA90": 0.27
         }
     },
     {
@@ -61,14 +61,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 66,
         "stats": {
-            "apps": 7,
-            "min": 524,
+            "apps": 8,
+            "min": 567,
             "goals": 0,
             "assists": 2,
             "xG": 0.31,
-            "xA": 2.16,
+            "xA": 2.22,
             "xG90": 0.05,
-            "xA90": 0.37
+            "xA90": 0.35
         }
     },
     {
@@ -97,13 +97,13 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 2,
         "stats": {
-            "apps": 3,
-            "min": 182,
+            "apps": 4,
+            "min": 272,
             "goals": 0,
             "assists": 0,
-            "xG": 0.08,
+            "xG": 0.1,
             "xA": 0,
-            "xG90": 0.04,
+            "xG90": 0.03,
             "xA90": 0
         }
     },
@@ -115,14 +115,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 3,
         "stats": {
-            "apps": 6,
-            "min": 416,
-            "goals": 3,
+            "apps": 7,
+            "min": 506,
+            "goals": 4,
             "assists": 0,
-            "xG": 1.93,
+            "xG": 2.41,
             "xA": 0.18,
-            "xG90": 0.42,
-            "xA90": 0.04
+            "xG90": 0.43,
+            "xA90": 0.03
         }
     },
     {
@@ -133,14 +133,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 3,
-            "min": 7,
+            "apps": 4,
+            "min": 33,
             "goals": 0,
             "assists": 0,
-            "xG": 0,
+            "xG": 0.37,
             "xA": 0.03,
-            "xG90": 0,
-            "xA90": 0.36
+            "xG90": 1.01,
+            "xA90": 0.08
         }
     },
     {
@@ -187,14 +187,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 70,
         "stats": {
-            "apps": 8,
-            "min": 651,
+            "apps": 9,
+            "min": 728,
             "goals": 0,
             "assists": 1,
-            "xG": 1.89,
+            "xG": 2.08,
             "xA": 2.27,
             "xG90": 0.26,
-            "xA90": 0.31
+            "xA90": 0.28
         }
     },
     {
@@ -223,14 +223,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 21,
         "stats": {
-            "apps": 8,
-            "min": 696,
+            "apps": 9,
+            "min": 786,
             "goals": 0,
             "assists": 0,
-            "xG": 0.42,
-            "xA": 0.02,
+            "xG": 0.45,
+            "xA": 0.08,
             "xG90": 0.05,
-            "xA90": 0
+            "xA90": 0.01
         }
     },
     {
@@ -259,14 +259,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 191,
         "stats": {
-            "apps": 7,
-            "min": 458,
+            "apps": 8,
+            "min": 548,
             "goals": 0,
             "assists": 2,
-            "xG": 1.11,
-            "xA": 1.07,
-            "xG90": 0.22,
-            "xA90": 0.21
+            "xG": 1.66,
+            "xA": 1.65,
+            "xG90": 0.27,
+            "xA90": 0.27
         }
     },
     {
@@ -313,14 +313,14 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 36,
         "stats": {
-            "apps": 5,
-            "min": 404,
+            "apps": 6,
+            "min": 494,
             "goals": 1,
             "assists": 0,
-            "xG": 0.65,
-            "xA": 0.25,
-            "xG90": 0.14,
-            "xA90": 0.06
+            "xG": 0.69,
+            "xA": 0.39,
+            "xG90": 0.13,
+            "xA90": 0.07
         }
     },
     {
@@ -349,8 +349,8 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 615,
+            "apps": 9,
+            "min": 631,
             "goals": 1,
             "assists": 0,
             "xG": 0.46,
@@ -367,12 +367,12 @@
         "fantaSquadra": "Real Pisellini Cf",
         "prezzoAcquisto": 35,
         "stats": {
-            "apps": 8,
-            "min": 720,
+            "apps": 9,
+            "min": 810,
             "goals": 2,
             "assists": 0,
-            "xG": 1.1,
-            "xA": 0.66,
+            "xG": 1.23,
+            "xA": 0.68,
             "xG90": 0.14,
             "xA90": 0.08
         }
@@ -403,14 +403,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 91,
         "stats": {
-            "apps": 8,
-            "min": 485,
+            "apps": 9,
+            "min": 510,
             "goals": 2,
             "assists": 1,
             "xG": 3.05,
             "xA": 0.69,
-            "xG90": 0.57,
-            "xA90": 0.13
+            "xG90": 0.54,
+            "xA90": 0.12
         }
     },
     {
@@ -457,14 +457,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 628,
+            "apps": 9,
+            "min": 650,
             "goals": 1,
             "assists": 0,
-            "xG": 4.24,
+            "xG": 4.28,
             "xA": 1.74,
-            "xG90": 0.61,
-            "xA90": 0.25
+            "xG90": 0.59,
+            "xA90": 0.24
         }
     },
     {
@@ -493,14 +493,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 8,
         "stats": {
-            "apps": 5,
-            "min": 402,
+            "apps": 6,
+            "min": 475,
             "goals": 0,
             "assists": 2,
             "xG": 0.18,
             "xA": 0.36,
-            "xG90": 0.04,
-            "xA90": 0.08
+            "xG90": 0.03,
+            "xA90": 0.07
         }
     },
     {
@@ -511,14 +511,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 31,
         "stats": {
-            "apps": 6,
-            "min": 206,
+            "apps": 7,
+            "min": 248,
             "goals": 0,
             "assists": 0,
-            "xG": 1.23,
+            "xG": 1.98,
             "xA": 0.51,
-            "xG90": 0.54,
-            "xA90": 0.22
+            "xG90": 0.72,
+            "xA90": 0.19
         }
     },
     {
@@ -529,14 +529,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 3,
         "stats": {
-            "apps": 7,
-            "min": 580,
+            "apps": 8,
+            "min": 670,
             "goals": 0,
-            "assists": 1,
-            "xG": 0.35,
-            "xA": 1.27,
+            "assists": 2,
+            "xG": 0.36,
+            "xA": 1.77,
             "xG90": 0.05,
-            "xA90": 0.2
+            "xA90": 0.24
         }
     },
     {
@@ -565,14 +565,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 65,
         "stats": {
-            "apps": 8,
-            "min": 585,
+            "apps": 9,
+            "min": 675,
             "goals": 0,
             "assists": 0,
-            "xG": 0.51,
-            "xA": 0.91,
+            "xG": 0.6,
+            "xA": 1.27,
             "xG90": 0.08,
-            "xA90": 0.14
+            "xA90": 0.17
         }
     },
     {
@@ -583,12 +583,12 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 628,
+            "apps": 9,
+            "min": 700,
             "goals": 2,
             "assists": 1,
-            "xG": 0.73,
-            "xA": 0.28,
+            "xG": 0.86,
+            "xA": 0.32,
             "xG90": 0.11,
             "xA90": 0.04
         }
@@ -601,14 +601,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 5,
-            "min": 138,
+            "apps": 6,
+            "min": 199,
             "goals": 0,
             "assists": 0,
             "xG": 0.09,
-            "xA": 0.04,
-            "xG90": 0.06,
-            "xA90": 0.03
+            "xA": 0.1,
+            "xG90": 0.04,
+            "xA90": 0.05
         }
     },
     {
@@ -619,14 +619,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 4,
-            "min": 313,
+            "apps": 5,
+            "min": 342,
             "goals": 0,
             "assists": 2,
-            "xG": 0.33,
+            "xG": 0.9,
             "xA": 0.31,
-            "xG90": 0.09,
-            "xA90": 0.09
+            "xG90": 0.24,
+            "xA90": 0.08
         }
     },
     {
@@ -673,13 +673,13 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 12,
         "stats": {
-            "apps": 8,
-            "min": 711,
+            "apps": 9,
+            "min": 801,
             "goals": 0,
-            "assists": 1,
+            "assists": 2,
             "xG": 1.03,
-            "xA": 0.7,
-            "xG90": 0.13,
+            "xA": 0.83,
+            "xG90": 0.12,
             "xA90": 0.09
         }
     },
@@ -691,13 +691,13 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 85,
         "stats": {
-            "apps": 8,
-            "min": 460,
-            "goals": 3,
+            "apps": 9,
+            "min": 484,
+            "goals": 4,
             "assists": 1,
-            "xG": 3.05,
-            "xA": 2.14,
-            "xG90": 0.6,
+            "xG": 3.46,
+            "xA": 2.25,
+            "xG90": 0.64,
             "xA90": 0.42
         }
     },
@@ -709,14 +709,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 107,
         "stats": {
-            "apps": 6,
-            "min": 286,
+            "apps": 7,
+            "min": 330,
             "goals": 3,
             "assists": 0,
-            "xG": 0.94,
-            "xA": 1.08,
-            "xG90": 0.3,
-            "xA90": 0.34
+            "xG": 1.01,
+            "xA": 1.2,
+            "xG90": 0.27,
+            "xA90": 0.33
         }
     },
     {
@@ -727,14 +727,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 193,
         "stats": {
-            "apps": 6,
-            "min": 139,
+            "apps": 7,
+            "min": 151,
             "goals": 1,
             "assists": 1,
             "xG": 0.83,
-            "xA": 0.73,
-            "xG90": 0.53,
-            "xA90": 0.47
+            "xA": 1.25,
+            "xG90": 0.49,
+            "xA90": 0.75
         }
     },
     {
@@ -781,14 +781,14 @@
         "fantaSquadra": "Ac Picchia",
         "prezzoAcquisto": 60,
         "stats": {
-            "apps": 7,
-            "min": 468,
+            "apps": 8,
+            "min": 538,
             "goals": 2,
             "assists": 0,
             "xG": 1.89,
             "xA": 0.64,
-            "xG90": 0.36,
-            "xA90": 0.12
+            "xG90": 0.32,
+            "xA90": 0.11
         }
     },
     {
@@ -907,14 +907,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 706,
+            "apps": 9,
+            "min": 746,
             "goals": 1,
             "assists": 1,
-            "xG": 0.45,
-            "xA": 0.59,
+            "xG": 0.5,
+            "xA": 0.66,
             "xG90": 0.06,
-            "xA90": 0.07
+            "xA90": 0.08
         }
     },
     {
@@ -925,14 +925,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 3,
         "stats": {
-            "apps": 6,
-            "min": 255,
+            "apps": 7,
+            "min": 345,
             "goals": 0,
             "assists": 1,
-            "xG": 1.74,
+            "xG": 1.87,
             "xA": 0.28,
-            "xG90": 0.61,
-            "xA90": 0.1
+            "xG90": 0.49,
+            "xA90": 0.07
         }
     },
     {
@@ -943,13 +943,13 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 3,
         "stats": {
-            "apps": 8,
-            "min": 652,
+            "apps": 9,
+            "min": 742,
             "goals": 0,
             "assists": 0,
-            "xG": 0.07,
+            "xG": 0.17,
             "xA": 0.16,
-            "xG90": 0.01,
+            "xG90": 0.02,
             "xA90": 0.02
         }
     },
@@ -961,12 +961,12 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 502,
+            "apps": 9,
+            "min": 592,
             "goals": 3,
             "assists": 1,
-            "xG": 2.41,
-            "xA": 1.04,
+            "xG": 2.81,
+            "xA": 1.23,
             "xG90": 0.43,
             "xA90": 0.19
         }
@@ -997,14 +997,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 675,
         "stats": {
-            "apps": 7,
-            "min": 492,
-            "goals": 6,
+            "apps": 8,
+            "min": 525,
+            "goals": 7,
             "assists": 1,
-            "xG": 6.66,
-            "xA": 1.08,
-            "xG90": 1.22,
-            "xA90": 0.2
+            "xG": 8.44,
+            "xA": 1.14,
+            "xG90": 1.45,
+            "xA90": 0.19
         }
     },
     {
@@ -1051,14 +1051,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 619,
+            "apps": 9,
+            "min": 649,
             "goals": 0,
             "assists": 2,
-            "xG": 0.83,
+            "xG": 0.88,
             "xA": 1.09,
             "xG90": 0.12,
-            "xA90": 0.16
+            "xA90": 0.15
         }
     },
     {
@@ -1087,13 +1087,13 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 21,
         "stats": {
-            "apps": 6,
-            "min": 455,
+            "apps": 7,
+            "min": 545,
             "goals": 0,
             "assists": 0,
             "xG": 0.6,
             "xA": 0.07,
-            "xG90": 0.12,
+            "xG90": 0.1,
             "xA90": 0.01
         }
     },
@@ -1105,14 +1105,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 36,
         "stats": {
-            "apps": 3,
-            "min": 162,
+            "apps": 4,
+            "min": 247,
             "goals": 0,
             "assists": 0,
-            "xG": 0.32,
-            "xA": 0.66,
-            "xG90": 0.18,
-            "xA90": 0.37
+            "xG": 0.4,
+            "xA": 0.88,
+            "xG90": 0.15,
+            "xA90": 0.32
         }
     },
     {
@@ -1123,14 +1123,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 10,
         "stats": {
-            "apps": 7,
-            "min": 571,
+            "apps": 8,
+            "min": 654,
             "goals": 0,
             "assists": 2,
-            "xG": 0.96,
+            "xG": 1.03,
             "xA": 2.31,
-            "xG90": 0.15,
-            "xA90": 0.36
+            "xG90": 0.14,
+            "xA90": 0.32
         }
     },
     {
@@ -1177,14 +1177,14 @@
         "fantaSquadra": "AS CaccuRese",
         "prezzoAcquisto": 12,
         "stats": {
-            "apps": 8,
-            "min": 445,
-            "goals": 1,
-            "assists": 2,
-            "xG": 1.06,
-            "xA": 1.99,
-            "xG90": 0.21,
-            "xA90": 0.4
+            "apps": 9,
+            "min": 511,
+            "goals": 2,
+            "assists": 3,
+            "xG": 1.54,
+            "xA": 2.6,
+            "xG90": 0.27,
+            "xA90": 0.46
         }
     },
     {
@@ -1213,13 +1213,13 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 7,
-            "min": 362,
+            "apps": 8,
+            "min": 423,
             "goals": 2,
             "assists": 0,
             "xG": 1.72,
-            "xA": 0.16,
-            "xG90": 0.43,
+            "xA": 0.2,
+            "xG90": 0.36,
             "xA90": 0.04
         }
     },
@@ -1249,13 +1249,13 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 6,
         "stats": {
-            "apps": 7,
-            "min": 377,
+            "apps": 8,
+            "min": 423,
             "goals": 1,
             "assists": 0,
             "xG": 1.07,
-            "xA": 0.2,
-            "xG90": 0.25,
+            "xA": 0.22,
+            "xG90": 0.23,
             "xA90": 0.05
         }
     },
@@ -1285,13 +1285,13 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 720,
+            "apps": 9,
+            "min": 810,
             "goals": 0,
             "assists": 0,
-            "xG": 0.51,
-            "xA": 0.13,
-            "xG90": 0.06,
+            "xG": 0.64,
+            "xA": 0.14,
+            "xG90": 0.07,
             "xA90": 0.02
         }
     },
@@ -1339,14 +1339,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 50,
         "stats": {
-            "apps": 7,
-            "min": 530,
+            "apps": 8,
+            "min": 620,
             "goals": 0,
             "assists": 4,
-            "xG": 0.24,
+            "xG": 0.27,
             "xA": 2,
             "xG90": 0.04,
-            "xA90": 0.34
+            "xA90": 0.29
         }
     },
     {
@@ -1357,8 +1357,8 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 31,
         "stats": {
-            "apps": 1,
-            "min": 15,
+            "apps": 2,
+            "min": 19,
             "goals": 0,
             "assists": 0,
             "xG": 0,
@@ -1375,14 +1375,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 5,
         "stats": {
-            "apps": 8,
-            "min": 720,
+            "apps": 9,
+            "min": 810,
             "goals": 0,
             "assists": 0,
             "xG": 0.46,
             "xA": 1.04,
-            "xG90": 0.06,
-            "xA90": 0.13
+            "xG90": 0.05,
+            "xA90": 0.12
         }
     },
     {
@@ -1393,14 +1393,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 716,
+            "apps": 9,
+            "min": 806,
             "goals": 0,
             "assists": 2,
-            "xG": 0.5,
-            "xA": 1.71,
+            "xG": 0.52,
+            "xA": 1.73,
             "xG90": 0.06,
-            "xA90": 0.22
+            "xA90": 0.19
         }
     },
     {
@@ -1465,14 +1465,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 12,
         "stats": {
-            "apps": 6,
-            "min": 431,
+            "apps": 7,
+            "min": 521,
             "goals": 0,
-            "assists": 0,
+            "assists": 1,
             "xG": 0.42,
-            "xA": 0.57,
-            "xG90": 0.09,
-            "xA90": 0.12
+            "xA": 1.1,
+            "xG90": 0.07,
+            "xA90": 0.19
         }
     },
     {
@@ -1483,14 +1483,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 3,
-            "min": 270,
+            "apps": 4,
+            "min": 360,
             "goals": 0,
             "assists": 0,
             "xG": 0.26,
             "xA": 0.06,
-            "xG90": 0.09,
-            "xA90": 0.02
+            "xG90": 0.06,
+            "xA90": 0.01
         }
     },
     {
@@ -1501,12 +1501,12 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 10,
         "stats": {
-            "apps": 8,
-            "min": 525,
+            "apps": 9,
+            "min": 568,
             "goals": 0,
             "assists": 2,
             "xG": 0,
-            "xA": 0.9,
+            "xA": 0.95,
             "xG90": 0,
             "xA90": 0.15
         }
@@ -1555,14 +1555,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 51,
         "stats": {
-            "apps": 8,
-            "min": 702,
-            "goals": 1,
-            "assists": 3,
-            "xG": 2.55,
-            "xA": 2.71,
-            "xG90": 0.33,
-            "xA90": 0.35
+            "apps": 9,
+            "min": 792,
+            "goals": 2,
+            "assists": 5,
+            "xG": 3.88,
+            "xA": 3.39,
+            "xG90": 0.44,
+            "xA90": 0.38
         }
     },
     {
@@ -1573,14 +1573,14 @@
         "fantaSquadra": "SACARA TEAM",
         "prezzoAcquisto": 90,
         "stats": {
-            "apps": 8,
-            "min": 481,
+            "apps": 9,
+            "min": 571,
             "goals": 0,
             "assists": 1,
-            "xG": 1.18,
-            "xA": 2.48,
-            "xG90": 0.22,
-            "xA90": 0.46
+            "xG": 1.31,
+            "xA": 2.53,
+            "xG90": 0.21,
+            "xA90": 0.4
         }
     },
     {
@@ -1609,14 +1609,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 2,
         "stats": {
-            "apps": 7,
-            "min": 603,
-            "goals": 7,
+            "apps": 8,
+            "min": 693,
+            "goals": 8,
             "assists": 1,
-            "xG": 3.41,
-            "xA": 1.36,
-            "xG90": 0.51,
-            "xA90": 0.2
+            "xG": 4.23,
+            "xA": 1.39,
+            "xG90": 0.55,
+            "xA90": 0.18
         }
     },
     {
@@ -1627,14 +1627,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 628,
+            "apps": 9,
+            "min": 718,
             "goals": 1,
             "assists": 2,
             "xG": 1.25,
             "xA": 1.27,
-            "xG90": 0.18,
-            "xA90": 0.18
+            "xG90": 0.16,
+            "xA90": 0.16
         }
     },
     {
@@ -1645,14 +1645,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 34,
         "stats": {
-            "apps": 8,
-            "min": 681,
+            "apps": 9,
+            "min": 771,
             "goals": 2,
             "assists": 0,
-            "xG": 2.73,
-            "xA": 1,
-            "xG90": 0.36,
-            "xA90": 0.13
+            "xG": 2.87,
+            "xA": 1.58,
+            "xG90": 0.34,
+            "xA90": 0.18
         }
     },
     {
@@ -1681,14 +1681,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 6,
-            "min": 323,
+            "apps": 7,
+            "min": 340,
             "goals": 1,
             "assists": 1,
             "xG": 1.31,
             "xA": 1,
-            "xG90": 0.37,
-            "xA90": 0.28
+            "xG90": 0.35,
+            "xA90": 0.27
         }
     },
     {
@@ -1717,14 +1717,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 655,
-            "goals": 1,
-            "assists": 0,
-            "xG": 0.67,
-            "xA": 0.49,
-            "xG90": 0.09,
-            "xA90": 0.07
+            "apps": 9,
+            "min": 708,
+            "goals": 2,
+            "assists": 1,
+            "xG": 1.07,
+            "xA": 0.96,
+            "xG90": 0.14,
+            "xA90": 0.12
         }
     },
     {
@@ -1735,14 +1735,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 8,
         "stats": {
-            "apps": 4,
-            "min": 147,
+            "apps": 5,
+            "min": 171,
             "goals": 1,
             "assists": 1,
             "xG": 1.03,
             "xA": 0.48,
-            "xG90": 0.63,
-            "xA90": 0.29
+            "xG90": 0.54,
+            "xA90": 0.25
         }
     },
     {
@@ -1771,14 +1771,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 133,
         "stats": {
-            "apps": 7,
-            "min": 586,
-            "goals": 2,
-            "assists": 2,
-            "xG": 2.52,
-            "xA": 1.54,
-            "xG90": 0.39,
-            "xA90": 0.24
+            "apps": 8,
+            "min": 676,
+            "goals": 3,
+            "assists": 3,
+            "xG": 3.3,
+            "xA": 1.85,
+            "xG90": 0.44,
+            "xA90": 0.25
         }
     },
     {
@@ -1789,14 +1789,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 25,
         "stats": {
-            "apps": 8,
-            "min": 660,
-            "goals": 1,
+            "apps": 9,
+            "min": 750,
+            "goals": 2,
             "assists": 0,
-            "xG": 1.8,
+            "xG": 2.4,
             "xA": 0.83,
-            "xG90": 0.25,
-            "xA90": 0.11
+            "xG90": 0.29,
+            "xA90": 0.1
         }
     },
     {
@@ -1843,14 +1843,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 48,
         "stats": {
-            "apps": 6,
-            "min": 330,
+            "apps": 7,
+            "min": 377,
             "goals": 0,
-            "assists": 1,
-            "xG": 0.13,
-            "xA": 1.04,
-            "xG90": 0.04,
-            "xA90": 0.28
+            "assists": 2,
+            "xG": 0.15,
+            "xA": 1.42,
+            "xG90": 0.03,
+            "xA90": 0.34
         }
     },
     {
@@ -1861,14 +1861,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 260,
         "stats": {
-            "apps": 7,
-            "min": 458,
+            "apps": 8,
+            "min": 544,
             "goals": 5,
             "assists": 2,
-            "xG": 5.01,
-            "xA": 1.08,
-            "xG90": 0.98,
-            "xA90": 0.21
+            "xG": 5.7,
+            "xA": 1.74,
+            "xG90": 0.94,
+            "xA90": 0.29
         }
     },
     {
@@ -1879,8 +1879,8 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 13,
         "stats": {
-            "apps": 7,
-            "min": 630,
+            "apps": 8,
+            "min": 679,
             "goals": 0,
             "assists": 1,
             "xG": 0.38,
@@ -1915,14 +1915,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 31,
         "stats": {
-            "apps": 7,
-            "min": 567,
+            "apps": 8,
+            "min": 657,
             "goals": 0,
             "assists": 0,
             "xG": 0.21,
             "xA": 0.76,
             "xG90": 0.03,
-            "xA90": 0.12
+            "xA90": 0.1
         }
     },
     {
@@ -1933,14 +1933,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 95,
         "stats": {
-            "apps": 8,
-            "min": 589,
+            "apps": 9,
+            "min": 666,
             "goals": 2,
             "assists": 1,
-            "xG": 1.97,
+            "xG": 2.53,
             "xA": 0.55,
-            "xG90": 0.3,
-            "xA90": 0.08
+            "xG90": 0.34,
+            "xA90": 0.07
         }
     },
     {
@@ -1951,14 +1951,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 6,
         "stats": {
-            "apps": 7,
-            "min": 625,
+            "apps": 8,
+            "min": 669,
             "goals": 1,
             "assists": 2,
-            "xG": 0.86,
+            "xG": 0.91,
             "xA": 2.41,
             "xG90": 0.12,
-            "xA90": 0.35
+            "xA90": 0.32
         }
     },
     {
@@ -1969,14 +1969,14 @@
         "fantaSquadra": "Joga Benito",
         "prezzoAcquisto": 30,
         "stats": {
-            "apps": 7,
-            "min": 449,
+            "apps": 8,
+            "min": 539,
             "goals": 2,
             "assists": 2,
-            "xG": 1.46,
-            "xA": 1.62,
-            "xG90": 0.29,
-            "xA90": 0.32
+            "xG": 1.55,
+            "xA": 1.79,
+            "xG90": 0.26,
+            "xA90": 0.3
         }
     },
     {
@@ -2005,13 +2005,13 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 4,
-            "min": 121,
+            "apps": 5,
+            "min": 180,
             "goals": 1,
             "assists": 0,
             "xG": 0.65,
-            "xA": 0.03,
-            "xG90": 0.49,
+            "xA": 0.05,
+            "xG90": 0.33,
             "xA90": 0.03
         }
     },
@@ -2023,14 +2023,14 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 66,
         "stats": {
-            "apps": 6,
-            "min": 239,
-            "goals": 1,
+            "apps": 7,
+            "min": 272,
+            "goals": 2,
             "assists": 0,
-            "xG": 1.25,
-            "xA": 0.87,
-            "xG90": 0.47,
-            "xA90": 0.33
+            "xG": 1.59,
+            "xA": 2.2,
+            "xG90": 0.52,
+            "xA90": 0.73
         }
     },
     {
@@ -2041,11 +2041,11 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 625,
+            "apps": 9,
+            "min": 715,
             "goals": 0,
             "assists": 0,
-            "xG": 0.02,
+            "xG": 0.04,
             "xA": 0.05,
             "xG90": 0,
             "xA90": 0.01
@@ -2113,14 +2113,14 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 5,
         "stats": {
-            "apps": 4,
-            "min": 215,
+            "apps": 5,
+            "min": 279,
             "goals": 0,
             "assists": 0,
             "xG": 0.87,
             "xA": 0.89,
-            "xG90": 0.37,
-            "xA90": 0.37
+            "xG90": 0.28,
+            "xA90": 0.29
         }
     },
     {
@@ -2149,13 +2149,13 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 43,
         "stats": {
-            "apps": 8,
-            "min": 627,
+            "apps": 9,
+            "min": 702,
             "goals": 0,
             "assists": 1,
             "xG": 0.87,
             "xA": 0.08,
-            "xG90": 0.12,
+            "xG90": 0.11,
             "xA90": 0.01
         }
     },
@@ -2167,14 +2167,14 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 13,
         "stats": {
-            "apps": 7,
-            "min": 547,
+            "apps": 8,
+            "min": 593,
             "goals": 1,
             "assists": 0,
             "xG": 0.55,
             "xA": 0.28,
-            "xG90": 0.09,
-            "xA90": 0.05
+            "xG90": 0.08,
+            "xA90": 0.04
         }
     },
     {
@@ -2185,13 +2185,13 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 296,
         "stats": {
-            "apps": 8,
-            "min": 700,
+            "apps": 9,
+            "min": 790,
             "goals": 1,
             "assists": 1,
             "xG": 2.72,
-            "xA": 0.51,
-            "xG90": 0.35,
+            "xA": 0.65,
+            "xG90": 0.31,
             "xA90": 0.07
         }
     },
@@ -2221,14 +2221,14 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 596,
+            "apps": 9,
+            "min": 666,
             "goals": 1,
             "assists": 3,
             "xG": 0.75,
-            "xA": 1.52,
-            "xG90": 0.11,
-            "xA90": 0.23
+            "xA": 1.65,
+            "xG90": 0.1,
+            "xA90": 0.22
         }
     },
     {
@@ -2257,14 +2257,14 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 14,
         "stats": {
-            "apps": 8,
-            "min": 661,
+            "apps": 9,
+            "min": 687,
             "goals": 0,
             "assists": 0,
-            "xG": 0.17,
-            "xA": 0.96,
-            "xG90": 0.02,
-            "xA90": 0.13
+            "xG": 0.2,
+            "xA": 1.03,
+            "xG90": 0.03,
+            "xA90": 0.14
         }
     },
     {
@@ -2311,14 +2311,14 @@
         "fantaSquadra": "TETTENHAM",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 5,
-            "min": 124,
+            "apps": 6,
+            "min": 153,
             "goals": 0,
             "assists": 0,
-            "xG": 0.07,
-            "xA": 0.07,
-            "xG90": 0.05,
-            "xA90": 0.05
+            "xG": 0.11,
+            "xA": 0.12,
+            "xG90": 0.07,
+            "xA90": 0.07
         }
     },
     {
@@ -2401,14 +2401,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 6,
-            "min": 181,
+            "apps": 7,
+            "min": 271,
             "goals": 0,
             "assists": 0,
-            "xG": 0.58,
+            "xG": 0.6,
             "xA": 0.32,
-            "xG90": 0.29,
-            "xA90": 0.16
+            "xG90": 0.2,
+            "xA90": 0.11
         }
     },
     {
@@ -2419,14 +2419,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 3,
         "stats": {
-            "apps": 7,
-            "min": 342,
-            "goals": 2,
+            "apps": 8,
+            "min": 371,
+            "goals": 3,
             "assists": 1,
-            "xG": 0.69,
-            "xA": 0.53,
-            "xG90": 0.18,
-            "xA90": 0.14
+            "xG": 1.15,
+            "xA": 0.65,
+            "xG90": 0.28,
+            "xA90": 0.16
         }
     },
     {
@@ -2437,14 +2437,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 2,
         "stats": {
-            "apps": 8,
-            "min": 617,
+            "apps": 9,
+            "min": 675,
             "goals": 0,
             "assists": 1,
             "xG": 0.13,
             "xA": 0.45,
             "xG90": 0.02,
-            "xA90": 0.07
+            "xA90": 0.06
         }
     },
     {
@@ -2455,14 +2455,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 103,
         "stats": {
-            "apps": 8,
-            "min": 593,
+            "apps": 9,
+            "min": 683,
             "goals": 5,
             "assists": 0,
-            "xG": 5.54,
-            "xA": 0.35,
-            "xG90": 0.84,
-            "xA90": 0.05
+            "xG": 6.18,
+            "xA": 0.43,
+            "xG90": 0.81,
+            "xA90": 0.06
         }
     },
     {
@@ -2509,13 +2509,13 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 50,
         "stats": {
-            "apps": 8,
-            "min": 709,
+            "apps": 9,
+            "min": 799,
             "goals": 3,
             "assists": 1,
-            "xG": 1.41,
-            "xA": 0.94,
-            "xG90": 0.18,
+            "xG": 1.5,
+            "xA": 1.05,
+            "xG90": 0.17,
             "xA90": 0.12
         }
     },
@@ -2527,14 +2527,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 28,
         "stats": {
-            "apps": 6,
-            "min": 241,
-            "goals": 2,
+            "apps": 7,
+            "min": 331,
+            "goals": 4,
             "assists": 0,
-            "xG": 0.61,
-            "xA": 0.14,
-            "xG90": 0.23,
-            "xA90": 0.05
+            "xG": 1.6,
+            "xA": 0.45,
+            "xG90": 0.43,
+            "xA90": 0.12
         }
     },
     {
@@ -2545,14 +2545,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 48,
         "stats": {
-            "apps": 6,
-            "min": 219,
+            "apps": 7,
+            "min": 276,
             "goals": 1,
             "assists": 1,
-            "xG": 1.47,
+            "xG": 2.15,
             "xA": 0.76,
-            "xG90": 0.6,
-            "xA90": 0.31
+            "xG90": 0.7,
+            "xA90": 0.25
         }
     },
     {
@@ -2581,13 +2581,13 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 341,
         "stats": {
-            "apps": 8,
-            "min": 717,
+            "apps": 9,
+            "min": 805,
             "goals": 2,
             "assists": 1,
             "xG": 5.26,
             "xA": 0.67,
-            "xG90": 0.66,
+            "xG90": 0.59,
             "xA90": 0.08
         }
     },
@@ -2599,14 +2599,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 5,
         "stats": {
-            "apps": 7,
-            "min": 575,
+            "apps": 8,
+            "min": 665,
             "goals": 0,
             "assists": 0,
-            "xG": 0.07,
+            "xG": 0.11,
             "xA": 0.11,
-            "xG90": 0.01,
-            "xA90": 0.02
+            "xG90": 0.02,
+            "xA90": 0.01
         }
     },
     {
@@ -2635,14 +2635,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 6,
-            "min": 407,
+            "apps": 7,
+            "min": 421,
             "goals": 0,
             "assists": 1,
             "xG": 0.57,
             "xA": 1.11,
-            "xG90": 0.13,
-            "xA90": 0.25
+            "xG90": 0.12,
+            "xA90": 0.24
         }
     },
     {
@@ -2689,14 +2689,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 25,
         "stats": {
-            "apps": 8,
-            "min": 720,
+            "apps": 9,
+            "min": 810,
             "goals": 0,
             "assists": 1,
             "xG": 0.82,
             "xA": 0.39,
-            "xG90": 0.1,
-            "xA90": 0.05
+            "xG90": 0.09,
+            "xA90": 0.04
         }
     },
     {
@@ -2707,14 +2707,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 46,
         "stats": {
-            "apps": 6,
-            "min": 350,
+            "apps": 7,
+            "min": 356,
             "goals": 0,
             "assists": 2,
             "xG": 0.95,
             "xA": 1.5,
             "xG90": 0.24,
-            "xA90": 0.39
+            "xA90": 0.38
         }
     },
     {
@@ -2725,14 +2725,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 20,
         "stats": {
-            "apps": 8,
-            "min": 583,
-            "goals": 4,
+            "apps": 9,
+            "min": 596,
+            "goals": 5,
             "assists": 0,
-            "xG": 2.84,
-            "xA": 1.03,
-            "xG90": 0.44,
-            "xA90": 0.16
+            "xG": 3.17,
+            "xA": 1.16,
+            "xG90": 0.48,
+            "xA90": 0.18
         }
     },
     {
@@ -2743,14 +2743,14 @@
         "fantaSquadra": "Fc Tattulu",
         "prezzoAcquisto": 142,
         "stats": {
-            "apps": 5,
-            "min": 358,
+            "apps": 6,
+            "min": 448,
             "goals": 2,
             "assists": 0,
-            "xG": 1.32,
-            "xA": 0.3,
+            "xG": 1.66,
+            "xA": 0.31,
             "xG90": 0.33,
-            "xA90": 0.07
+            "xA90": 0.06
         }
     },
     {
@@ -2779,14 +2779,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 13,
         "stats": {
-            "apps": 8,
-            "min": 441,
+            "apps": 9,
+            "min": 461,
             "goals": 1,
             "assists": 0,
             "xG": 1.76,
             "xA": 0.88,
-            "xG90": 0.36,
-            "xA90": 0.18
+            "xG90": 0.34,
+            "xA90": 0.17
         }
     },
     {
@@ -2833,14 +2833,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 7,
         "stats": {
-            "apps": 8,
-            "min": 462,
+            "apps": 9,
+            "min": 523,
             "goals": 0,
             "assists": 1,
             "xG": 0.69,
             "xA": 0.97,
-            "xG90": 0.13,
-            "xA90": 0.19
+            "xG90": 0.12,
+            "xA90": 0.17
         }
     },
     {
@@ -2851,14 +2851,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 291,
         "stats": {
-            "apps": 8,
-            "min": 560,
-            "goals": 2,
+            "apps": 9,
+            "min": 645,
+            "goals": 3,
             "assists": 0,
-            "xG": 2.64,
+            "xG": 3.26,
             "xA": 1.87,
-            "xG90": 0.42,
-            "xA90": 0.3
+            "xG90": 0.45,
+            "xA90": 0.26
         }
     },
     {
@@ -2887,14 +2887,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 18,
         "stats": {
-            "apps": 8,
-            "min": 720,
+            "apps": 9,
+            "min": 749,
             "goals": 0,
             "assists": 0,
             "xG": 0.08,
             "xA": 2.39,
             "xG90": 0.01,
-            "xA90": 0.3
+            "xA90": 0.29
         }
     },
     {
@@ -2905,13 +2905,13 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 701,
+            "apps": 9,
+            "min": 791,
             "goals": 0,
             "assists": 0,
             "xG": 0.83,
             "xA": 0.07,
-            "xG90": 0.11,
+            "xG90": 0.09,
             "xA90": 0.01
         }
     },
@@ -2923,13 +2923,13 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 51,
         "stats": {
-            "apps": 8,
-            "min": 628,
+            "apps": 9,
+            "min": 718,
             "goals": 1,
             "assists": 0,
-            "xG": 0.4,
-            "xA": 1.24,
-            "xG90": 0.06,
+            "xG": 0.55,
+            "xA": 1.47,
+            "xG90": 0.07,
             "xA90": 0.18
         }
     },
@@ -2959,13 +2959,13 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 7,
-            "min": 618,
+            "apps": 8,
+            "min": 708,
             "goals": 1,
             "assists": 0,
-            "xG": 0.15,
+            "xG": 0.21,
             "xA": 0.06,
-            "xG90": 0.02,
+            "xG90": 0.03,
             "xA90": 0.01
         }
     },
@@ -2977,13 +2977,13 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 10,
         "stats": {
-            "apps": 8,
-            "min": 720,
+            "apps": 9,
+            "min": 810,
             "goals": 0,
             "assists": 0,
-            "xG": 0.08,
-            "xA": 0.2,
-            "xG90": 0.01,
+            "xG": 0.17,
+            "xA": 0.29,
+            "xG90": 0.02,
             "xA90": 0.03
         }
     },
@@ -2995,14 +2995,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 5,
-            "min": 282,
-            "goals": 1,
+            "apps": 6,
+            "min": 352,
+            "goals": 2,
             "assists": 0,
-            "xG": 0.36,
-            "xA": 0.92,
-            "xG90": 0.12,
-            "xA90": 0.29
+            "xG": 0.66,
+            "xA": 0.98,
+            "xG90": 0.17,
+            "xA90": 0.25
         }
     },
     {
@@ -3049,13 +3049,13 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 5,
         "stats": {
-            "apps": 5,
-            "min": 332,
+            "apps": 6,
+            "min": 398,
             "goals": 1,
             "assists": 0,
-            "xG": 1.35,
+            "xG": 1.42,
             "xA": 0.08,
-            "xG90": 0.37,
+            "xG90": 0.32,
             "xA90": 0.02
         }
     },
@@ -3067,14 +3067,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 30,
         "stats": {
-            "apps": 7,
-            "min": 596,
+            "apps": 8,
+            "min": 640,
             "goals": 0,
             "assists": 1,
             "xG": 1.24,
-            "xA": 1.35,
-            "xG90": 0.19,
-            "xA90": 0.2
+            "xA": 1.5,
+            "xG90": 0.17,
+            "xA90": 0.21
         }
     },
     {
@@ -3085,14 +3085,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 52,
         "stats": {
-            "apps": 8,
-            "min": 628,
+            "apps": 9,
+            "min": 718,
             "goals": 3,
             "assists": 0,
-            "xG": 2.22,
+            "xG": 2.99,
             "xA": 1.11,
-            "xG90": 0.32,
-            "xA90": 0.16
+            "xG90": 0.37,
+            "xA90": 0.14
         }
     },
     {
@@ -3103,14 +3103,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 10,
         "stats": {
-            "apps": 6,
-            "min": 334,
+            "apps": 7,
+            "min": 424,
             "goals": 0,
-            "assists": 0,
-            "xG": 0.84,
-            "xA": 0.15,
-            "xG90": 0.23,
-            "xA90": 0.04
+            "assists": 1,
+            "xG": 1.21,
+            "xA": 0.57,
+            "xG90": 0.26,
+            "xA90": 0.12
         }
     },
     {
@@ -3121,14 +3121,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 116,
         "stats": {
-            "apps": 5,
-            "min": 364,
+            "apps": 6,
+            "min": 395,
             "goals": 2,
             "assists": 1,
-            "xG": 1.1,
+            "xG": 1.64,
             "xA": 1.93,
-            "xG90": 0.27,
-            "xA90": 0.48
+            "xG90": 0.37,
+            "xA90": 0.44
         }
     },
     {
@@ -3139,13 +3139,13 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 4,
         "stats": {
-            "apps": 6,
-            "min": 515,
+            "apps": 7,
+            "min": 605,
             "goals": 0,
             "assists": 0,
-            "xG": 0.5,
+            "xG": 0.57,
             "xA": 0.05,
-            "xG90": 0.09,
+            "xG90": 0.08,
             "xA90": 0.01
         }
     },
@@ -3157,14 +3157,14 @@
         "fantaSquadra": "sup",
         "prezzoAcquisto": 1,
         "stats": {
-            "apps": 8,
-            "min": 553,
+            "apps": 9,
+            "min": 613,
             "goals": 2,
             "assists": 0,
             "xG": 2.01,
-            "xA": 1.57,
-            "xG90": 0.33,
-            "xA90": 0.26
+            "xA": 1.94,
+            "xG90": 0.3,
+            "xA90": 0.28
         }
     }
 ]
