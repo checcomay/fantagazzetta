@@ -93,7 +93,8 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  * @param {Array} apiMatches - Array di eventi restituito da The Odds API
  */
 function saveBettingWindow(apiMatches) {
-  if (!apiMatches || apiMatches.length === 0) return;
+  if (!apiMatches || apiMatches.length === 0) 
+    return;
 
   // 1. Estrai tutti i timestamp (in ms) e ordinali dal più vicino al più lontano
   const allTimes = apiMatches
@@ -101,7 +102,8 @@ function saveBettingWindow(apiMatches) {
     .filter((t) => !isNaN(t) && t > nowMs)
     .sort((a, b) => a - b);
 
-  if (allTimes.length === 0) return;
+  if (allTimes.length === 0) 
+    return;
 
   // 2. Filtra solo le partite della GIORNATA CORRENTE.
   // The Odds API spesso mostra in anticipo anche le partite della settimana successiva:
@@ -115,10 +117,11 @@ function saveBettingWindow(apiMatches) {
   const lastKickoffMs = currentRoundTimes[currentRoundTimes.length - 1];
 
   // 3. Definisci i margini di sicurezza:
-  // - LOCK START: 15 minuti prima del fischio d'inizio della prima partita
-  // - LOCK END: 36 ore dopo il fischio d'inizio dell'ultima partita
+  // * LOCK START: 15 minuti prima del fischio d'inizio della prima partita
+  // * LOCK END: molto dopo la fine dell'ultima partita (1 mese), il motivo è che deve
+  // essere un nuovo aggiornamento delle quote ad aprire nuovamente il mercato delle quote
   const lockStartMs = firstKickoffMs - 15 * 60 * 1000;
-  const lockEndMs = lastKickoffMs + 36 * 60 * 60 * 1000;
+  const lockEndMs = lastKickoffMs + 30 * 24 * 60 * 60 * 1000; // 30 giorni
 
   const windowData = {
     updated_at: new Date().toISOString(),
