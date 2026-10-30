@@ -172,7 +172,7 @@ async function main() {
             to: user.email,
             subject: concludedBet.status === 'vinta' 
               ? `✅ Hai vinto! Esito della schedina #${concludedBet.id.slice(0, 8)}`
-              : `❌ Esito della schedina #${concludedBet.id.slice(0, 8)} - La Fantagazzetta`,
+              : `Esito della schedina #${concludedBet.id.slice(0, 8)} - La Fantagazzetta`,
             html: htmlBody
           });
         }
