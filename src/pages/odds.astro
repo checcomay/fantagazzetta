@@ -356,7 +356,7 @@ const topGoalkeepers = getTopByRole('P', 3);
           </div>
 
           <div class="bet-stake-row">
-            <label for="bet-stake">Puntata in Crediti:</label>
+            <label for="bet-stake">Puntata in crediti:</label>
             <input type="number" id="bet-stake" value="10" min="1" max="500" />
           </div>
 
@@ -951,6 +951,8 @@ const topGoalkeepers = getTopByRole('P', 3);
 
     const payload = {
       email,
+      giornata_lega: nextRoundObj ? nextRoundObj.round : null,
+      giornata_serie_a: nextRoundObj ? nextRoundObj.serie_a_round : null,
       bet: {
         puntata: stake,
         moltiplicatore_totale: parseFloat(summaryMultiplier?.textContent || '1.00'),
@@ -1073,8 +1075,8 @@ const topGoalkeepers = getTopByRole('P', 3);
               <div class="history-card ${statusClass}">
                 <div class="history-card-header">
                   <div class="history-header-left">
-                    <span class="history-date">📅 ${dateStr}</span>
-                    <span class="history-stake">Puntata: <strong>${b.puntata} crediti</strong></span>
+                    <span class="history-date">📅 ${dateStr} (Giornata di fantalega: ${b.giornata_lega ? b.giornata_lega : "N/D"})</span>
+                    <span class="history-stake">Puntata: <strong>${b.puntata} crediti.</strong></span>
                     <span class="history-odd">Quota: <strong>${Number(b.moltiplicatore_totale).toFixed(2)}</strong></span>
                   </div>
                   <div class="history-header-right">
@@ -1120,7 +1122,7 @@ const topGoalkeepers = getTopByRole('P', 3);
 
                 <div class="history-card-footer">
                   <div class="win-box">
-                    <span>Potenziale Vincita:</span>
+                    <span>Potenziale vincita:</span>
                     <strong class="win-val">${Number(b.potenziale_vincita).toFixed(2)} crediti</strong>
                   </div>
                   ${b.status === 'vinta' ? '<span class="won-payout-tag">🎉 Vincita accreditata sul conto</span>' : ''}

@@ -64,6 +64,7 @@ export async function POST({ request }) {
     const newBetEntry = {
       id: crypto.randomUUID(),
       data_giocata: new Date().toISOString(),
+      giornata_lega: bet.giornata_lega || null,
       puntata: stake,
       moltiplicatore_totale: bet.moltiplicatore_totale,
       potenziale_vincita: Number((stake * bet.moltiplicatore_totale).toFixed(2)),
