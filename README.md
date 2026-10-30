@@ -60,7 +60,7 @@ node scripts/create_squads.js ~/Downloads/Quotazioni_Fantacalcio_Stagione_2026_2
 
 ### 🏆 2. Aggiornare la classifica ufficiale
 - **Quando eseguirlo:** Il martedì mattina, alla chiusura ufficiale della giornata di Fantacalcio.
-- **Sorgente:** [Classifica Fantamacrì 26/27](https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings) (scarica il file Excel).
+- **Sorgente:** [Classifica Fantamacrì 2026/27](https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings) (scarica il file Excel).
 - **Comando:**
 ```bash
 node scripts/ranking_reader.js ~/Downloads/Classifica_Campionato-2026-27.xlsx
