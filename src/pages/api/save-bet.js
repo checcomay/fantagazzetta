@@ -142,7 +142,7 @@ export async function POST({ request }) {
     `;
 
     // Invio asincrono senza bloccare la risposta HTTP
-    sendEmail({
+    await sendEmail({
       to: cleanEmail,
       subject: `🎟️ Ricevuta schedina #${newBetEntry.id.slice(0, 8)} - La Fantagazzetta di Macrì`,
       html: emailHtml

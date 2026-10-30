@@ -1,21 +1,37 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-const resend = new Resend(process.env.RESEND_API_KEY || import.meta.env.RESEND_API_KEY);
+import 'dotenv/config'; 
 
-// Indirizzo mittente (puoi usare 'onboarding@resend.dev' per i test, oppure il tuo dominio verificato)
-const SENDER_EMAIL = 'La Fantagazzetta <onboarding@resend.dev>';
+const gmailUser = (typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.GMAIL_USER : null) 
+  || process.env.GMAIL_USER;
+  
+const gmailPass = (typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.GMAIL_PASS : null) 
+  || process.env.GMAIL_PASS;
+
+if (!gmailUser || !gmailPass) {
+  console.error("❌ Credenziali GMAIL mancanti nel file .env");
+}
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: gmailUser,
+    pass: gmailPass
+  }
+});
 
 export async function sendEmail({ to, subject, html }) {
   try {
-    const data = await resend.emails.send({
-      from: SENDER_EMAIL,
+    const info = await transporter.sendMail({
+      from: `"La Fantagazzetta" <${gmailUser}>`,
       to,
       subject,
       html
     });
-    return { success: true, data };
+    console.log(`📧 Email inviata con successo a ${to}`);
+    return info;
   } catch (error) {
-    console.error('Errore durante l\'invio email:', error);
-    return { success: false, error };
+    console.error(`❌ Errore critico invio email a ${to}:`, error.message);
+    throw error;
   }
 }

@@ -1,5 +1,11 @@
 DOWNLOADS := $(HOME)/Downloads
 
+# Estrazione parametri dal file di configurazione
+LEAGUE_NAME     := $(shell node -p "require('./league.config.json').leagueName")
+SITE_URL        := $(shell node -p "require('./league.config.json').siteUrl")
+FANTACALCIO_URL := $(shell node -p "require('./league.config.json').links.fantacalcio")
+FANTACULO_URL   := $(shell node -p "require('./league.config.json').links.fantaculo")
+
 # File statici da scaricare
 QUOTES_FILE   := $(DOWNLOADS)/Quotazioni_Fantacalcio_Stagione_2026_27.xlsx
 STATS_FILE    := $(DOWNLOADS)/league-players.csv
@@ -9,10 +15,21 @@ CALENDAR_FILE := $(DOWNLOADS)/Calendario_Campionato-2026-27.xlsx
 # Risolve dinamicamente il file più recente delle rose esportate
 ROSTERS_FILE := $(shell ls -t $(DOWNLOADS)/\'fantamacri-26-27_rosters_*.csv 2>/dev/null | head -n 1)
 
-.PHONY: all update-all squads stats ranking pre-match odds lineups xfm logos calendar dev build git clean-downloads
+.PHONY: all update-all info sync-readme squads stats ranking bets pre-match odds lineups xfm logos calendar dev build git clean-downloads
 
 # Imposta update-all come target di default se digiti solo "make"
 .DEFAULT_GOAL := update-all
+
+info:
+	@echo "=== Configurazione lega: $(LEAGUE_NAME) ==="
+	@echo "Sito:        $(SITE_URL)"
+	@echo "Leghe FG:    $(FANTACALCIO_URL)"
+	@echo "Fantaculo:   $(FANTACULO_URL)"
+
+# Target per rigenerare o sincronizzare i link nel README
+sync-readme:
+	@node scripts/sync-readme.js
+	@echo "README.md aggiornato con i dati di $(LEAGUE_NAME)"
 
 # 1. Creazione squadre e rose
 squads:
@@ -66,6 +83,11 @@ calendar:
 		exit 1; \
 	fi
 	node scripts/gen_calendar.js
+
+# 5. Calcolo delle schedine giocate
+bets:
+	@echo "💰 Calcolo delle schedine ancora in corso..."	
+	node scripts/evaluate_bets.js
 
 # ==========================================
 # 🎯 PIPELINE PRE-MATCH (QUOTE & TITOLARITÀ)

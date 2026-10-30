@@ -1,0 +1,19 @@
+{
+  "leagueName": "Fantamacrì",
+  "season": "2026/27",
+  "seasonCode": "2026_27",
+  "leagueSlug": "fantamacri-26-27",
+  "competitionId": "384061",
+  "siteUrl": "https://fantagazzetta.vercel.app",
+  "sponsor": {
+    "name": "Visita il meraviglioso borgo di Caccuri!",
+    "url": "https://it.wikipedia.org/wiki/Caccuri"
+  },
+  "links": {
+    "standings": "https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/standings",
+    "rosters": "https://leghe.fantacalcio.it/fantamacri-26-27/view/rosters/",
+    "fixtures": "https://leghe.fantacalcio.it/fantamacri-26-27/view/competition/384061/fixtures",
+    "fantaculo": "https://fantaculo.it/analisi/FANTAMACRI%2026-27/Campionato%25202026%252F27/384061",
+    "understat": "https://understat.com/league/Serie_A"
+  }
+}

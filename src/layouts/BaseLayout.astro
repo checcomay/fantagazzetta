@@ -1,5 +1,6 @@
 ---
 import VisitorCounter from '../components/VisitorCounter.astro';
+import config from '../../league.config.json';
 
 const { pageTitle } = Astro.props;
 ---
@@ -177,12 +178,14 @@ const { pageTitle } = Astro.props;
   <body>
     <div class="container">
       <header class="site-header">
+
+        <!-- HEADER CON I LINK CENTRATI -->
         <nav class="top-nav">
           <a href="/">Home</a>
           <a href="/standing">Classifica</a>
           <a href="/dataroom">Data Room</a>
           <a href="/odds">Pronostici</a>
-          <a href="https://fantaculo.it/analisi/FANTAMACRI%2026-27/Campionato%25202026%252F27/384061" target="_blank" rel="noopener noreferrer">Fantaculo</a>
+          <a href={config.links.fantaculo} target="_blank" rel="noopener noreferrer">🔮 Fantaculo</a>
         </nav>
 
         <a href="/">

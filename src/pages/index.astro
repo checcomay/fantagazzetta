@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StandingsTable from '../components/StandingsTable.astro';
 import { getCollection } from 'astro:content';
+import config from '../../league.config.json';
 
 import fs from 'fs';
 import path from 'path';
@@ -92,7 +93,7 @@ try {
       <!-- NUOVO WIDGET: TOP 10 GIOCATORI -->
       <div class="standings-widget" style="margin-top: 30px;">
         <h3 class="widget-title">
-          <a href="https://understat.com/league/Serie_A" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+          <a href={config.links.understat} target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
             Top 10 Giocatori
           </a>
         </h3>
@@ -102,7 +103,13 @@ try {
             <tr>
               <th style="text-align: left;">Giocatore</th>
               <th style="text-align: center;"> R </th>
-              <th class="team-col" style="text-align: left;">Squadra</th>
+              <th class="team-col" style="text-align: left;">
+                Squadra
+                <select id="team-filter" style="margin-left: 5px; font-size: 0.75rem; padding: 2px; border-radius: 4px; border: 1px solid #ccc;">
+                  <option value="ALL">TUTTE</option>
+                  <!-- Le opzioni vengono popolate dal JS -->
+                </select>
+              </th>
               <th data-sort="goals" style="text-align: center;">G ↕</th>
               <th data-sort="assists" style="text-align: center;">A ↕</th>
               <th data-sort="xG" style="text-align: center;">EXP G ↕</th>
@@ -114,6 +121,13 @@ try {
             <!-- Popolato dinamicamente da JavaScript -->
           </tbody>
         </table>
+
+        <!-- NUOVI CONTROLLI PAGINAZIONE -->
+        <div class="pagination-controls" style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+          <button id="prev-page-btn" style="padding: 5px 12px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px;">&uarr; Su</button>
+          <span id="page-info" style="font-size: 0.85rem; color: #555; font-weight: bold;">Pagina 1</span>
+          <button id="next-page-btn" style="padding: 5px 12px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px;">&darr; Giù</button>
+        </div>
         
         <div class="standings-meta">
           Dati aggiornati al: {playersLastMod}
@@ -149,61 +163,109 @@ try {
 
   const tbody = document.getElementById('player-stats-body');
   const headers = document.querySelectorAll('.player-stats-table th[data-sort]');
+
   let currentSort = 'goals';
   let isDesc = true;
+  let currentTeamFilter = 'ALL';
+  let currentPage = 0;
+  const itemsPerPage = 10;
+
+  // Popola la select delle squadre dinamicamente
+  const teamFilterSelect = document.getElementById('team-filter');
+  if (teamFilterSelect) {
+    const uniqueTeams = [...new Set(players.map(p => p.fantaSquadra))].sort();
+    uniqueTeams.forEach(team => {
+      const opt = document.createElement('option');
+      opt.value = team;
+      opt.textContent = team;
+      teamFilterSelect.appendChild(opt);
+    });
+
+    // Quando si cambia squadra, torna alla prima pagina e aggiorna
+    teamFilterSelect.addEventListener('change', (e) => {
+      currentTeamFilter = e.target.value;
+      currentPage = 0; 
+      renderTable();
+    });
+  }
+
+  // Gestione pulsanti paginazione
+  const prevBtn = document.getElementById('prev-page-btn');
+  const nextBtn = document.getElementById('next-page-btn');
+  const pageInfo = document.getElementById('page-info');
+
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 0) {
+        currentPage--;
+        renderTable();
+      }
+    });
+    nextBtn.addEventListener('click', () => {
+      currentPage++;
+      renderTable();
+    });
+  }
 
   function renderTable() {
     if (!tbody) return;
     tbody.innerHTML = '';
     
-  const sorted = [...players].sort((a, b) => {
-      // Calcoliamo la performance
+    // 1. Applica il filtro squadra (se attivo)
+    const filteredPlayers = currentTeamFilter === 'ALL' 
+      ? [...players] 
+      : players.filter(p => p.fantaSquadra === currentTeamFilter);
+
+    // 2. Ordinamento
+    const sorted = filteredPlayers.sort((a, b) => {
       const perfA = (a.stats.goals - a.stats.xG) + (a.stats.assists - a.stats.xA);
       const perfB = (b.stats.goals - b.stats.xG) + (b.stats.assists - b.stats.xA);
       
-      // 1. Ordinamento per la colonna "perf"
-      if (currentSort === 'perf') 
-        return isDesc ? perfB - perfA : perfA - perfB;
+      if (currentSort === 'perf') return isDesc ? perfB - perfA : perfA - perfB;
 
-      // 2. Ordinamento per "goals"
       if (currentSort === 'goals') {
-        // Se i gol sono diversi, ordina normalmente per gol
-        if (a.stats.goals !== b.stats.goals) 
-          return isDesc ? b.stats.goals - a.stats.goals : a.stats.goals - b.stats.goals;
-        // A parità di gol, ordina per assist
-        if (a.stats.assists !== b.stats.assists) 
-          return isDesc ? b.stats.assists - a.stats.assists : a.stats.assists - b.stats.assists;
-        // A parità di gol e assist, ordina per performance (+/-)
+        if (a.stats.goals !== b.stats.goals) return isDesc ? b.stats.goals - a.stats.goals : a.stats.goals - b.stats.goals;
+        if (a.stats.assists !== b.stats.assists) return isDesc ? b.stats.assists - a.stats.assists : a.stats.assists - b.stats.assists;
         return isDesc ? perfB - perfA : perfA - perfB;
       }
 
-      // 3. Ordinamento per "assists"
       if (currentSort === 'assists') {
-        // Se gli assists sono diversi, ordina normalmente per assists
-        if (a.stats.assists !== b.stats.assists) 
-          return isDesc ? b.stats.assists - a.stats.assists : a.stats.assists - b.stats.assists;
-        // A parità di assists, ordina per gol
-        if (a.stats.goals !== b.stats.goals) 
-          return isDesc ? b.stats.goals - a.stats.goals : a.stats.goals - b.stats.goals;
-        // A parità di gol e assist, ordina per performance (+/-)
+        if (a.stats.assists !== b.stats.assists) return isDesc ? b.stats.assists - a.stats.assists : a.stats.assists - b.stats.assists;
+        if (a.stats.goals !== b.stats.goals) return isDesc ? b.stats.goals - a.stats.goals : a.stats.goals - b.stats.goals;
         return isDesc ? perfB - perfA : perfA - perfB;
       }
       
-      // 4. Ordinamento standard per tutte le altre colonne
       let valA = a.stats[currentSort] !== undefined ? a.stats[currentSort] : a[currentSort];
       let valB = b.stats[currentSort] !== undefined ? b.stats[currentSort] : b[currentSort];
       
-      if (typeof valA === 'string') 
-        return isDesc ? valB.localeCompare(valA) : valA.localeCompare(valB);
-      
+      if (typeof valA === 'string') return isDesc ? valB.localeCompare(valA) : valA.localeCompare(valB);
       return isDesc ? valB - valA : valA - valB;
+    });
 
-    }).slice(0, 10);
-    
-    sorted.forEach(p => {
+    // 3. Calcolo paginazione
+    const maxPage = Math.ceil(sorted.length / itemsPerPage) - 1;
+    if (currentPage > maxPage) currentPage = Math.max(0, maxPage);
+    if (currentPage < 0) currentPage = 0;
+
+    const startIndex = currentPage * itemsPerPage;
+    const paginated = sorted.slice(startIndex, startIndex + itemsPerPage);
+
+    // Aggiorna stato bottoni
+    if(prevBtn && nextBtn && pageInfo) {
+      prevBtn.disabled = currentPage === 0;
+      prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+      prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
+      
+      nextBtn.disabled = currentPage >= maxPage;
+      nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+      nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
+
+      pageInfo.textContent = `Pagina ${currentPage + 1} di ${maxPage >= 0 ? maxPage + 1 : 1}`;
+    }
+
+    // 4. Render html
+    paginated.forEach(p => {
       const logoSrc = `/logos/${p.fantaSquadra}.png`;
-
-      // Calcolo della performance (+/-)
       const diffG = p.stats.goals - p.stats.xG;
       const diffA = p.stats.assists - p.stats.xA;
       const performance = (diffG + diffA).toFixed(2);
@@ -211,10 +273,10 @@ try {
       let perfColor = '#555';
       let perfDisplay = performance;
       if (performance > 0) {
-        perfColor = '#22c55e'; // Verde
-        perfDisplay = '+' + performance; // Aggiunge il + 
+        perfColor = '#22c55e'; 
+        perfDisplay = '+' + performance; 
       } else if (performance < 0) {
-        perfColor = '#ef4444'; // Rosso
+        perfColor = '#ef4444'; 
       }
       
       tbody.innerHTML += `
@@ -234,7 +296,6 @@ try {
           <td style="text-align: center;">${p.stats.assists}</td>
           <td style="text-align: center;">${p.stats.xG}</td>
           <td style="text-align: center;">${p.stats.xA}</td>
-          
           <td style="font-weight: bold; color: ${perfColor}; text-align: center;">
             ${perfDisplay}
           </td>
@@ -246,10 +307,14 @@ try {
   if (headers.length > 0) {
     headers.forEach(th => {
       th.style.cursor = 'pointer';
-      th.addEventListener('click', () => {
+      th.addEventListener('click', (e) => {
+        // Ignora il click se sto cliccando sulla select filter
+        if(e.target.id === 'team-filter') return; 
+        
         const key = th.getAttribute('data-sort');
         isDesc = currentSort === key ? !isDesc : true;
         currentSort = key;
+        currentPage = 0; // Torna alla prima pagina quando si cambia ordinamento
         renderTable();
       });
     });
