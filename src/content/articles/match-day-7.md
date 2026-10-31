@@ -1,6 +1,6 @@
 ---
-title: "JOGA INARRESTABILE: POKER ALL'AC PICCHIA E FUGA IN VETTA"
-subtitle: "La capolista cala il 4-1 sul campo dei campioni in carica e fa 7 su 7 nel segno dei suoi trascinatori. Il Tattulu sale sul podio, Krstovic da favola per il Sacara."
+title: "Il Joga Benito fa 7 su 7: poker ai campioni e fuga solitaria"
+subtitle: "La capolista schianta 4-1 l'AC Picchia trascinata dalle sorprese Calò e Varela. Il Tattulu cala un altro poker a sorpresa sul campo del Tettenham e si prende il secondo posto. Kvernadze decisivo per il Real Pisellini."
 author: "Giampiero Macrì"
 matchday: "7ª Giornata"
 publishDate: 2026-10-30
