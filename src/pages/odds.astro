@@ -700,7 +700,7 @@ const topGoalkeepers = getTopByRole('P', 3);
   </div>
 </BaseLayout>
 
-<script define:vars={{ bettingWindow }}>
+<script define:vars={{ bettingWindow, nextRoundObj }}>
   function formatItalianDateTime(isoString) {
     if (!isoString) return '';
     return new Date(isoString).toLocaleString('it-IT', {
@@ -978,7 +978,7 @@ const topGoalkeepers = getTopByRole('P', 3);
       if (!res.ok) throw new Error(result.error || 'Errore sconosciuto nel salvataggio');
 
       if (feedback) {
-        feedback.textContent = `🎉 Schedina registrata! Crediti residui: ${result.newCredits}`;
+        feedback.textContent = `Schedina registrata con successo! Crediti residui: ${result.newCredits}`;
         feedback.className = 'bet-feedback success';
       }
 
@@ -986,7 +986,6 @@ const topGoalkeepers = getTopByRole('P', 3);
 
       setTimeout(() => {
         selectedBets = [];
-        // FIX: classe corretta .bet-pick per rimuovere la selezione
         document.querySelectorAll('.bet-pick').forEach((b) => b.classList.remove('selected-bet'));
         updateSlipUI();
         if (feedback) feedback.textContent = '';

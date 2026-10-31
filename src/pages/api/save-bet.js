@@ -1,5 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 import { sendEmail } from '../../../scripts/utils/mailer.js';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL;
 const supabaseKey = import.meta.env.SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
@@ -10,6 +12,16 @@ export const prerender = false;
 export async function POST({ request }) {
   
   const now = new Date();
+
+  let bettingWindow = null;
+  try {
+    const bwPath = path.resolve(process.cwd(), 'src/data/betting_window.json');
+    if (fs.existsSync(bwPath)) {
+      bettingWindow = JSON.parse(fs.readFileSync(bwPath, 'utf-8'));
+    }
+  } catch (e) {
+    console.warn('File betting_window.json non trovato nel backend.');
+  }
 
   // 1. Verifica tramite finestra automatica di The Odds API
   if (bettingWindow?.lock_start && bettingWindow?.lock_end) {
@@ -27,7 +39,7 @@ export async function POST({ request }) {
   }
 
   try {
-    const { email, bet } = await request.json();
+    const { email, bet, giornata_lega } = await request.json();
 
     if (!email || !email.includes('@') || !bet || !bet.selections || bet.selections.length === 0) {
       return new Response(JSON.stringify({ error: 'Dati incompleti o schedina vuota.' }), { status: 400 });
@@ -64,7 +76,7 @@ export async function POST({ request }) {
     const newBetEntry = {
       id: crypto.randomUUID(),
       data_giocata: new Date().toISOString(),
-      giornata_lega: bet.giornata_lega || null,
+      giornata_lega: giornata_lega || null,
       puntata: stake,
       moltiplicatore_totale: bet.moltiplicatore_totale,
       potenziale_vincita: Number((stake * bet.moltiplicatore_totale).toFixed(2)),

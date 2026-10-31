@@ -1,7 +1,21 @@
+import fs from 'node:fs';
+import path from 'node:path';
 
 // Trova la partita nel calendario
-export function findMatch(home, away, targetRound, calendarData) {
+export function findMatch(home, away, targetRound = null) {
   const norm = (s) => (s || '').toLowerCase().trim();
+
+  // Lettura del file JSON tramite Node.js FS
+  let calendarData = { rounds: [] };
+  try {
+    const calPath = path.resolve(process.cwd(), 'src/data/calendar.json');
+    if (fs.existsSync(calPath)) {
+      calendarData = JSON.parse(fs.readFileSync(calPath, 'utf-8'));
+    }
+  } catch (e) {
+    console.error('Impossibile caricare calendar.json:', e.message);
+  }
+
   for (const round of (calendarData.rounds || [])) {
     // Se la schedina ha una giornata salvata, controlliamo solo quella giornata!
     if (targetRound && round.round !== targetRound) 

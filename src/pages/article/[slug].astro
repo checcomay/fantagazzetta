@@ -185,6 +185,25 @@ const { Content } = await render(entry);
     font-style: italic;        /* Font corsivo */
   }
 
+    /* ========================================= */
+  /* STILE GLOBALE DIDASCALIE VIDEO & MEDIA     */
+  /* ========================================= */
+  
+  /* Stile per i tag <caption> usati sotto i video */
+  .article-content caption,
+  .article-content figcaption {
+    display: block; /* Forza il tag a comportarsi come un paragrafo */
+    font-family: 'Georgia', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding: 0 10px;
+    line-height: 1.4;
+  }
+
   /* STILI PER I SOTTOTITOLI NEL TESTO (## e ### nel Markdown) */
   .article-content h2 {
     font-family: 'Helvetica', 'Arial', sans-serif;
@@ -394,6 +413,12 @@ const { Content } = await render(entry);
     .best-goal {
       max-width: 100%;
       margin: 0;
+    }
+
+    .article-content caption,
+    .article-content figcaption {
+      font-size: 0.8rem;
+      margin-bottom: 20px;
     }
   }
 </style>

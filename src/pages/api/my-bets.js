@@ -44,7 +44,7 @@ export async function GET({ request }) {
 
       const checkedSelections = (b.selections || []).map(sel => {
         const teams = sel.match.split(' - ');
-        const matchData = findMatch(teams[0], teams[1], b.giornata_lega, calendarData);
+        const matchData = findMatch(teams[0], teams[1], b.giornata_lega);
         const status = checkPick(sel.pick, matchData);
 
         if (status === 'persa') betHasLoss = true;
