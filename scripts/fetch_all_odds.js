@@ -96,6 +96,8 @@ function saveBettingWindow(apiMatches) {
   if (!apiMatches || apiMatches.length === 0) 
     return;
 
+  const nowMs = Date.now();
+
   // 1. Estrai tutti i timestamp (in ms) e ordinali dal più vicino al più lontano
   const allTimes = apiMatches
     .map((m) => new Date(m.commence_time).getTime())
