@@ -50,8 +50,8 @@ squads:
 # 🔄 PIPELINE POST-GIORNATA / ROSTER
 # ==========================================
 
-# Aggiorna statistiche Understat, classifica e calendario in un solo colpo
-update-all: stats ranking calendar
+# Aggiorna statistiche Understat, classifica, calendario e schedine in un solo colpo
+update-all: stats ranking calendar bets
 	@echo "✅ Tutti i dati della lega Fantamacrì sono stati aggiornati con successo!"
 
 # 2. Aggiornamento statistiche Understat
