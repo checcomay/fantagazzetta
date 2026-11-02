@@ -38,3 +38,6 @@ Il gol che vale la partita è merito di Kvernadze nel finale.
 </figure>
 
 Non c'è tempo per analisi e recriminazioni: si torna in campo fra 24 ore per continuare la caccia al Joga B.
+Il joga sembra inarrestabile e proverà ad allungare.
+Dall'altra parte troverà il Tattulu in splendida forma con Cissé e Baturina sugli scudi. 
+Dolcetto o scherzetto?
