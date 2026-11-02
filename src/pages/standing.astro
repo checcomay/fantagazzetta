@@ -70,7 +70,7 @@ playedRounds.forEach(roundData => {
   });
 });
 
-const roundLabels = Array.from({ length: totalPlayedRounds + 1 }, (_, i) => i === 0 ? 'Inizio' : `${i}ª G`);
+const roundLabels = Array.from({ length: totalPlayedRounds + 1 }, (_, i) => i === 0 ? 'Start' : `${i}ª G`);
 
 const progressDatasets = teamNames.map(team => ({
   label: team,

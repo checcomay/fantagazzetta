@@ -98,29 +98,31 @@ try {
           </a>
         </h3>
         
-        <table class="standings-table player-stats-table">
-          <thead>
-            <tr>
-              <th style="text-align: left;">Giocatore</th>
-              <th style="text-align: center;"> R </th>
-              <th class="team-col" style="text-align: left;">
-                Squadra
-                <select id="team-filter" style="margin-left: 5px; font-size: 0.75rem; padding: 2px; border-radius: 4px; border: 1px solid #ccc;">
-                  <option value="ALL">TUTTE</option>
-                  <!-- Le opzioni vengono popolate dal JS -->
-                </select>
-              </th>
-              <th data-sort="goals" style="text-align: center;">G ↕</th>
-              <th data-sort="assists" style="text-align: center;">A ↕</th>
-              <th data-sort="xG" style="text-align: center;">EXP G ↕</th>
-              <th data-sort="xA" style="text-align: center;">EXP A ↕</th>
-              <th data-sort="perf" style="text-align: center;" title="Performance: (G-xG) + (A-xA)">+/- ↕</th>
-            </tr>
-          </thead>
-          <tbody id="player-stats-body">
-            <!-- Popolato dinamicamente da JavaScript -->
-          </tbody>
-        </table>
+        <div class="table-wrapper">
+          <table class="standings-table player-stats-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Giocatore</th>
+                <th style="text-align: center;"> R </th>
+                <th class="team-col" style="text-align: left;">
+                  Squadra
+                  <select id="team-filter" style="margin-left: 5px; font-size: 0.75rem; padding: 2px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="ALL">TUTTE</option>
+                    <!-- Le opzioni vengono popolate dal JS -->
+                  </select>
+                </th>
+                <th data-sort="goals" style="text-align: center;">G ↕</th>
+                <th data-sort="assists" style="text-align: center;">A ↕</th>
+                <th data-sort="xG" style="text-align: center;">EXP G ↕</th>
+                <th data-sort="xA" style="text-align: center;">EXP A ↕</th>
+                <th data-sort="perf" style="text-align: center;" title="Performance: (G-xG) + (A-xA)">+/- ↕</th>
+              </tr>
+            </thead>
+            <tbody id="player-stats-body">
+              <!-- Popolato dinamicamente da JavaScript -->
+            </tbody>
+          </table>
+        </div>
 
         <!-- NUOVI CONTROLLI PAGINAZIONE -->
         <div class="pagination-controls" style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
@@ -495,12 +497,11 @@ try {
       min-width: 120px; /* Squadra (con il logo) */
     }
 
-    /* Rende le tabelle scorrevoli orizzontalmente se superano la larghezza dello schermo */
-    .standings-widget {
+    .table-wrapper {
       overflow-x: auto; 
-      -webkit-overflow-scrolling: touch; /* Rende lo scroll fluido su iOS */
+      -webkit-overflow-scrolling: touch;
       padding-bottom: 10px; 
+      width: 100%;
     }
   }
-
 </style>
