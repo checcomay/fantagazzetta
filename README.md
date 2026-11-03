@@ -1,4 +1,4 @@
-# La penna del Martedì ⚽
+# La penna del Martedì 🖋️⚽
 
 "*La penna del Martedì*" è il quotidiano ufficiale della lega Fantamacrì. È un sito web statico ad alte prestazioni generato con Astro, progettato per raccontare la cronaca, i drammi e i trionfi di ogni fanta-giornata.
 

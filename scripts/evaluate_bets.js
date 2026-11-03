@@ -104,8 +104,8 @@ async function main() {
       const emailsToSend = [];
 
       const updatedBets = user.bets.map(b => {
-        // Ignora schedine già processate e pagate
-        if ((b.status === 'vinta' || b.status === 'persa') && (b.status === 'persa' || b.pagata)) {
+        // Ignora schedine già vinte E già pagate, oppure già perse
+        if ((b.status === 'vinta' && b.pagata) || b.status === 'persa') {
           return b;
         }
 
@@ -117,8 +117,10 @@ async function main() {
           const matchData = findMatch(teams[0], teams[1], b.giornata_lega, calendarData);
           const selStatus = checkPick(sel.pick, matchData);
 
-          if (selStatus === 'persa') betHasLoss = true;
-          if (selStatus !== 'vinta') allWon = false;
+          const normStatus = (selStatus || '').toLowerCase();
+
+          if (normStatus === 'persa') betHasLoss = true;
+          if (normStatus !== 'vinta') allWon = false;
 
           return {
             ...sel,
@@ -128,32 +130,42 @@ async function main() {
         });
 
         let newBetStatus = b.status || 'in_corso';
+        let shouldSendEmail = false;
 
         if (betHasLoss) {
           newBetStatus = 'persa';
+          if (b.status !== 'persa') {
+            shouldSendEmail = true;
+          }
         } else if (allWon && checkedSelections.length > 0) {
           newBetStatus = 'vinta';
+          
+          // Se la schedina è vinta e non è stata ancora pagata, accredita i punti ed invia l'email
           if (!b.pagata) {
             credits += Number(b.potenziale_vincita || 0);
             b.pagata = true;
             userHasChanges = true;
+            shouldSendEmail = true;
           }
         }
 
-        // Se la schedina ha cambiato stato da in_corso a conclusa, la segnamo per l'email
-        if (newBetStatus !== b.status && newBetStatus !== 'in_corso') {
-          b.status = newBetStatus;
+        // Se è cambiato lo stato o se dobbiamo inviare l'email di vincita/perdita
+        if (newBetStatus !== b.status || shouldSendEmail) {
           userHasChanges = true;
-          schedineConcluse++;
-          
-          emailsToSend.push({
-            ...b,
-            status: newBetStatus,
-            selections: checkedSelections
-          });
+          if (newBetStatus !== b.status) schedineConcluse++;
+
+          b.status = newBetStatus;
+
+          if (shouldSendEmail) {
+            emailsToSend.push({
+              ...b,
+              status: newBetStatus,
+              selections: checkedSelections
+            });
+          }
         }
 
-        return { ...b, status: newBetStatus, selections: checkedSelections };
+        return { ...b, status: newBetStatus, pagata: b.pagata, selections: checkedSelections };
       });
 
       if (userHasChanges) {

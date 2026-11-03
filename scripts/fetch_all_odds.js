@@ -120,10 +120,19 @@ function saveBettingWindow(apiMatches) {
 
   // 3. Definisci i margini di sicurezza:
   // * LOCK START: 15 minuti prima del fischio d'inizio della prima partita
-  // * LOCK END: molto dopo la fine dell'ultima partita (1 mese), il motivo è che deve
-  // essere un nuovo aggiornamento delle quote ad aprire nuovamente il mercato delle quote
   const lockStartMs = firstKickoffMs - 15 * 60 * 1000;
-  const lockEndMs = lastKickoffMs + 30 * 24 * 60 * 60 * 1000; // 30 giorni
+  
+  let lockEndMs;
+  // * LOCK END: 18 ore prima dell'undicesima partita (primo match della giornata successiva)
+  // L'indice 10 corrisponde all'undicesima partita dell'array
+  if (allTimes.length > 10) {
+    const eleventhMatchMs = allTimes[10];
+    lockEndMs = eleventhMatchMs - 18 * 60 * 60 * 1000; // -18 ore in millisecondi
+  } else {
+    // Fallback: se le quote della prossima giornata non sono ancora nel feed (meno di 11 partite),
+    // usa il vecchio blocco a 30 giorni (sarà un nuovo avvio dello script ad aggiornarlo)
+    lockEndMs = lastKickoffMs + 30 * 24 * 60 * 60 * 1000;
+  }
 
   const windowData = {
     updated_at: new Date().toISOString(),
@@ -626,7 +635,7 @@ async function main() {
   matcher.printTelemetryReport('The Odds API - Serie A Unificato');
 
   // Salva il dump completo di tutti i nomi unici restituiti dall'API per la giornata
-  const dumpPath = path.resolve(__dirname, '../src/data/raw_api_players_dump.json');
+  const dumpPath = path.resolve(__dirname, '../src/data/log/raw_api_players_dump.json');
   await fs.writeFile(dumpPath, JSON.stringify(Array.from(allRawApiNames).sort(), null, 2), 'utf-8');
   console.log(`📋 Dump grezzo di ${allRawApiNames.size} nomi API salvato in: ${dumpPath}`);
 }
