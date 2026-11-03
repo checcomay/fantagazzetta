@@ -38,7 +38,7 @@ A far rumore è il *grave infortunio occorso a Raimondo* (fallaccio di Aboukhar)
 Gli auguri di una rapida ripresa da parte di tutta la redazione all’attaccante azzurro.  
 
 <figure style="text-align: center; margin: 20px 0;">
-    <video src="/videos/video8b.mp4" controls width="80%" style="border-radius: 8px;"></video>
+    <video src="/videos/video8b.mov" controls width="80%" style="border-radius: 8px;"></video>
     <figcaption>
         Le giocate del match: rivivi la prestazione super di Armand Laurienté, protagonista assoluto nel 3-1 del Real Pisellini contro l'AC Picchia.
     </figcaption>
