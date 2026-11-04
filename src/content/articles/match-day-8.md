@@ -53,3 +53,13 @@ Stasera turno di champions prima dell’ultima giornata prima della sosta di nov
 I ds potranno iniziare a sondare il mercato mentre i fantallenatori affilano le armi per le prossime e decisive sfide europee. 
 Le coppe offriranno risposte immediate e test probanti, ma l'attenzione di molti è già proiettata alle trattative di riparazione: tra gli infortuni pesanti e chi ha bisogno di rilanciarsi, gli ultimi novanta minuti di campionato prima della pausa si preannunciano roventi. 
 Nessuno può più permettersi passi falsi.
+
+## 🎗️ In ricordo di un campione
+
+Con profondo dolore e sconcerto, la Fantagazzetta di Macrì si unisce al lutto dell'intero mondo del calcio per la tragica e improvvisa scomparsa di **Jesús de Miguel**, attaccante del Tenerife, venuto a mancare a soli 30 anni in seguito alle gravi conseguenze del tragico scontro di gioco avvenuto sul campo.
+
+In un momento in cui le parole risultano insufficienti a colmare un vuoto così grande, la fantalega tutta si stringe attorno alla famiglia, ai compagni di squadra, alla società del CD Tenerife e a tutti i tifosi che ne hanno apprezzato la passione, l'impegno e l'umanità dentro e fuori dal rettangolo di gioco.
+
+> *"Il calcio piange un suo figlio, ma il tuo ricordo continuerà a vivere nel cuore di chi ama questo sport."*
+
+**Riposa in pace, Jesús.**  ⚽ 🕊️
