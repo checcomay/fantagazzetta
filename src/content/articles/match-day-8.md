@@ -1,5 +1,5 @@
 ---
-title: "Il Tattulu ferma la fuga del Joga. La Caccurese cala il poker. Dramma Raimondo"
+title: "Il Tattulu ferma la fuga del Joga. La Caccurese cala il poker. Infortunio Raimondo"
 subtitle: "Finisce dopo 7 turni il record di vittorie della capolista. Show della Caccurese contro il Sacara Team, mentre il Tettenham viene beffato nel finale dai Sup. Laurientè trascina il Real Pisellini. Tegola Raimondo: il Tettenham teme un grave infortunio per il suo pupillo."
 author: "Giampiero Macrì"
 matchday: "8ª Giornata"
