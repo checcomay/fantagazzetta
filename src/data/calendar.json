@@ -312,34 +312,34 @@
         {
           "home": "sup",
           "away": "Joga Benito",
-          "score": "-",
-          "home_points": 0,
-          "away_points": 0,
-          "played": false
+          "score": "1-2",
+          "home_points": 71,
+          "away_points": 73,
+          "played": true
         },
         {
           "home": "SACARA TEAM",
           "away": "TETTENHAM",
-          "score": "-",
-          "home_points": 0,
-          "away_points": 0,
-          "played": false
+          "score": "0-2",
+          "home_points": 56,
+          "away_points": 72.5,
+          "played": true
         },
         {
           "home": "Real Pisellini Cf",
           "away": "AS CaccuRese",
-          "score": "-",
-          "home_points": 0,
-          "away_points": 0,
-          "played": false
+          "score": "0-3",
+          "home_points": 62.5,
+          "away_points": 78,
+          "played": true
         },
         {
           "home": "Fc Tattulu",
           "away": "Ac Picchia",
-          "score": "-",
-          "home_points": 0,
-          "away_points": 0,
-          "played": false
+          "score": "1-1",
+          "home_points": 69,
+          "away_points": 69.5,
+          "played": true
         }
       ]
     },
@@ -1457,10 +1457,10 @@
         "serie_a_round": 11,
         "is_home": true,
         "opponent": "Ac Picchia",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "1-1",
+        "team_points": 69,
+        "opponent_points": 69.5,
+        "played": true
       },
       {
         "round": 10,
@@ -1819,10 +1819,10 @@
         "serie_a_round": 11,
         "is_home": false,
         "opponent": "sup",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "1-2",
+        "team_points": 73,
+        "opponent_points": 71,
+        "played": true
       },
       {
         "round": 10,
@@ -2181,10 +2181,10 @@
         "serie_a_round": 11,
         "is_home": true,
         "opponent": "AS CaccuRese",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "0-3",
+        "team_points": 62.5,
+        "opponent_points": 78,
+        "played": true
       },
       {
         "round": 10,
@@ -2543,10 +2543,10 @@
         "serie_a_round": 11,
         "is_home": false,
         "opponent": "Fc Tattulu",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "1-1",
+        "team_points": 69.5,
+        "opponent_points": 69,
+        "played": true
       },
       {
         "round": 10,
@@ -2905,10 +2905,10 @@
         "serie_a_round": 11,
         "is_home": true,
         "opponent": "TETTENHAM",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "0-2",
+        "team_points": 56,
+        "opponent_points": 72.5,
+        "played": true
       },
       {
         "round": 10,
@@ -3267,10 +3267,10 @@
         "serie_a_round": 11,
         "is_home": false,
         "opponent": "Real Pisellini Cf",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "0-3",
+        "team_points": 78,
+        "opponent_points": 62.5,
+        "played": true
       },
       {
         "round": 10,
@@ -3629,10 +3629,10 @@
         "serie_a_round": 11,
         "is_home": true,
         "opponent": "Joga Benito",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "1-2",
+        "team_points": 71,
+        "opponent_points": 73,
+        "played": true
       },
       {
         "round": 10,
@@ -3991,10 +3991,10 @@
         "serie_a_round": 11,
         "is_home": false,
         "opponent": "SACARA TEAM",
-        "score": "-",
-        "team_points": 0,
-        "opponent_points": 0,
-        "played": false
+        "score": "0-2",
+        "team_points": 72.5,
+        "opponent_points": 56,
+        "played": true
       },
       {
         "round": 10,
