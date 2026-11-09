@@ -7,7 +7,7 @@ publishDate: 2026-11-10
 bestPlayer: "Thuram, Hermoso"
 worstPlayer: "Paz, Douvikas"
 bestGoal: "Mora"
-image: "/images/image5a.png"
+image: "/images/image9a.png"
 ---
 
 La nona giornata di Fanta-lega conferma il trend finora registrato con l’affermazione in trasferta della capolista Joga Benito(25 punti), stavolta con più fatica del previsto e solo nel finale grazie al bonus difesa (1-2 il finale). 
@@ -16,6 +16,14 @@ Va riconosciuto merito ai Sup di mister Pellegrino (ultimi a quota 6) di aver ba
 Resta importante il vantaggio sulle inseguitrici (+9), ma dopo questo match qualcosa potrebbe iniziare a cambiare.
 
 La Caccurese di Alvini riprende confidenza con il gol e va a vincere 3-0 in trasferta sul campo del Real Pisellini (7): non segna Malen ma regala l’assist ad Hermoso autore della prima marcatura, Cambiaghi e Pellegrino mettono i 3 punti al sicuro. Ancora in difficoltà Zaniolo. Per il Real orfano di Lautaro si salva solo Bremer.
+
+<figure style="text-align: center; margin: 20px 0;">
+    <video src="/videos/video9a.mp4" controls width="80%" style="border-radius: 8px;"></video>
+    <figcaption>
+        Pellegrino va a esultare sotto alla curva dopo il presidente Macrì festeggia insieme ai ragazzi 
+    </figcaption>
+</figure>
+
 
 La terza vittoria corsara  della giornata è del Tettenham (terzo a 15 punti) vincente a Galatina contro i cugini del Sacara team (9 punti) con il più classico dei risultati, 0-2 grazie alla performance di Carnesecchi e di un positivo Kolo Muani, ma la squadra di De Lorenzis può vantare uno dei cantrocampi più talentuosi della categoria con Mora (scalpitante in panchina), Moreira e Mastantuono. Per il Sacara, in inferiorità numerica (senza Atta, Zaccagni e  Kean da troppo tempo), non c’è scampo, nonostante la splendida forma di Kristovic.
 
