@@ -1,5 +1,5 @@
 ---
-itle: "Joga Benito col brivido, tris di colpi esterni: la capolista vola a +9 ma il campionato è vivo"
+title: "Joga Benito col brivido, tris di colpi esterni: la capolista vola a +9 ma il campionato è vivo"
 subtitle: "Sup sfiorano l’impresa contro la capolista; Caccurese e Tettenham dilagano in trasferta prima della sosta per le Nazionali."
 author: "Giampiero Macrì"
 matchday: "9ª Giornata"
