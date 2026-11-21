@@ -3,6 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import ExcelJS from 'exceljs';
 
+import { recordDataUpdate } from './utils/update_tracker.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -168,6 +170,7 @@ async function main() {
   try {
     await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
     await fs.writeFile(OUTPUT_PATH, JSON.stringify(finalOutput, null, 2), 'utf-8');
+    recordDataUpdate('calendar');
     console.log(`✅ Successo! Generato ${OUTPUT_PATH} con ${sortedRounds.length} giornate di lega.`);
   } catch (err) {
     console.error(`❌ Errore durante il salvataggio del file JSON: ${err.message}`);

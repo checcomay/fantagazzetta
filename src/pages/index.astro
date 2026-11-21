@@ -3,37 +3,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import StandingsTable from '../components/StandingsTable.astro';
 import { getCollection } from 'astro:content';
 import config from '../../league.config.json';
-
-import fs from 'fs';
-import path from 'path';
+import lastUpdates from '../data/last_updates.json';
 
 // Logica per gli articoli
 const allArticles = await getCollection('articles');
 const sortedArticles = allArticles.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
-// Logica per ottenere la data di ultima modifica dei giocatori
-const playersFilePath = path.resolve('./src/data/player_stats.json');
-let playersLastMod = '';
-try {
-  const statsP = fs.statSync(playersFilePath);
-  playersLastMod = statsP.mtime.toLocaleDateString('it-IT', { 
-    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' 
+// Helper per formattare le date lette da last_updates.json
+function formatUpdateDate(isoString) {
+  if (!isoString) return 'Non disponibile';
+  const parsed = new Date(isoString);
+  if (isNaN(parsed.getTime())) return 'Non disponibile';
+  return parsed.toLocaleDateString('it-IT', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
   });
-} catch (error) {
-  playersLastMod = "Non disponibile";
 }
 
-// Logica per ottenere la data di ultima modifica del file JSON
-const jsonFilePath = path.resolve('./src/data/standings.json');
-let lastModifiedDate = '';
-try {
-  const stats = fs.statSync(jsonFilePath);
-  lastModifiedDate = stats.mtime.toLocaleDateString('it-IT', { 
-    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' 
-  });
-} catch (error) {
-  lastModifiedDate = "Non disponibile";
-}
+// Date di ultimo aggiornamento da last_updates.json
+const playersLastMod = formatUpdateDate(lastUpdates?.stats);
+const lastModifiedDate = formatUpdateDate(lastUpdates?.ranking);
 ---
 
 <BaseLayout pageTitle="Home">

@@ -1,6 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import players from '../data/player_stats.json';
+import lastUpdates from '../data/last_updates.json';
+
+// --- LETTURA DATA DI ULTIMO AGGIORNAMENTO STATISTICHE ---
+const rawStatsUpdate = lastUpdates?.stats;
+let formattedLastUpdate = 'Non disponibile';
+
+if (rawStatsUpdate) {
+  const parsedDate = new Date(rawStatsUpdate);
+  if (!isNaN(parsedDate.getTime())) {
+    formattedLastUpdate = parsedDate.toLocaleDateString('it-IT', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+}
 
 // --- LOGICA OVER/UNDER PERFORMANCE ---
 const teamAggregates = {};
@@ -38,6 +56,7 @@ const underTeam = performanceArray[performanceArray.length - 1]; // L'ultimo del
     <div class="data-header">
       <h2 class="main-title">DATA ROOM</h2>
       <p class="subtitle">Analisi avanzata: Gol reali vs Expected Goals (xG)</p>
+      <p class="update-timestamp">Ultimo aggiornamento statistiche: <strong>{formattedLastUpdate}</strong></p>
     </div>
 
     <div class="chart-description">
@@ -249,6 +268,13 @@ const underTeam = performanceArray[performanceArray.length - 1]; // L'ultimo del
     color: #c0392b;
     font-size: 1.2rem;
     margin: 0;
+  }
+
+  .update-timestamp {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.82rem;
+    color: #666;
+    margin: 8px 0 0 0;
   }
 
   .chart-description {

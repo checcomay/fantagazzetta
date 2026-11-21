@@ -1,11 +1,10 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import StandingsTable from '../components/StandingsTable.astro';
 import standings from '../data/standings.json';
 import calendarData from '../data/calendar.json';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import teamColors from '../data/team_colors.json';
+import lastUpdates from '../data/last_updates.json';
 
 const classificaConFM = standings.map(team => {
   const mediaPunti = team.PuntiClassifica / team.NumGiornate;
@@ -15,21 +14,21 @@ const classificaConFM = standings.map(team => {
   };
 });
 
-// 1. LETTURA DATA DI ULTIMO AGGIORNAMENTO DI calendar.json
-const calendarFilePath = path.resolve(process.cwd(), 'src/data/calendar.json');
+// 1. LETTURA DATA DI ULTIMO AGGIORNAMENTO DEL CALENDARIO DA last_updates.json
+const rawCalendarUpdate = lastUpdates?.calendar;
 let formattedLastUpdate = 'Non disponibile';
 
-try {
-  const stats = fs.statSync(calendarFilePath);
-  formattedLastUpdate = stats.mtime.toLocaleDateString('it-IT', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-} catch (e) {
-  // Ignora se il file non viene trovato a runtime
+if (rawCalendarUpdate) {
+  const parsedDate = new Date(rawCalendarUpdate);
+  if (!isNaN(parsedDate.getTime())) {
+    formattedLastUpdate = parsedDate.toLocaleDateString('it-IT', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
 }
 
 // 2. ELABORAZIONE PUNTEGGI PROGRESSIVI DAL CALENDARIO

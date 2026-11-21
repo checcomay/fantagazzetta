@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import { recordDataUpdate } from './utils/update_tracker.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -137,6 +139,7 @@ function assignStats() {
 
         // 5. Salvataggio e Report
         fs.writeFileSync(OUTPUT_JSON, JSON.stringify(giocatoriFlat, null, 4), 'utf-8');
+        recordDataUpdate('stats');
         
         console.log(`\n=== REPORT ASSEGNAZIONE STATISTICHE ===`);
         console.log(`✅ Giocatori abbinati con successo: ${matchedCount}`);

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import stringSimilarity from 'string-similarity';
+import { recordDataUpdate } from './utils/update_tracker.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -409,6 +410,8 @@ async function main() {
   try {
     await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
     await fs.writeFile(OUTPUT_PATH, JSON.stringify(output, null, 2), 'utf-8');
+
+    recordDataUpdate('lineups');
     
     console.log(`\n🎉 Completato!`);
     console.log(`📊 Giocatori matchati correttamente: ${trovati}/${totali}`);

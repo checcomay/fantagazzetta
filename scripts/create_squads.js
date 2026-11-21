@@ -3,6 +3,8 @@ import path from 'path';
 import ExcelJS from 'exceljs';
 import { fileURLToPath } from 'url';
 
+import { recordDataUpdate } from './utils/update_tracker.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -106,6 +108,7 @@ async function generaRoster() {
         // 4. Salvataggio in JSON
         const risultato = Object.values(squadreFanta);
         fs.writeFileSync(OUTPUT_JSON, JSON.stringify(risultato, null, 4), 'utf-8');
+        recordDataUpdate('squads');
         
         console.log(`Esportazione completata. Generato il file: ${OUTPUT_JSON}`);
 

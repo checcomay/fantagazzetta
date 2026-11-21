@@ -4,8 +4,9 @@ import path from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import calendarData from '../data/calendar.json';
 import xFMsData from '../data/xFMs.json';
+import lastUpdates from '../data/last_updates.json';
 
-// 1. FINESTRA TEMPORALE BLOCCO QUOTE (The Odds API)
+// 0. FINESTRA TEMPORALE BLOCCO QUOTE (The Odds API)
 let bettingWindow = {
   lock_start: null,
   lock_end: null,
@@ -22,21 +23,31 @@ try {
   console.warn('betting_window.json non trovato, verrà usato il fallback settimanale.');
 }
 
-// Data ultimo aggiornamento xFMs.json per il sottotitolo
-const xfmFilePath = path.resolve(process.cwd(), 'src/data/xFMs.json');
-let lastModifiedDate = new Date();
-try {
-  const stats = fs.statSync(xfmFilePath);
-  lastModifiedDate = stats.mtime;
-} catch (e) {}
+// 1. CONTROLLO DATA DI ULTIMO UTILIZZO/AGGIORNAMENTO DATI DAL FILE JSON
+// Prende la data di calcolo xFM (o quella delle formazioni come fallback)
+const rawTimestamp = lastUpdates?.xfm || lastUpdates?.lineups;
 
-const formattedLastUpdate = lastModifiedDate.toLocaleDateString('it-IT', {
-  day: '2-digit',
-  month: 'long',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit'
-});
+let lastModifiedDate = rawTimestamp ? new Date(rawTimestamp) : new Date(0);
+let isDataStale = false;
+let daysOld = 0;
+
+if (!rawTimestamp || isNaN(lastModifiedDate.getTime())) {
+  isDataStale = true;
+} else {
+  const diffMs = Date.now() - lastModifiedDate.getTime();
+  daysOld = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  isDataStale = daysOld >= 5;
+}
+
+const formattedLastUpdate = rawTimestamp
+  ? lastModifiedDate.toLocaleDateString('it-IT', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  : 'Mai aggiornato';
 
 // 2. INDIVIDUAZIONE PRIMA GIORNATA NON ANCORA GIOCATA
 const nextRoundObj = calendarData.rounds?.find((r) =>

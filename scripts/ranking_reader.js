@@ -3,6 +3,8 @@ import path from 'path';
 import ExcelJS from 'exceljs';
 import { fileURLToPath } from 'url';
 
+import { recordDataUpdate } from './utils/update_tracker.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -115,6 +117,7 @@ async function convertiExcelInJson() {
         // Scrivi i dati nel file JSON
         fs.writeFileSync(outputFile, JSON.stringify(data, null, 4), 'utf-8');
         console.log(`Conversione completata! I dati sono stati salvati in ${outputFile}`);
+        recordDataUpdate('ranking');
 
     } catch (error) {
         console.error("Errore durante la conversione:", error.message);

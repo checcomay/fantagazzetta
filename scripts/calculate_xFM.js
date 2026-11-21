@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import stringSimilarity from 'string-similarity';
+import { recordDataUpdate } from './utils/update_tracker.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -257,75 +258,154 @@ function computeRealisticPlayingWeights(startProb, lineupStatus, roleProfile) {
   };
 }
 
-// ==================== 2.3. MOTORE MIGLIOR MODULO (BEST LINEUP OPTIMIZER) ====================
+// ==================== 2.3. MOTORE MIGLIOR MODULO CON RISCHIO INFERIORITÀ NUMERICA ====================
+
+const MISSING_PLAYER_PENALTY = 6.0; // Punti persi per ogni giocatore mancante (giocare in 10)
 
 /**
- * Testa tutti i 7 moduli legali del Fantacalcio e restituisce:
- * - il modulo matematicamente ottimale (che massimizza il punteggio totale atteso)
- * - l'undici titolare corrispondente
- * - la classifica completa di tutti i moduli testati per la UI
+ * Stima la probabilità effettiva che un giocatore prenda voto (da titolare o da subentrante)
+ * a partire dalla sua starter_probability (0-100) e dal ruolo.
  */
-function optimizeTeamFormation(enrichedRoster) {
-  // 1. Filtra via chi ha 0% di probabilità di giocare (es. infortunati / indisponibili con prob 0)
-  const availablePlayers = enrichedRoster.filter((p) => (p.starter_probability ?? 0) > 0);
+function estimateVoteProbability(player) {
+  const s = Math.max(0, Math.min(1, (player.starter_probability ?? 5) / 100));
+  const role = (player.role || 'C').toUpperCase();
 
-  // 2. GESTIONE GERARCHIA PORTIERI PER SQUADRA REALE:
-  // Tra i portieri della stessa squadra di Serie A, seleziona quello con la probabilità di titolarità più alta
-  const goalkeepers = availablePlayers.filter((p) => (p.role || '').toUpperCase() === 'P');
-  const gkByRealTeam = new Map();
-  for (const gk of goalkeepers) {
-    const team = gk.real_team;
-    if (!gkByRealTeam.has(team) || gk.starter_probability > gkByRealTeam.get(team).starter_probability) {
-      gkByRealTeam.set(team, gk);
+  // Un portiere in panchina subentra rarissimamente (~2%)
+  if (role === 'P') {
+    return Math.min(0.99, s + (1 - s) * 0.02);
+  }
+
+  // Giocatori di movimento:
+  // - Titolare alto (>=70%): altissima probabilità di voto
+  // - Ballottaggio (30%-69%): buona probabilità di voto anche da subentrante
+  // - Panchina (<30%): probabilità di subentro più bassa (es. 5% titolare -> ~24% voto)
+  const subVoteFactor = role === 'A' ? 0.35 : role === 'C' ? 0.30 : 0.20;
+  return Math.min(0.99, s + (1 - s) * subVoteFactor);
+}
+
+/**
+ * Calcola la distribuzione esatta del numero di giocatori che prendono voto in un reparto
+ * (Poisson Binomial Distribution tramite programmazione dinamica).
+ * Restituisce:
+ * - expectedMissing: numero medio di "buchi" (uomini in meno) se servono `requiredCount` titolari
+ * - fullCoverageProb: probabilità (0-1) che almeno `requiredCount` giocatori prendano voto
+ */
+function evaluateDepartmentCoverage(rolePlayers, requiredCount) {
+  if (requiredCount === 0) {
+    return { expectedMissing: 0, fullCoverageProb: 1 };
+  }
+
+  const voteProbs = rolePlayers.map(estimateVoteProbability);
+  // dp[k] = probabilità che esattamente k giocatori del reparto prendano voto
+  let dp = new Array(voteProbs.length + 1).fill(0);
+  dp[0] = 1.0;
+
+  for (const p of voteProbs) {
+    const nextDp = new Array(dp.length).fill(0);
+    for (let k = 0; k < dp.length; k++) {
+      if (dp[k] === 0) continue;
+      nextDp[k] += dp[k] * (1 - p);
+      if (k + 1 < nextDp.length) {
+        nextDp[k + 1] += dp[k] * p;
+      }
+    }
+    dp = nextDp;
+  }
+
+  let expectedMissing = 0;
+  let fullCoverageProb = 0;
+
+  for (let k = 0; k < dp.length; k++) {
+    if (k < requiredCount) {
+      expectedMissing += (requiredCount - k) * dp[k];
+    } else {
+      fullCoverageProb += dp[k];
     }
   }
-  const validGks = Array.from(gkByRealTeam.values());
 
-  const getSortedByRole = (role) => {
-    if (role === 'P') {
-      return validGks.sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating);
-    }
-    return availablePlayers
+  return { expectedMissing, fullCoverageProb };
+}
+
+/**
+ * Testa tutti i 7 moduli legali del Fantacalcio bilanciando:
+ * 1. Somma xFM dei migliori 11 titolari del modulo
+ * 2. Bonus Modificatore Difesa (+1.5 per difese a 4 o 5, pesato sulla probabilità di copertura difesa)
+ * 3. Penalità per rischio di giocare in meno di 11 (basata su titolari + panchinari di ogni reparto)
+ */
+function optimizeTeamFormation(enrichedRoster) {
+  const getSortedByRole = (role) =>
+    enrichedRoster
       .filter((p) => (p.role || '').toUpperCase() === role)
       .sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating);
-  };
 
-  const goalkeepersSorted = getSortedByRole('P');
-  const defenders = getSortedByRole('D');
-  const midfielders = getSortedByRole('C');
-  const attackers = getSortedByRole('A');
+  const byRole = {
+    P: getSortedByRole('P'),
+    D: getSortedByRole('D'),
+    C: getSortedByRole('C'),
+    A: getSortedByRole('A')
+  };
 
   const formationsResults = [];
 
   for (const mod of LEGAL_FORMATIONS) {
-    const pickedP = goalkeepersSorted.slice(0, mod.roles.P);
-    const pickedD = defenders.slice(0, mod.roles.D);
-    const pickedC = midfielders.slice(0, mod.roles.C);
-    const pickedA = attackers.slice(0, mod.roles.A);
+    const pickedP = byRole.P.slice(0, mod.roles.P);
+    const pickedD = byRole.D.slice(0, mod.roles.D);
+    const pickedC = byRole.C.slice(0, mod.roles.C);
+    const pickedA = byRole.A.slice(0, mod.roles.A);
 
     const lineup = [...pickedP, ...pickedD, ...pickedC, ...pickedA];
 
+    // Verifica che la rosa abbia almeno gli 11 giocatori nominali per il modulo
     if (lineup.length < 11) continue;
 
+    // Calcolo copertura reale di ciascun reparto (titolari + riserve in panchina)
+    const covP = evaluateDepartmentCoverage(byRole.P, mod.roles.P);
+    const covD = evaluateDepartmentCoverage(byRole.D, mod.roles.D);
+    const covC = evaluateDepartmentCoverage(byRole.C, mod.roles.C);
+    const covA = evaluateDepartmentCoverage(byRole.A, mod.roles.A);
+
+    const expectedMissingPlayers =
+      covP.expectedMissing + covD.expectedMissing + covC.expectedMissing + covA.expectedMissing;
+
+    // Probabilità complessiva di giocare in 11 su 11 senza buchi
+    const probPlayIn11 =
+      covP.fullCoverageProb * covD.fullCoverageProb * covC.fullCoverageProb * covA.fullCoverageProb;
+
     const playersSum = lineup.reduce((acc, p) => acc + p.expected_fantasy_rating, 0);
-    const modifierBonus = mod.hasDefenseModifier ? DEFENSE_MODIFIER_BONUS : 0.0;
-    const totalScore = Number((playersSum + modifierBonus).toFixed(2));
+
+    // Il modificatore difesa (+1.5) scatta solo se tutti i difensori richiesti (4 o 5) vanno a voto
+    const effectiveModifierBonus = mod.hasDefenseModifier
+      ? DEFENSE_MODIFIER_BONUS * covD.fullCoverageProb
+      : 0.0;
+
+    // Penalità attesa per rischio inferiorità numerica
+    const shortagePenalty = expectedMissingPlayers * MISSING_PLAYER_PENALTY;
+
+    // Punteggio finale aggiustato per il rischio
+    const riskAdjustedScore = Number((playersSum + effectiveModifierBonus - shortagePenalty).toFixed(2));
 
     formationsResults.push({
       formation: mod.name,
-      projected_score: totalScore,
+      projected_score: riskAdjustedScore,
+      raw_score: Number((playersSum + effectiveModifierBonus).toFixed(2)),
       players_sum: Number(playersSum.toFixed(2)),
-      defense_modifier_bonus: modifierBonus,
+      defense_modifier_bonus: Number(effectiveModifierBonus.toFixed(2)),
+      shortage_penalty: Number(shortagePenalty.toFixed(2)),
+      expected_missing_players: Number(expectedMissingPlayers.toFixed(2)),
+      play_in_11_probability: Math.round(probPlayIn11 * 100),
       lineup
     });
   }
 
+  // Ordina i moduli dal punteggio risk-adjusted più alto al più basso
   formationsResults.sort((a, b) => b.projected_score - a.projected_score);
 
   const best = formationsResults[0] || {
     formation: '4-3-3',
     projected_score: 0,
     defense_modifier_bonus: DEFENSE_MODIFIER_BONUS,
+    shortage_penalty: 0,
+    play_in_11_probability: 100,
     lineup: []
   };
 
@@ -333,11 +413,15 @@ function optimizeTeamFormation(enrichedRoster) {
     bestFormation: best.formation,
     bestScore: best.projected_score,
     bestModifierBonus: best.defense_modifier_bonus,
+    bestShortagePenalty: best.shortage_penalty,
+    bestPlayIn11Prob: best.play_in_11_probability,
     bestLineup: best.lineup,
     allFormations: formationsResults.map((f) => ({
       formation: f.formation,
       projected_score: f.projected_score,
       defense_modifier_bonus: f.defense_modifier_bonus,
+      shortage_penalty: f.shortage_penalty,
+      play_in_11_probability: f.play_in_11_probability,
       starting_eleven: f.lineup.map((p) => p.name)
     }))
   };
@@ -550,6 +634,8 @@ async function main() {
       fantasy_team: teamName,
       formation: opt.bestFormation,
       defense_modifier_bonus: opt.bestModifierBonus,
+      shortage_penalty: opt.bestShortagePenalty,
+      play_in_11_probability: opt.bestPlayIn11Prob,
       projected_top11_score: opt.bestScore,
       total_players: enrichedPlayers.length,
       starting_eleven: opt.bestLineup.map((p) => p.name),
@@ -563,11 +649,13 @@ async function main() {
 
   await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(outputByFantasyTeam, null, 2), 'utf-8');
+  
+  recordDataUpdate('xfm');
 
   console.log(`\n✅ Success! Generated expected fanta metrics for ${outputByFantasyTeam.length} teams.`);
   for (const t of outputByFantasyTeam) {
     console.log(
-      `   🏆 ${t.fantasy_team.padEnd(20)} | Miglior modulo: ${t.formation} | Score atteso: ${t.projected_top11_score} pt (Mod. difesa: +${t.defense_modifier_bonus})`
+      `   🏆 ${t.fantasy_team.padEnd(20)} | Modulo: ${t.formation} | Score: ${t.projected_top11_score} pt | Prob. 11/11: ${t.play_in_11_probability}% (Penalità rischio: -${t.shortage_penalty})`
     );
   }
   console.log(`📁 File written to: ${OUTPUT_PATH}`);
