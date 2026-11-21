@@ -333,10 +333,23 @@ function evaluateDepartmentCoverage(rolePlayers, requiredCount) {
  * 3. Penalità per rischio di giocare in meno di 11 (basata su titolari + panchinari di ogni reparto)
  */
 function optimizeTeamFormation(enrichedRoster) {
-  const getSortedByRole = (role) =>
+    const getSortedByRole = (role) =>
     enrichedRoster
       .filter((p) => (p.role || '').toUpperCase() === role)
-      .sort((a, b) => b.expected_fantasy_rating - a.expected_fantasy_rating);
+      .sort((a, b) => {
+        // Per i portieri, chi ha probabilità >= 50% (titolare/favorito) ha sempre precedenza assoluta sulle riserve
+        if (role === 'P') {
+          const aStarter = (a.starter_probability ?? 0) >= 50 ? 1 : 0;
+          const bStarter = (b.starter_probability ?? 0) >= 50 ? 1 : 0;
+          if (aStarter !== bStarter) return bStarter - aStarter;
+
+          // Se nessuno è >= 50%, evita comunque chi è a 0% preferendo chi ha titolarità più alta
+          if (aStarter === 0 && bStarter === 0 && a.starter_probability !== b.starter_probability) {
+            return (b.starter_probability ?? 0) - (a.starter_probability ?? 0);
+          }
+        }
+        return b.expected_fantasy_rating - a.expected_fantasy_rating;
+      });
 
   const byRole = {
     P: getSortedByRole('P'),
@@ -515,19 +528,18 @@ async function main() {
           expectedGoalsConceded * GK_CONCEDED_RATING_MALUS +
           penaltySavedRatingBoost;
 
-        expectedBonus = (cleanSheetProb * CLEAN_SHEET_BONUS + penaltySavedBonus) * gkMinutesWeight;
+        expectedBonus = cleanSheetProb * CLEAN_SHEET_BONUS;
 
         const pYellow = roleProfile.defaultYellowProb / 100;
         const pRed = roleProfile.defaultRedProb / 100;
         const pOwnGoal = roleProfile.ownGoalProb / 100;
 
         expectedPenalty =
-          (expectedGoalsConceded * GOAL_CONCEDED_MALUS +
-            pYellow * YELLOW_CARD_MALUS +
-            pRed * RED_CARD_MALUS +
-            pOwnGoal * OWN_GOAL_MALUS) *
-          gkMinutesWeight;
-
+          expectedGoalsConceded * GOAL_CONCEDED_MALUS +
+          pYellow * YELLOW_CARD_MALUS +
+          pRed * RED_CARD_MALUS +
+          pOwnGoal * OWN_GOAL_MALUS;
+        
         details = {
           clean_sheet_probability: Math.round(cleanSheetProb * 100),
           expected_goals_conceded: Number(expectedGoalsConceded.toFixed(2)),
@@ -605,9 +617,23 @@ async function main() {
         };
       }
 
-      // Calcolo finale xFM: il voto base (6.0) non crolla per i subentranti, mentre bonus e malus sono già pesati sui minuti
-      expectedFantasyRating =
-        expectedBaseRating * baseAvailabilityFactor + expectedBonus - expectedPenalty;
+      // Calcolo finale xFM differenziato:
+      // - Portieri: se titolarità = 0 vale 0; se < 50% crolla linearmente; se >= 50% scala tra 0.85 e 1.00
+      // - Movimento: il voto base (6.0) non crolla per i subentranti, mentre bonus e malus sono già pesati sui minuti
+      if (isGoalkeeper) {
+        const gkFullRating = Math.max(0, expectedBaseRating + expectedBonus - expectedPenalty);
+        if (startProb <= 0) {
+          expectedFantasyRating = 0;
+        } else if (startProb < 0.5) {
+          expectedFantasyRating = gkFullRating * startProb;
+        } else {
+          const gkFactor = 0.85 + 0.15 * ((startProb - 0.5) / 0.5);
+          expectedFantasyRating = gkFullRating * gkFactor;
+        }
+      } else {
+        expectedFantasyRating =
+          expectedBaseRating * baseAvailabilityFactor + expectedBonus - expectedPenalty;
+      }
 
       enrichedPlayers.push({
         id: player.id,

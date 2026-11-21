@@ -119,8 +119,8 @@ function saveBettingWindow(apiMatches) {
   const lastKickoffMs = currentRoundTimes[currentRoundTimes.length - 1];
 
   // 3. Definisci i margini di sicurezza:
-  // * LOCK START: 15 minuti prima del fischio d'inizio della prima partita
-  const lockStartMs = firstKickoffMs - 15 * 60 * 1000;
+  // * LOCK START: al fischio d'inizio della prima partita
+  const lockStartMs = firstKickoffMs;
   
   let lockEndMs;
   // * LOCK END: 18 ore prima dell'undicesima partita (primo match della giornata successiva)
