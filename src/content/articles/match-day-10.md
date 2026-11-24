@@ -25,7 +25,7 @@ La Caccurese (seconda a 9 lunghezze dalla vetta) firma l'impresa della giornata 
 I ragazzi di Cadamo hanno reagito con Woltemade e un indemoniato P. Esposito, ma la giornata-no di De Gea alla fine ha vanificato la rimonta.
 
 <figure style="text-align: center; margin: 20px 0;">
-    <video src="/videos/video10b.mov" controls width="80%" style="border-radius: 8px;"></video>
+    <video src="/videos/video10b.mp4" controls width="80%" style="border-radius: 8px;"></video>
     <figcaption>
         All-in, sangue freddo e colpi di scena al tavolo verde. 🚬♠️
         Samuele ci ha creduto fino all'ultimo, ma contro il poker di Bobby non c'è storia. Chi comanda davvero al tavolo? 👀🔥
