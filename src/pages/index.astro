@@ -328,8 +328,22 @@ const lastModifiedDate = formatUpdateDate(lastUpdates?.ranking);
   .articles-list { display: flex; flex-direction: column; }
   .article-row { display: flex; gap: 30px; padding: 30px 0; border-bottom: 1px solid #eaeaea; }
   .archive-item.hidden { display: none; }
-  .article-image { flex: 0 0 350px; height: 220px; }
-  .article-image img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #ccc; }
+  .article-image {
+    flex: 0 0 350px;
+    width: 350px;
+    height: 220px;
+    overflow: hidden; /* Impedisce all'immagine di sbordare */
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+  }
+  .article-image img {
+    display: block; /* Rimuove lo spazio vuoto invisibile sotto le immagini */
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Riempie il riquadro senza deformare la foto */
+    object-position: center 20%; /* Mantiene il focus in alto: evita di tagliare la testa ai giocatori nelle foto verticali */
+  }
   .placeholder-image { width: 100%; height: 100%; background-color: #ededed; border: 1px solid #777; display: flex; align-items: center; justify-content: center; font-family: 'Helvetica', 'Arial', sans-serif; font-size: 1.8rem; color: #222; }
   .article-content { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; }
   .matchday { font-family: 'Helvetica', 'Arial', sans-serif; color: #c0392b; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
@@ -442,7 +456,12 @@ const lastModifiedDate = formatUpdateDate(lastUpdates?.ranking);
   /* Adattamento per dispositivi mobili */
   @media (max-width: 768px) {
     .article-row { flex-direction: column; }
-    .article-image { flex: none; width: 100%; height: auto; aspect-ratio: 16/9; }
+    .article-image {
+      flex: none;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
 
     /* Ridimensionamento generale testi */
     .widget-title { font-size: 1.3rem; }

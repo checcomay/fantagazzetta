@@ -7,7 +7,7 @@ publishDate: 2026-11-10
 bestPlayer: "Thuram, Hermoso"
 worstPlayer: "Paz, Douvikas"
 bestGoal: "Mora"
-image: "/images/image9a.png"
+image: "/images/image9.png"
 ---
 
 La nona giornata di Fanta-lega conferma il trend finora registrato con l’affermazione in trasferta della capolista Joga Benito(25 punti), stavolta con più fatica del previsto e solo nel finale grazie al bonus difesa (**1-2** il finale). 
