@@ -20,7 +20,7 @@ ROSTERS_FILE := $(shell ls -t $(DOWNLOADS)/\'fantamacri-26-27_rosters_*.csv 2>/d
 # Imposta update-all come target di default se digiti solo "make"
 .DEFAULT_GOAL := update-all
 
-##@ 🔄 Pipeline Post-Giornata / Roster
+##@ 🔄 Pipeline post-giornata / roster
 
 update-all: stats ranking calendar bets ## [Default] Aggiorna stats, classifica, calendario e schedine
 	@echo "✅ Tutti i dati della lega Fantamacrì sono stati aggiornati con successo!"
@@ -56,7 +56,7 @@ bets: ## Calcola le schedine ancora in corso
 	@echo "💰 Calcolo delle schedine ancora in corso..."	
 	node scripts/evaluate_bets.js
 
-##@ 🎯 Pipeline Pre-Match (Quote & Titolarità)
+##@ 🎯 Pipeline pre-match (quote & titolarità)
 
 pre-match: odds lineups xfm ## Esegue in cascata: odds, lineups, xfm
 	@echo "🎯 Pipeline pre-partita completata!"
@@ -73,7 +73,7 @@ xfm: ## Calcola Expected Fantavoto (xFM) ponderato
 	@echo "📈 Calcolo Expected Fantavoto (xFM) per tutte le fanta-squadre..."
 	node scripts/calculate_xFM.js
 
-##@ ⚙️  Configurazione & Utility
+##@ ⚙️  Configurazione & utility
 
 info: ## Mostra i parametri e i link della lega
 	@echo "=== Configurazione lega: $(LEAGUE_NAME) ==="
