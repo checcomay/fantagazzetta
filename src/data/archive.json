@@ -1,7 +1,7 @@
 [
   {
     "stagione": "2025/26",
-    "note": "Vittoria sofferta, arrivata soltanto nella penultima giornata.",
+    "note": "Vittoria sofferta, arrivata soltanto nella penultima giornata",
     "classifica": [
       {
         "posizione": 1,
@@ -79,7 +79,7 @@
   },
   {
     "stagione": "2024/25",
-    "note": "Campionato dominato in lungo e in largo dal Lotirchio.",
+    "note": "Campionato dominato in lungo e in largo dal Lotirchio",
     "classifica": [
       {
         "posizione": 1,
@@ -148,6 +148,240 @@
         "posizione": 8,
         "squadra": "sup",
         "allenatori": ["Filippo"],
+        "punti": 36,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2377.5
+      }
+    ]
+  },
+  {
+    "stagione": "2023/24",
+    "note": "Ac Picchia padrone indiscusso",
+    "classifica": [
+      {
+        "posizione": 1,
+        "squadra": "Ac Picchia",
+        "allenatori": ["Samuele"],
+        "punti": 73,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2668
+      },
+      {
+        "posizione": 2,
+        "squadra": "sup",
+        "allenatori": ["Filippo"],
+        "punti": 55,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2575
+      },
+      {
+        "posizione": 3,
+        "squadra": "Lasquadramigliore",
+        "allenatori": ["Luca"],
+        "punti": 53,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2637.5
+      },
+      {
+        "posizione": 4,
+        "squadra": "US Caccurese",
+        "allenatori": ["Macrì"],
+        "punti": 49,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2535.5
+      },
+      {
+        "posizione": 5,
+        "squadra": "Realaldobaglio",
+        "allenatori": ["Mauro"],
+        "punti": 48,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2587
+      },
+      {
+        "posizione": 6,
+        "squadra": "TETTENHAM",
+        "allenatori": ["Delo"],
+        "punti": 48,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2498.5
+      },
+      {
+        "posizione": 7,
+        "squadra": "FC Pronto Spesa",
+        "allenatori": ["Carmelo"],
+        "punti": 37,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2530.5
+      },
+      {
+        "posizione": 8,
+        "squadra": "Maccabi Kit Aviv",
+        "allenatori": ["Parisi"],
+        "punti": 35,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2432.5
+      }
+    ]
+  },
+  {
+    "stagione": "2022/23",
+    "note": "Molto combattuto e non affatto scontato",
+    "classifica": [
+      {
+        "posizione": 1,
+        "squadra": "Team As Turbo",
+        "allenatori": ["Maurizio"],
+        "punti": 65,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2636.5
+      },
+      {
+        "posizione": 2,
+        "squadra": "Pippone il suppista",
+        "allenatori": ["Filippo"],
+        "punti": 63,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2595
+      },
+      {
+        "posizione": 3,
+        "squadra": "US Caccurese",
+        "allenatori": ["Macrì"],
+        "punti": 57,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2528
+      },
+      {
+        "posizione": 4,
+        "squadra": "Happy milf",
+        "allenatori": ["Simone"],
+        "punti": 51,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2505.5
+      },
+      {
+        "posizione": 5,
+        "squadra": "FC Pronto Spesa",
+        "allenatori": ["Carmelo"],
+        "punti": 47,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2572.5
+      },
+      {
+        "posizione": 6,
+        "squadra": "Rayola Vallecano",
+        "allenatori": ["Parisi"],
+        "punti": 43,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2481
+      },
+      {
+        "posizione": 7,
+        "squadra": "A.C. UGHINA",
+        "allenatori": ["Luca"],
+        "punti": 43,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2473
+      },
+      {
+        "posizione": 8,
+        "squadra": "Ac Picchia",
+        "allenatori": ["Samuele"],
+        "punti": 38,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2348
+      }
+    ]
+  },
+  {
+    "stagione": "2021/22",
+    "note": "",
+    "classifica": [
+      {
+        "posizione": 1,
+        "squadra": "Team As Turbo",
+        "allenatori": ["Maurizio"],
+        "punti": 66,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2599
+      },
+      {
+        "posizione": 2,
+        "squadra": "TETTENHAM",
+        "allenatori": ["Filippo"],
+        "punti": 51,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2505.5
+      },
+      {
+        "posizione": 3,
+        "squadra": "US Caccurese",
+        "allenatori": ["Macrì"],
+        "punti": 50,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2488.5
+      },
+      {
+        "posizione": 4,
+        "squadra": "Happy milf",
+        "allenatori": ["Simone"],
+        "punti": 49,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2473
+      },
+      {
+        "posizione": 5,
+        "squadra": "FC Pronto Spesa",
+        "allenatori": ["Carmelo"],
+        "punti": 48,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2377.5
+      },
+      {
+        "posizione": 6,
+        "squadra": "TETTENHAM",
+        "allenatori": ["Delo"],
+        "punti": 44,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2478.5
+      },
+      {
+        "posizione": 7,
+        "squadra": "Ac Picchia",
+        "allenatori": ["Samuele"],
+        "punti": 42,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2527.5
+      },
+      {
+        "posizione": 8,
+        "squadra": "???",
+        "allenatori": ["Christian"],
         "punti": 36,
         "vps": "",
         "gfGs": "",
