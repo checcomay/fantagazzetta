@@ -33,7 +33,7 @@
       {
         "posizione": 4,
         "squadra": "FC Inchisi",
-        "allenatori": ["Giampiero"],
+        "allenatori": ["Gianmarco"],
         "punti": 49,
         "vps": "",
         "gfGs": "",
@@ -235,7 +235,7 @@
   },
   {
     "stagione": "2022/23",
-    "note": "Molto combattuto e non affatto scontato",
+    "note": "",
     "classifica": [
       {
         "posizione": 1,

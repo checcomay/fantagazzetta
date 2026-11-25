@@ -2,6 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import archiveData from '../data/archive.json';
 
+// =========================================================================
+// BLACKLIST ALLENATORI
+// Inserisci qui i nomi degli allenatori da escludere dai Premi e dall'Albo d'Oro.
+// Resteranno comunque visibili nelle classifiche delle stagioni precedenti.
+// =========================================================================
+const COACH_BLACKLIST = [
+  'Maurizio'
+];
+
+const normalizedBlacklist = new Set(
+  COACH_BLACKLIST.map((name) => String(name).trim().toLowerCase()).filter(Boolean)
+);
+
+function isBlacklisted(name) {
+  return normalizedBlacklist.has(String(name).trim().toLowerCase());
+}
+
 // Helper per mostrare '-' quando un campo opzionale è assente o vuoto
 function formatCell(val) {
   if (val === undefined || val === null || String(val).trim() === '') {
@@ -22,7 +39,7 @@ const coachesMap = new Map();
 
 function ensureCoach(name) {
   const coachName = String(name).trim();
-  if (!coachName) return null;
+  if (!coachName || isBlacklisted(coachName)) return null;
 
   if (!coachesMap.has(coachName)) {
     coachesMap.set(coachName, {
@@ -68,7 +85,7 @@ for (const season of seasons) {
 
     for (const rawCoach of coachesList) {
       const c = ensureCoach(rawCoach);
-      if (!c) continue;
+      if (!c) continue; // Salta anche gli allenatori presenti in COACH_BLACKLIST
 
       c.stagioni += 1;
       if (row.squadra) c.squadreStoriche.add(row.squadra);
@@ -106,6 +123,7 @@ for (const season of seasons) {
 const medagliere = Array.from(coachesMap.values())
   .map((c) => ({
     ...c,
+    anniVinti: [...c.anniVinti].sort((a, b) => a.localeCompare(b)),
     mediaPunti:
       c.stagioniConPunti > 0
         ? Number((c.sommaPunti / c.stagioniConPunti).toFixed(2))
@@ -119,7 +137,7 @@ const medagliere = Array.from(coachesMap.values())
     return (b.mediaPunti ?? -1) - (a.mediaPunti ?? -1);
   });
 
-// --- CALCOLO PREMI SPECIALI (GESTIONE PARI MERITO) ---
+// --- CALCOLO PREMI SPECIALI (GESTIONE PARI MERITO, GIÀ FILTRATI DALLA BLACKLIST) ---
 const maxOri = medagliere.length ? Math.max(...medagliere.map((c) => c.ori)) : 0;
 const topWinners = maxOri > 0 ? medagliere.filter((c) => c.ori === maxOri) : [];
 
@@ -224,7 +242,7 @@ const topAvgPoints =
               <th data-sort="podi" class="sortable" title="Ordina per Podi Totali">🏅 ↕</th>
               <th data-sort="cucchiai" class="sortable" title="Ordina per Cucchiai di Legno">🥄 ↕</th>
               <th data-sort="stagioni" class="sortable" title="Ordina per Stagioni giocate">n ↕</th>
-              <th data-sort="mediapunti" class="sortable" title="Ordina per Media Punti a stagione">Media Pt ↕</th>
+              <th data-sort="mediapunti" class="sortable" title="Ordina per Media Punti a stagione">Media pt ↕</th>
             </tr>
           </thead>
           <tbody id="medagliere-body">
@@ -243,13 +261,18 @@ const topAvgPoints =
                   <div class="coach-name-row">
                     <strong>{coach.nome}</strong>
                     {coach.anniVinti.length > 0 && (
-                      <span class="titles-tag" title={`Scudetti: ${coach.anniVinti.join(', ')}`}>
-                        ★ {coach.anniVinti.join(', ')}
-                      </span>
+                      <div class="titles-list">
+                        {coach.anniVinti.map((anno) => (
+                          <span class="title-badge" title={`Campione stagione ${anno}`}>
+                            <span class="star-circle">★</span>
+                            <span class="win-year">{anno}</span>
+                          </span>
+                        ))}
+                      </div>
                     )}
                   </div>
                   <div class="coach-teams-history">
-                    <strong>Squadre:</strong> {coach.squadreArray.join(' · ')}
+                    Squadre: {coach.squadreArray.join(' · ')}
                   </div>
                 </td>
                 <td class="medal-cell gold-text">{coach.ori}</td>
@@ -266,7 +289,7 @@ const topAvgPoints =
       </div>
     </section>
 
-    <!-- CLASSIFICHE STORICHE PER STAGIONE -->
+    <!-- CLASSIFICHE STORICHE PER STAGIONE (INCLUSI GLI ALLENATORI IN BLACKLIST) -->
     <section class="archive-section">
       <div class="section-header">
         <h3>📜 CLASSIFICHE DELLE STAGIONI PRECEDENTI</h3>
@@ -628,20 +651,57 @@ const topAvgPoints =
   }
 
   .rank-cell { font-weight: 900; color: #555; }
-  .coach-name-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .titles-tag {
+
+  .coach-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Cerchietti a stellina multipli per ogni titolo vinto */
+  .titles-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .title-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 0.72rem;
     font-weight: 800;
     background: #fef3c7;
     color: #92400e;
     border: 1px solid #fde68a;
-    padding: 2px 7px;
-    border-radius: 12px;
+    padding: 2px 8px 2px 3px;
+    border-radius: 999px;
   }
+
+  .star-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #eab308;
+    color: #fff;
+    font-size: 0.65rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .win-year {
+    letter-spacing: 0.2px;
+  }
+
   .coach-teams-history {
     font-size: 0.76rem;
     color: #777;
-    margin-top: 3px;
+    margin-top: 4px;
     white-space: normal;
   }
 
