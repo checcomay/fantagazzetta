@@ -1,0 +1,158 @@
+[
+  {
+    "stagione": "2025/26",
+    "note": "Vittoria sofferta, arrivata soltanto nella penultima giornata.",
+    "classifica": [
+      {
+        "posizione": 1,
+        "squadra": "Ac Picchia",
+        "allenatori": ["Samuele", "Simone"],
+        "punti": 67,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2669.5
+      },
+      {
+        "posizione": 2,
+        "squadra": "US Caccurese",
+        "allenatori": ["Macrì"],
+        "punti": 62,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2673
+      },
+      {
+        "posizione": 3,
+        "squadra": "Benito Mussocity",
+        "allenatori": ["Checco"],
+        "punti": 56,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2650
+      },
+      {
+        "posizione": 4,
+        "squadra": "FC Inchisi",
+        "allenatori": ["Giampiero"],
+        "punti": 49,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2578
+      },
+      {
+        "posizione": 5,
+        "squadra": "FC Pronto Spesa",
+        "allenatori": ["Carmelo"],
+        "punti": 48,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2587.5
+      },
+      {
+        "posizione": 6,
+        "squadra": "TETTENHAM",
+        "allenatori": ["Delo"],
+        "punti": 47,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2569.5
+      },
+      {
+        "posizione": 7,
+        "squadra": "Lirili Al-Hilal",
+        "allenatori": ["Parisi"],
+        "punti": 45,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2546.5
+      },
+      {
+        "posizione": 8,
+        "squadra": "Lotirchio",
+        "allenatori": ["Mauro"],
+        "punti": 32,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2493
+      }
+    ]
+  },
+  {
+    "stagione": "2024/25",
+    "note": "Campionato dominato in lungo e in largo dal Lotirchio.",
+    "classifica": [
+      {
+        "posizione": 1,
+        "squadra": "Lotirchio",
+        "allenatori": ["Mauro"],
+        "punti": 71,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2599
+      },
+      {
+        "posizione": 2,
+        "squadra": "TETTENHAM",
+        "allenatori": ["Delo", "Checco"],
+        "punti": 51,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2505.5
+      },
+      {
+        "posizione": 3,
+        "squadra": "Lasquadramigliore",
+        "allenatori": ["Luca"],
+        "punti": 49,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2473
+      },
+      {
+        "posizione": 4,
+        "squadra": "US Caccurese",
+        "allenatori": ["Macrì"],
+        "punti": 48,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2488.5
+      },
+      {
+        "posizione": 5,
+        "squadra": "Ac Picchia",
+        "allenatori": ["Samuele"],
+        "punti": 44,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2478.5
+      },
+      {
+        "posizione": 6,
+        "squadra": "Totoriino",
+        "allenatori": ["Parisi"],
+        "punti": 42,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2527.5
+      },
+      {
+        "posizione": 7,
+        "squadra": "FC Pronto Spesa",
+        "allenatori": ["Carmelo"],
+        "punti": 42,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2377.5
+      },
+      {
+        "posizione": 8,
+        "squadra": "sup",
+        "allenatori": ["Filippo"],
+        "punti": 36,
+        "vps": "",
+        "gfGs": "",
+        "puntiTotali": 2377.5
+      }
+    ]
+  }
+]

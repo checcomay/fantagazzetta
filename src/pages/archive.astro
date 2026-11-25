@@ -1,0 +1,775 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import archiveData from '../data/archive.json';
+
+// Helper per mostrare '-' quando un campo opzionale è assente o vuoto
+function formatCell(val) {
+  if (val === undefined || val === null || String(val).trim() === '') {
+    return '-';
+  }
+  return val;
+}
+
+// Ordina le stagioni dalla più recente alla più vecchia
+const seasons = [...archiveData].sort((a, b) => b.stagione.localeCompare(a.stagione));
+
+// Anno / stagione di inizio storico (calcolata automaticamente dalla stagione più vecchia nel JSON)
+const firstSeason = seasons.length > 0 ? seasons[seasons.length - 1].stagione : null;
+const startYear = firstSeason ? String(firstSeason).split('/')[0].trim() : null;
+
+// --- AGGREGAZIONE MEDAGLIERE PER ALLENATORE ---
+const coachesMap = new Map();
+
+function ensureCoach(name) {
+  const coachName = String(name).trim();
+  if (!coachName) return null;
+
+  if (!coachesMap.has(coachName)) {
+    coachesMap.set(coachName, {
+      nome: coachName,
+      ori: 0,
+      argenti: 0,
+      bronzi: 0,
+      podi: 0,
+      cucchiai: 0,
+      stagioni: 0,
+      sommaPunti: 0,
+      stagioniConPunti: 0,
+      anniVinti: [],
+      squadreStoriche: new Set()
+    });
+  }
+  return coachesMap.get(coachName);
+}
+
+for (const season of seasons) {
+  const sortedStandings = [...(season.classifica || [])].sort(
+    (a, b) => Number(a.posizione) - Number(b.posizione)
+  );
+
+  // Determina l'ultima posizione per assegnare automaticamente il Cucchiaio di Legno
+  const maxPos =
+    sortedStandings.length > 1
+      ? Math.max(...sortedStandings.map((r) => Number(r.posizione)))
+      : -1;
+  const hasExplicitSpoon = sortedStandings.some((r) => r.cucchiaioDiLegno === true);
+
+  for (const row of sortedStandings) {
+    const pos = Number(row.posizione);
+    const isSpoon = hasExplicitSpoon
+      ? row.cucchiaioDiLegno === true
+      : maxPos > 0 && pos === maxPos;
+
+    const coachesList = Array.isArray(row.allenatori)
+      ? row.allenatori
+      : row.allenatori
+      ? [row.allenatori]
+      : [];
+
+    for (const rawCoach of coachesList) {
+      const c = ensureCoach(rawCoach);
+      if (!c) continue;
+
+      c.stagioni += 1;
+      if (row.squadra) c.squadreStoriche.add(row.squadra);
+
+      if (
+        row.punti !== undefined &&
+        row.punti !== null &&
+        String(row.punti).trim() !== '' &&
+        !isNaN(Number(row.punti))
+      ) {
+        c.sommaPunti += Number(row.punti);
+        c.stagioniConPunti += 1;
+      }
+
+      if (pos === 1) {
+        c.ori += 1;
+        c.podi += 1;
+        c.anniVinti.push(season.stagione);
+      } else if (pos === 2) {
+        c.argenti += 1;
+        c.podi += 1;
+      } else if (pos === 3) {
+        c.bronzi += 1;
+        c.podi += 1;
+      }
+
+      if (isSpoon) {
+        c.cucchiai += 1;
+      }
+    }
+  }
+}
+
+// Trasforma la mappa in array e ordina (Ori -> Argenti -> Bronzi -> Media Punti)
+const medagliere = Array.from(coachesMap.values())
+  .map((c) => ({
+    ...c,
+    mediaPunti:
+      c.stagioniConPunti > 0
+        ? Number((c.sommaPunti / c.stagioniConPunti).toFixed(2))
+        : null,
+    squadreArray: Array.from(c.squadreStoriche)
+  }))
+  .sort((a, b) => {
+    if (b.ori !== a.ori) return b.ori - a.ori;
+    if (b.argenti !== a.argenti) return b.argenti - a.argenti;
+    if (b.bronzi !== a.bronzi) return b.bronzi - a.bronzi;
+    return (b.mediaPunti ?? -1) - (a.mediaPunti ?? -1);
+  });
+
+// --- CALCOLO PREMI SPECIALI (GESTIONE PARI MERITO) ---
+const maxOri = medagliere.length ? Math.max(...medagliere.map((c) => c.ori)) : 0;
+const topWinners = maxOri > 0 ? medagliere.filter((c) => c.ori === maxOri) : [];
+
+const maxPodi = medagliere.length ? Math.max(...medagliere.map((c) => c.podi)) : 0;
+const topPodiums = maxPodi > 0 ? medagliere.filter((c) => c.podi === maxPodi) : [];
+
+const maxCucchiai = medagliere.length ? Math.max(...medagliere.map((c) => c.cucchiai)) : 0;
+const topSpoons = maxCucchiai > 0 ? medagliere.filter((c) => c.cucchiai === maxCucchiai) : [];
+
+// Miglior Media Punti (privilegia chi ha almeno 2 stagioni se l'archivio ha più stagioni)
+const coachesWithPoints = medagliere.filter((c) => c.mediaPunti !== null);
+const eligibleAvgPoints =
+  seasons.length > 1
+    ? coachesWithPoints.filter((c) => c.stagioniConPunti >= 2)
+    : coachesWithPoints;
+const avgPointsPool = eligibleAvgPoints.length ? eligibleAvgPoints : coachesWithPoints;
+const bestAvgPoints = avgPointsPool.length
+  ? Math.max(...avgPointsPool.map((c) => c.mediaPunti))
+  : 0;
+const topAvgPoints =
+  bestAvgPoints > 0 ? avgPointsPool.filter((c) => c.mediaPunti === bestAvgPoints) : [];
+---
+
+<BaseLayout pageTitle="Archivio Storico & Albo d'Oro">
+  <div class="archive-page">
+    <div class="header-section">
+      <h2 class="main-title">ARCHIVIO STORICO</h2>
+      <p class="subtitle">Albo d'oro degli allenatori e classifiche di tutte le edizioni</p>
+      {firstSeason && (
+        <div class="archive-since-label">
+          📅 Dati storici raccolti dal <strong>{startYear}</strong>
+          {firstSeason !== startYear && <span> (stagione {firstSeason})</span>}
+        </div>
+      )}
+    </div>
+
+    <!-- CARD RECORD STORICI -->
+    {medagliere.length > 0 && (
+      <section class="records-grid">
+        <div class="record-card gold">
+          <span class="record-emoji">👑</span>
+          <span class="record-label">Il Re del Fantamacrì</span>
+          <div class="record-names">
+            {topWinners.length > 0 ? topWinners.map((c) => c.nome).join(' • ') : 'Nessuno'}
+          </div>
+          <div class="record-stat">
+            {maxOri} {maxOri === 1 ? 'Scudetto' : 'Scudetti'}
+          </div>
+        </div>
+
+        <div class="record-card podium">
+          <span class="record-emoji">🏅</span>
+          <span class="record-label">Abbonato al Podio</span>
+          <div class="record-names">
+            {topPodiums.length > 0 ? topPodiums.map((c) => c.nome).join(' • ') : 'Nessuno'}
+          </div>
+          <div class="record-stat">
+            {maxPodi} {maxPodi === 1 ? 'Podio' : 'Podi'} in carriera
+          </div>
+        </div>
+
+        <div class="record-card avg-points">
+          <span class="record-emoji">⚡</span>
+          <span class="record-label">Miglior Media Punti</span>
+          <div class="record-names">
+            {topAvgPoints.length > 0 ? topAvgPoints.map((c) => c.nome).join(' • ') : 'Nessuno'}
+          </div>
+          <div class="record-stat">
+            {bestAvgPoints > 0 ? `${bestAvgPoints} pt / stagione` : '-'}
+          </div>
+        </div>
+
+        <div class="record-card spoon">
+          <span class="record-emoji">🥄</span>
+          <span class="record-label">Cucchiaio di Legno</span>
+          <div class="record-names">
+            {topSpoons.length > 0 ? topSpoons.map((c) => c.nome).join(' • ') : 'Nessuno'}
+          </div>
+          <div class="record-stat">
+            {maxCucchiai} {maxCucchiai === 1 ? 'ultimo posto' : 'ultimi posti'}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- MEDAGLIERE ALLENATORI -->
+    <section class="archive-section">
+      <div class="section-header">
+        <h3>🏛️ ALBO D'ORO & MEDAGLIERE ALLENATORI</h3>
+        <span class="section-note">Clicca sulle colonne per ordinare il medagliere</span>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="archive-table" id="medagliere-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="left-col">Allenatore & storico squadre</th>
+              <th data-sort="ori" class="sortable active-sort" title="Ordina per Titoli (1° posto)">🥇 1° ↕</th>
+              <th data-sort="argenti" class="sortable" title="Ordina per 2° posto">🥈 2° ↕</th>
+              <th data-sort="bronzi" class="sortable" title="Ordina per 3° posto">🥉 3° ↕</th>
+              <th data-sort="podi" class="sortable" title="Ordina per Podi Totali">🏅 ↕</th>
+              <th data-sort="cucchiai" class="sortable" title="Ordina per Cucchiai di Legno">🥄 ↕</th>
+              <th data-sort="stagioni" class="sortable" title="Ordina per Stagioni giocate">n ↕</th>
+              <th data-sort="mediapunti" class="sortable" title="Ordina per Media Punti a stagione">Media Pt ↕</th>
+            </tr>
+          </thead>
+          <tbody id="medagliere-body">
+            {medagliere.map((coach, idx) => (
+              <tr
+                data-ori={coach.ori}
+                data-argenti={coach.argenti}
+                data-bronzi={coach.bronzi}
+                data-podi={coach.podi}
+                data-cucchiai={coach.cucchiai}
+                data-stagioni={coach.stagioni}
+                data-mediapunti={coach.mediaPunti ?? -1}
+              >
+                <td class="rank-cell">{idx + 1}</td>
+                <td class="left-col">
+                  <div class="coach-name-row">
+                    <strong>{coach.nome}</strong>
+                    {coach.anniVinti.length > 0 && (
+                      <span class="titles-tag" title={`Scudetti: ${coach.anniVinti.join(', ')}`}>
+                        ★ {coach.anniVinti.join(', ')}
+                      </span>
+                    )}
+                  </div>
+                  <div class="coach-teams-history">
+                    <strong>Squadre:</strong> {coach.squadreArray.join(' · ')}
+                  </div>
+                </td>
+                <td class="medal-cell gold-text">{coach.ori}</td>
+                <td class="medal-cell silver-text">{coach.argenti}</td>
+                <td class="medal-cell bronze-text">{coach.bronzi}</td>
+                <td class="podi-cell"><strong>{coach.podi}</strong></td>
+                <td class="spoon-cell">{coach.cucchiai}</td>
+                <td>{coach.stagioni}</td>
+                <td class="avg-cell">{coach.mediaPunti !== null ? coach.mediaPunti : '-'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CLASSIFICHE STORICHE PER STAGIONE -->
+    <section class="archive-section">
+      <div class="section-header">
+        <h3>📜 CLASSIFICHE DELLE STAGIONI PRECEDENTI</h3>
+        <div class="season-tabs" id="season-tabs">
+          <button class="season-tab active" data-season="ALL">Tutte</button>
+          {seasons.map((s) => (
+            <button class="season-tab" data-season={s.stagione}>{s.stagione}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="seasons-list">
+        {seasons.map((season) => {
+          const sortedRows = [...(season.classifica || [])].sort(
+            (a, b) => Number(a.posizione) - Number(b.posizione)
+          );
+          const maxPos =
+            sortedRows.length > 1
+              ? Math.max(...sortedRows.map((r) => Number(r.posizione)))
+              : -1;
+          const hasExplicitSpoon = sortedRows.some((r) => r.cucchiaioDiLegno === true);
+
+          return (
+            <article class="season-card" data-season-card={season.stagione}>
+              <div class="season-card-header">
+                <h4>Stagione {season.stagione}</h4>
+                {season.note && <span class="season-note">{season.note}</span>}
+              </div>
+
+              <div class="table-wrapper">
+                <table class="archive-table">
+                  <thead>
+                    <tr>
+                      <th>Pos</th>
+                      <th class="left-col">Squadra</th>
+                      <th class="left-col">Allenatore/i</th>
+                      <th>Pt</th>
+                      <th>V-P-S</th>
+                      <th>GF:GS</th>
+                      <th>Pt. Tot</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedRows.map((row) => {
+                      const pos = Number(row.posizione);
+                      const isSpoon = hasExplicitSpoon
+                        ? row.cucchiaioDiLegno === true
+                        : maxPos > 0 && pos === maxPos;
+                      const posClass =
+                        pos === 1
+                          ? 'podium-1'
+                          : pos === 2
+                          ? 'podium-2'
+                          : pos === 3
+                          ? 'podium-3'
+                          : isSpoon
+                          ? 'spoon-row'
+                          : '';
+                      const rankIcon =
+                        pos === 1
+                          ? '🥇'
+                          : pos === 2
+                          ? '🥈'
+                          : pos === 3
+                          ? '🥉'
+                          : isSpoon
+                          ? '🥄'
+                          : pos;
+                      const logoPath = row.logo || `/logos/${row.squadra}.png`;
+                      const coaches = Array.isArray(row.allenatori)
+                        ? row.allenatori
+                        : row.allenatori
+                        ? [row.allenatori]
+                        : [];
+                      const vpsValue = formatCell(row.vps ?? row.ops);
+                      const gfGsValue = formatCell(row.gfGs);
+
+                      return (
+                        <tr class={posClass}>
+                          <td class="rank-cell" title={isSpoon ? 'Cucchiaio di Legno' : `${pos}° posto`}>
+                            {rankIcon}
+                          </td>
+                          <td class="left-col">
+                            <div class="team-cell">
+                              <img
+                                src={logoPath}
+                                alt={row.squadra}
+                                class="team-logo"
+                                onerror="this.style.display='none'"
+                              />
+                              <strong>{row.squadra}</strong>
+                            </div>
+                          </td>
+                          <td class="left-col">
+                            <div class="coaches-badges">
+                              {coaches.map((name) => (
+                                <span class="coach-pill">{name}</span>
+                              ))}
+                            </div>
+                          </td>
+                          <td class="points-cell"><strong>{formatCell(row.punti)}</strong></td>
+                          <td class="muted-cell">{vpsValue}</td>
+                          <td class="muted-cell">{gfGsValue}</td>
+                          <td class="tot-cell">{formatCell(row.puntiTotali)}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  // --- 1. FILTRO STAGIONI ---
+  const tabs = document.querySelectorAll('.season-tab');
+  const cards = document.querySelectorAll('.season-card');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-season');
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      cards.forEach((card) => {
+        const cardSeason = card.getAttribute('data-season-card');
+        if (target === 'ALL' || cardSeason === target) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // --- 2. ORDINAMENTO INTERATTIVO DEL MEDAGLIERE ---
+  const tbody = document.getElementById('medagliere-body');
+  const sortHeaders = document.querySelectorAll('#medagliere-table th[data-sort]');
+  let currentSort = 'ori';
+  let isDesc = true;
+
+  sortHeaders.forEach((th) => {
+    th.addEventListener('click', () => {
+      const key = th.getAttribute('data-sort');
+      if (!key || !tbody) return;
+
+      if (currentSort === key) {
+        isDesc = !isDesc;
+      } else {
+        currentSort = key;
+        isDesc = true;
+      }
+
+      sortHeaders.forEach((h) => h.classList.remove('active-sort'));
+      th.classList.add('active-sort');
+
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      rows.sort((a, b) => {
+        const valA = Number(a.getAttribute(`data-${key}`));
+        const valB = Number(b.getAttribute(`data-${key}`));
+        if (valA !== valB) return isDesc ? valB - valA : valA - valB;
+
+        // Spareggio secondario: Ori -> Podi -> Media Punti
+        const oriDiff = Number(b.getAttribute('data-ori')) - Number(a.getAttribute('data-ori'));
+        if (oriDiff !== 0) return oriDiff;
+        const podiDiff = Number(b.getAttribute('data-podi')) - Number(a.getAttribute('data-podi'));
+        if (podiDiff !== 0) return podiDiff;
+        return Number(b.getAttribute('data-mediapunti')) - Number(a.getAttribute('data-mediapunti'));
+      });
+
+      rows.forEach((row, index) => {
+        const rankCell = row.querySelector('.rank-cell');
+        if (rankCell) rankCell.textContent = String(index + 1);
+        tbody.appendChild(row);
+      });
+    });
+  });
+</script>
+
+<style>
+  .archive-page {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 20px 10px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+  }
+
+  .header-section {
+    text-align: center;
+    border-bottom: 3px solid #111;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0 0 8px 0;
+  }
+
+  .subtitle {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: #c0392b;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .archive-since-label {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 5px 14px;
+    background-color: #f4f4f5;
+    border: 1px solid #d4d4d8;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    color: #444;
+    letter-spacing: 0.2px;
+  }
+
+  .archive-since-label strong {
+    color: #111;
+  }
+
+  /* CARD RECORD (4 premi su riga unica su desktop) */
+  .records-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .record-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-top: 5px solid #111;
+    border-radius: 8px;
+    padding: 20px 14px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+  }
+
+  .record-card.gold { border-top-color: #eab308; background: #fffdf5; }
+  .record-card.podium { border-top-color: #c0392b; background: #fff9f9; }
+  .record-card.avg-points { border-top-color: #16a34a; background: #f5fdf7; }
+  .record-card.spoon { border-top-color: #92400e; background: #fdf8f3; }
+
+  .record-emoji { font-size: 2rem; }
+  .record-label {
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 0.6px;
+  }
+  .record-names {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #111;
+  }
+  .record-stat {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #c0392b;
+  }
+  .record-card.avg-points .record-stat { color: #15803d; }
+  .record-card.spoon .record-stat { color: #92400e; }
+
+  /* SEZIONI */
+  .archive-section {
+    margin-bottom: 45px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-left: 5px solid #c0392b;
+    padding-left: 12px;
+    margin-bottom: 18px;
+  }
+
+  .section-header h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #111;
+  }
+
+  .section-note {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  /* TABELLE */
+  .table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .archive-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+
+  .archive-table th,
+  .archive-table td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+  }
+
+  .archive-table th {
+    background: #111;
+    color: #fff;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .archive-table th.left-col,
+  .archive-table td.left-col {
+    text-align: left;
+  }
+
+  .archive-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+  }
+
+  .archive-table th.sortable:hover,
+  .archive-table th.active-sort {
+    color: #facc15;
+  }
+
+  .rank-cell { font-weight: 900; color: #555; }
+  .coach-name-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .titles-tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    padding: 2px 7px;
+    border-radius: 12px;
+  }
+  .coach-teams-history {
+    font-size: 0.76rem;
+    color: #777;
+    margin-top: 3px;
+    white-space: normal;
+  }
+
+  .medal-cell { font-weight: 800; font-size: 1rem; }
+  .gold-text { color: #ca8a04; }
+  .silver-text { color: #64748b; }
+  .bronze-text { color: #b45309; }
+  .podi-cell { font-size: 1.05rem; color: #111; }
+  .spoon-cell { font-weight: 800; color: #92400e; }
+  .avg-cell { font-weight: bold; color: #15803d; }
+
+  /* FILTRI STAGIONE & CARD STORICHE */
+  .season-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .season-tab {
+    padding: 6px 14px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    font-weight: 700;
+    font-size: 0.82rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .season-tab:hover {
+    border-color: #c0392b;
+    color: #c0392b;
+  }
+
+  .season-tab.active {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+  }
+
+  .seasons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .season-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .season-card-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+  }
+
+  .season-note {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .team-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .team-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #ccc;
+  }
+
+  .coaches-badges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .coach-pill {
+    background: #f1f5f9;
+    color: #1e293b;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+  }
+
+  .points-cell { font-size: 1.05rem; color: #c0392b; }
+  .muted-cell { color: #666; font-size: 0.85rem; }
+  .tot-cell { font-weight: bold; color: #333; }
+
+  /* Evidenziazione righe podio e cucchiaio di legno */
+  tr.podium-1 { background-color: #fffbeb; }
+  tr.podium-2 { background-color: #f8fafc; }
+  tr.podium-3 { background-color: #fff7ed; }
+  tr.spoon-row { background-color: #fdf6f0; }
+
+  @media (max-width: 900px) {
+    .records-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .main-title { font-size: 1.8rem; }
+    .subtitle { font-size: 1rem; }
+    .archive-since-label { font-size: 0.76rem; }
+    .archive-table { font-size: 0.78rem; }
+    .archive-table th,
+    .archive-table td { padding: 8px 6px; }
+    .team-logo { width: 18px; height: 18px; }
+  }
+
+  @media (max-width: 520px) {
+    .records-grid { grid-template-columns: 1fr; }
+  }
+</style>
